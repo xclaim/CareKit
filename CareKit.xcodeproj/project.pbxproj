@@ -22,6 +22,36 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		04527AF22039C10200F4BBE4 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527ADC2039C10200F4BBE4 /* UIResponder+SLKAdditions.m */; };
+		04527AF32039C10200F4BBE4 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527ADD2039C10200F4BBE4 /* SLKInputAccessoryView.m */; };
+		04527AF42039C10200F4BBE4 /* SLKUIConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527ADE2039C10200F4BBE4 /* SLKUIConstants.h */; };
+		04527AF52039C10200F4BBE4 /* SLKTypingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527ADF2039C10200F4BBE4 /* SLKTypingIndicatorView.h */; };
+		04527AF62039C10200F4BBE4 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AE02039C10200F4BBE4 /* UIView+SLKAdditions.m */; };
+		04527AF72039C10200F4BBE4 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AE12039C10200F4BBE4 /* SLKTextView.m */; };
+		04527AF82039C10200F4BBE4 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AE22039C10200F4BBE4 /* SLKTextViewController.m */; };
+		04527AF92039C10200F4BBE4 /* UIScrollView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AE32039C10200F4BBE4 /* UIScrollView+SLKAdditions.h */; };
+		04527AFA2039C10200F4BBE4 /* SLKTextInput+Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AE42039C10200F4BBE4 /* SLKTextInput+Implementation.m */; };
+		04527AFB2039C10200F4BBE4 /* SLKTextInputbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AE52039C10200F4BBE4 /* SLKTextInputbar.h */; };
+		04527AFC2039C10200F4BBE4 /* SLKTextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AE62039C10200F4BBE4 /* SLKTextView+SLKAdditions.m */; };
+		04527AFD2039C10200F4BBE4 /* UIResponder+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AE72039C10200F4BBE4 /* UIResponder+SLKAdditions.h */; };
+		04527AFE2039C10200F4BBE4 /* SLKTextInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AE82039C10200F4BBE4 /* SLKTextInput.h */; };
+		04527AFF2039C10200F4BBE4 /* SLKInputAccessoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AE92039C10200F4BBE4 /* SLKInputAccessoryView.h */; };
+		04527B002039C10200F4BBE4 /* SLKTextViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEA2039C10200F4BBE4 /* SLKTextViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04527B012039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEB2039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h */; };
+		04527B022039C10200F4BBE4 /* SLKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEC2039C10200F4BBE4 /* SLKTextView.h */; };
+		04527B032039C10200F4BBE4 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AED2039C10200F4BBE4 /* SLKTypingIndicatorView.m */; };
+		04527B042039C10200F4BBE4 /* UIView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEE2039C10200F4BBE4 /* UIView+SLKAdditions.h */; };
+		04527B052039C10200F4BBE4 /* SLKTextView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEF2039C10200F4BBE4 /* SLKTextView+SLKAdditions.h */; };
+		04527B062039C10200F4BBE4 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AF02039C10200F4BBE4 /* SLKTextInputbar.m */; };
+		04527B072039C10200F4BBE4 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AF12039C10200F4BBE4 /* UIScrollView+SLKAdditions.m */; };
+		04A0DD6A2039E9220009F57A /* TypingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD622039E9210009F57A /* TypingIndicatorView.h */; };
+		04A0DD6B2039E9220009F57A /* MessageTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD632039E9210009F57A /* MessageTextView.h */; };
+		04A0DD6C2039E9220009F57A /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD642039E9210009F57A /* Message.h */; };
+		04A0DD6D2039E9220009F57A /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD652039E9220009F57A /* Message.m */; };
+		04A0DD6E2039E9220009F57A /* MessageTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD662039E9220009F57A /* MessageTableViewCell.h */; };
+		04A0DD6F2039E9220009F57A /* TypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD672039E9220009F57A /* TypingIndicatorView.m */; };
+		04A0DD702039E9220009F57A /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD682039E9220009F57A /* MessageTableViewCell.m */; };
+		04A0DD712039E9220009F57A /* MessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD692039E9220009F57A /* MessageTextView.m */; };
 		186D42B51D78D8B60083EF5B /* OCKCarePlanThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */; };
 		186D42B71D78D8D60083EF5B /* OCKCarePlanThreshold.h in Headers */ = {isa = PBXBuildFile; fileRef = 186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		241707C31C9A3AB7005D7123 /* OCKBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 241707A71C9A3AB7005D7123 /* OCKBarChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -189,6 +219,37 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04527ADC2039C10200F4BBE4 /* UIResponder+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+SLKAdditions.m"; sourceTree = "<group>"; };
+		04527ADD2039C10200F4BBE4 /* SLKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKInputAccessoryView.m; sourceTree = "<group>"; };
+		04527ADE2039C10200F4BBE4 /* SLKUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKUIConstants.h; sourceTree = "<group>"; };
+		04527ADF2039C10200F4BBE4 /* SLKTypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorView.h; sourceTree = "<group>"; };
+		04527AE02039C10200F4BBE4 /* UIView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SLKAdditions.m"; sourceTree = "<group>"; };
+		04527AE12039C10200F4BBE4 /* SLKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextView.m; sourceTree = "<group>"; };
+		04527AE22039C10200F4BBE4 /* SLKTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextViewController.m; sourceTree = "<group>"; };
+		04527AE32039C10200F4BBE4 /* UIScrollView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SLKAdditions.h"; sourceTree = "<group>"; };
+		04527AE42039C10200F4BBE4 /* SLKTextInput+Implementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLKTextInput+Implementation.m"; sourceTree = "<group>"; };
+		04527AE52039C10200F4BBE4 /* SLKTextInputbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextInputbar.h; sourceTree = "<group>"; };
+		04527AE62039C10200F4BBE4 /* SLKTextView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLKTextView+SLKAdditions.m"; sourceTree = "<group>"; };
+		04527AE72039C10200F4BBE4 /* UIResponder+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+SLKAdditions.h"; sourceTree = "<group>"; };
+		04527AE82039C10200F4BBE4 /* SLKTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextInput.h; sourceTree = "<group>"; };
+		04527AE92039C10200F4BBE4 /* SLKInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKInputAccessoryView.h; sourceTree = "<group>"; };
+		04527AEA2039C10200F4BBE4 /* SLKTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextViewController.h; sourceTree = "<group>"; };
+		04527AEB2039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorProtocol.h; sourceTree = "<group>"; };
+		04527AEC2039C10200F4BBE4 /* SLKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextView.h; sourceTree = "<group>"; };
+		04527AED2039C10200F4BBE4 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTypingIndicatorView.m; sourceTree = "<group>"; };
+		04527AEE2039C10200F4BBE4 /* UIView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SLKAdditions.h"; sourceTree = "<group>"; };
+		04527AEF2039C10200F4BBE4 /* SLKTextView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLKTextView+SLKAdditions.h"; sourceTree = "<group>"; };
+		04527AF02039C10200F4BBE4 /* SLKTextInputbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextInputbar.m; sourceTree = "<group>"; };
+		04527AF12039C10200F4BBE4 /* UIScrollView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SLKAdditions.m"; sourceTree = "<group>"; };
+		04A0DD5E2039D8450009F57A /* SlackTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackTextViewController.h; sourceTree = "<group>"; };
+		04A0DD622039E9210009F57A /* TypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingIndicatorView.h; sourceTree = "<group>"; };
+		04A0DD632039E9210009F57A /* MessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextView.h; sourceTree = "<group>"; };
+		04A0DD642039E9210009F57A /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		04A0DD652039E9220009F57A /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		04A0DD662039E9220009F57A /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		04A0DD672039E9220009F57A /* TypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingIndicatorView.m; sourceTree = "<group>"; };
+		04A0DD682039E9220009F57A /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		04A0DD692039E9220009F57A /* MessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextView.m; sourceTree = "<group>"; };
 		185BC3A31D81DF0F001AB0A9 /* OCKCarePlanStore v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OCKCarePlanStore v2.xcdatamodel"; sourceTree = "<group>"; };
 		186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKCarePlanThreshold.m; sourceTree = "<group>"; };
 		186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKCarePlanThreshold.h; sourceTree = "<group>"; };
@@ -399,6 +460,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04527ADB2039C10200F4BBE4 /* SlackTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				04A0DD642039E9210009F57A /* Message.h */,
+				04A0DD652039E9220009F57A /* Message.m */,
+				04A0DD662039E9220009F57A /* MessageTableViewCell.h */,
+				04A0DD682039E9220009F57A /* MessageTableViewCell.m */,
+				04A0DD632039E9210009F57A /* MessageTextView.h */,
+				04A0DD692039E9220009F57A /* MessageTextView.m */,
+				04A0DD5E2039D8450009F57A /* SlackTextViewController.h */,
+				04527AE92039C10200F4BBE4 /* SLKInputAccessoryView.h */,
+				04527ADD2039C10200F4BBE4 /* SLKInputAccessoryView.m */,
+				04527AE82039C10200F4BBE4 /* SLKTextInput.h */,
+				04527AE42039C10200F4BBE4 /* SLKTextInput+Implementation.m */,
+				04527AE52039C10200F4BBE4 /* SLKTextInputbar.h */,
+				04527AF02039C10200F4BBE4 /* SLKTextInputbar.m */,
+				04527AEC2039C10200F4BBE4 /* SLKTextView.h */,
+				04527AE12039C10200F4BBE4 /* SLKTextView.m */,
+				04527AEF2039C10200F4BBE4 /* SLKTextView+SLKAdditions.h */,
+				04527AE62039C10200F4BBE4 /* SLKTextView+SLKAdditions.m */,
+				04527AEA2039C10200F4BBE4 /* SLKTextViewController.h */,
+				04527AE22039C10200F4BBE4 /* SLKTextViewController.m */,
+				04527AEB2039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h */,
+				04527ADF2039C10200F4BBE4 /* SLKTypingIndicatorView.h */,
+				04527AED2039C10200F4BBE4 /* SLKTypingIndicatorView.m */,
+				04527ADE2039C10200F4BBE4 /* SLKUIConstants.h */,
+				04A0DD622039E9210009F57A /* TypingIndicatorView.h */,
+				04A0DD672039E9220009F57A /* TypingIndicatorView.m */,
+				04527AE72039C10200F4BBE4 /* UIResponder+SLKAdditions.h */,
+				04527ADC2039C10200F4BBE4 /* UIResponder+SLKAdditions.m */,
+				04527AE32039C10200F4BBE4 /* UIScrollView+SLKAdditions.h */,
+				04527AF12039C10200F4BBE4 /* UIScrollView+SLKAdditions.m */,
+				04527AEE2039C10200F4BBE4 /* UIView+SLKAdditions.h */,
+				04527AE02039C10200F4BBE4 /* UIView+SLKAdditions.m */,
+			);
+			path = SlackTextViewController;
+			sourceTree = "<group>";
+		};
 		186D42B31D78D87C0083EF5B /* Thresholds */ = {
 			isa = PBXGroup;
 			children = (
@@ -650,6 +749,7 @@
 		8605A5BC1C4F04EC00DD65FF /* CareKit */ = {
 			isa = PBXGroup;
 			children = (
+				04527ADB2039C10200F4BBE4 /* SlackTextViewController */,
 				8605A5BD1C4F04EC00DD65FF /* CareKit.h */,
 				8677EE241C97771A00588CD6 /* CareKit_Private.h */,
 				BA155DC71EB1DF7E00DB391F /* Patient */,
@@ -869,9 +969,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A0DD6A2039E9220009F57A /* TypingIndicatorView.h in Headers */,
 				244A92491CA210F7007B42D6 /* OCKWeekViewController.h in Headers */,
 				24EA9FB61C9A3D420036028E /* OCKCareCardDetailHeaderView.h in Headers */,
 				BA660FF91EB1FF1100B7B1A7 /* OCKPatientHeaderView.h in Headers */,
+				04527AF42039C10200F4BBE4 /* SLKUIConstants.h in Headers */,
 				248929821C90E70100EBBE1F /* OCKContactInfoTableViewCell.h in Headers */,
 				BAD3286A1DB028AF0021A773 /* OCKInsightsRingTableViewCell.h in Headers */,
 				24F8E4761C934FEE003B77BD /* OCKDefines_Private.h in Headers */,
@@ -880,27 +982,34 @@
 				BA155DCA1EB1DFE400DB391F /* OCKPatient.h in Headers */,
 				24EA9FBC1C9A3D420036028E /* OCKCareCardTableViewCell.h in Headers */,
 				8677EE131C9775EB00588CD6 /* OCKCarePlanEvent_Internal.h in Headers */,
+				04527AFD2039C10200F4BBE4 /* UIResponder+SLKAdditions.h in Headers */,
 				BA274F3A1EB6F63400DD17EF /* OCKConnectMessagesViewController.h in Headers */,
+				04527B012039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h in Headers */,
 				BA3793DA1EB66BC50004A540 /* OCKPatientWidgetView.h in Headers */,
 				BA8F07021EBE9D8800A14E5F /* OCKReadOnlyTableViewCell.h in Headers */,
 				86E803901CB4812F00B5C021 /* OCKLabel.h in Headers */,
 				BA3793EA1EB66D7D0004A540 /* OCKImagePatientWidgetView.h in Headers */,
 				BA94DBB61D9CA9AE002E0BFC /* OCKGlyph_Internal.h in Headers */,
+				04527B022039C10200F4BBE4 /* SLKTextView.h in Headers */,
 				241707DB1C9A3AB7005D7123 /* OCKInsightsViewController.h in Headers */,
 				241707C51C9A3AB7005D7123 /* OCKBarSeries.h in Headers */,
 				BAD328661DB024040021A773 /* OCKRingItem.h in Headers */,
 				2489298C1C90E71700EBBE1F /* OCKDefines.h in Headers */,
 				244A92471CA210F7007B42D6 /* OCKWeekLabelsView.h in Headers */,
+				04527B052039C10200F4BBE4 /* SLKTextView+SLKAdditions.h in Headers */,
 				BA3793E61EB66D7D0004A540 /* OCKBadgePatientWidgetView.h in Headers */,
 				BA6610001EB20DAB00B7B1A7 /* OCKCareContentsViewController.h in Headers */,
 				BA38457E1D9CA698007990DA /* OCKGlyph.h in Headers */,
 				BA274F401EB6F75300DD17EF /* OCKConnectMessageItem.h in Headers */,
+				04527B002039C10200F4BBE4 /* SLKTextViewController.h in Headers */,
 				24EA9FB21C9A3D420036028E /* OCKCareCardAdditionalInfoTableViewCell.h in Headers */,
 				8677EE171C9775EB00588CD6 /* OCKCarePlanStore.h in Headers */,
+				04527AF92039C10200F4BBE4 /* UIScrollView+SLKAdditions.h in Headers */,
 				241707DD1C9A3AB7005D7123 /* OCKMessageItem.h in Headers */,
 				241707D51C9A3AB7005D7123 /* OCKInsightsMessageTableViewCell.h in Headers */,
 				242DBA9C1C9F7F8700529386 /* OCKRingView.h in Headers */,
 				24EA9FB81C9A3D420036028E /* OCKCareCardDetailViewController.h in Headers */,
+				04A0DD6C2039E9220009F57A /* Message.h in Headers */,
 				8677EE1A1C9775EB00588CD6 /* OCKCarePlanStore_Internal.h in Headers */,
 				2489297D1C90E70100EBBE1F /* OCKConnectViewController.h in Headers */,
 				BA0CCA4D1DA320430003EB6C /* OCKHeaderView.h in Headers */,
@@ -916,7 +1025,9 @@
 				BA274F421EB6F75300DD17EF /* OCKConnectMessageTableViewCell.h in Headers */,
 				248929801C90E70100EBBE1F /* OCKContact.h in Headers */,
 				8677EE1E1C9775EB00588CD6 /* OCKCareSchedule_Private.h in Headers */,
+				04527AFB2039C10200F4BBE4 /* SLKTextInputbar.h in Headers */,
 				244A92451CA210F7007B42D6 /* OCKTableViewCell.h in Headers */,
+				04A0DD6B2039E9220009F57A /* MessageTextView.h in Headers */,
 				8677EE0B1C9775EB00588CD6 /* NSDateComponents+CarePlan.h in Headers */,
 				241707C91C9A3AB7005D7123 /* OCKChart.h in Headers */,
 				86EA9A4E1C9C644E00B93BB1 /* OCKDocument.h in Headers */,
@@ -927,21 +1038,26 @@
 				8605A5BE1C4F04EC00DD65FF /* CareKit.h in Headers */,
 				241707C31C9A3AB7005D7123 /* OCKBarChart.h in Headers */,
 				186D42B71D78D8D60083EF5B /* OCKCarePlanThreshold.h in Headers */,
+				04527AFF2039C10200F4BBE4 /* SLKInputAccessoryView.h in Headers */,
 				86EA9A501C9C644E00B93BB1 /* OCKHTMLPDFWriter.h in Headers */,
 				8677EE1B1C9775EB00588CD6 /* OCKCareSchedule.h in Headers */,
 				8677EE1D1C9775EB00588CD6 /* OCKCareSchedule_Internal.h in Headers */,
 				8677EE101C9775EB00588CD6 /* OCKCarePlanActivity_Internal.h in Headers */,
+				04527AF52039C10200F4BBE4 /* SLKTypingIndicatorView.h in Headers */,
 				BA274F471EB703DC00DD17EF /* OCKTextView.h in Headers */,
+				04527B042039C10200F4BBE4 /* UIView+SLKAdditions.h in Headers */,
 				8677EE141C9775EB00588CD6 /* OCKCarePlanEventResult.h in Headers */,
 				2489297B1C90E70100EBBE1F /* OCKConnectTableViewHeader.h in Headers */,
 				BA3793D81EB66BC50004A540 /* OCKPatientWidget.h in Headers */,
 				BA3793E81EB66D7D0004A540 /* OCKDefaultPatientWidgetView.h in Headers */,
 				241707D11C9A3AB7005D7123 /* OCKInsightItem.h in Headers */,
 				24EA9FB41C9A3D420036028E /* OCKCareCardButton.h in Headers */,
+				04527AFE2039C10200F4BBE4 /* SLKTextInput.h in Headers */,
 				242DBA961C9F7F8700529386 /* OCKSymptomTrackerViewController.h in Headers */,
 				24EA9FBA1C9A3D420036028E /* OCKCareCardInstructionsTableViewCell.h in Headers */,
 				8677EE161C9775EB00588CD6 /* OCKCarePlanEventResult_Internal.h in Headers */,
 				8677EE0D1C9775EB00588CD6 /* NSDateComponents+CarePlanInternal.h in Headers */,
+				04A0DD6E2039E9220009F57A /* MessageTableViewCell.h in Headers */,
 				241707D31C9A3AB7005D7123 /* OCKInsightsChartTableViewCell.h in Headers */,
 				8677EE251C97776100588CD6 /* CareKit_Private.h in Headers */,
 				242DBA9A1C9F7F8700529386 /* OCKRingButton.h in Headers */,
@@ -1106,6 +1222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8677EE181C9775EB00588CD6 /* OCKCarePlanStore.m in Sources */,
+				04527AF22039C10200F4BBE4 /* UIResponder+SLKAdditions.m in Sources */,
 				248929781C90E70100EBBE1F /* OCKConnectTableViewCell.m in Sources */,
 				2489297C1C90E70100EBBE1F /* OCKConnectTableViewHeader.m in Sources */,
 				244A92461CA210F7007B42D6 /* OCKTableViewCell.m in Sources */,
@@ -1113,6 +1230,9 @@
 				242DBA971C9F7F8700529386 /* OCKSymptomTrackerViewController.m in Sources */,
 				BA3793E91EB66D7D0004A540 /* OCKDefaultPatientWidgetView.m in Sources */,
 				BA274F3B1EB6F63400DD17EF /* OCKConnectMessagesViewController.m in Sources */,
+				04A0DD6D2039E9220009F57A /* Message.m in Sources */,
+				04527AF62039C10200F4BBE4 /* UIView+SLKAdditions.m in Sources */,
+				04527AF32039C10200F4BBE4 /* SLKInputAccessoryView.m in Sources */,
 				BA3793E71EB66D7D0004A540 /* OCKBadgePatientWidgetView.m in Sources */,
 				8677EE0C1C9775EB00588CD6 /* NSDateComponents+CarePlan.m in Sources */,
 				86EA9A4F1C9C644E00B93BB1 /* OCKDocument.m in Sources */,
@@ -1122,9 +1242,12 @@
 				BA38457F1D9CA698007990DA /* OCKGlyph.m in Sources */,
 				24FD43741E56843E004439EA /* OCKConnectHeaderView.m in Sources */,
 				8677EE191C9775EB00588CD6 /* OCKCarePlanStore.xcdatamodeld in Sources */,
+				04527AF72039C10200F4BBE4 /* SLKTextView.m in Sources */,
 				241707D01C9A3AB7005D7123 /* OCKGroupedBarChartView.m in Sources */,
+				04A0DD702039E9220009F57A /* MessageTableViewCell.m in Sources */,
 				BA8A8CA11D9DAC680078C5EA /* OCKWeekView.m in Sources */,
 				241707C41C9A3AB7005D7123 /* OCKBarChart.m in Sources */,
+				04527B072039C10200F4BBE4 /* UIScrollView+SLKAdditions.m in Sources */,
 				BA660FFA1EB1FF1100B7B1A7 /* OCKPatientHeaderView.m in Sources */,
 				8677EE0F1C9775EB00588CD6 /* OCKCarePlanActivity.m in Sources */,
 				241707D21C9A3AB7005D7123 /* OCKInsightItem.m in Sources */,
@@ -1132,9 +1255,11 @@
 				86EA9A511C9C644E00B93BB1 /* OCKHTMLPDFWriter.m in Sources */,
 				BAD3286B1DB028AF0021A773 /* OCKInsightsRingTableViewCell.m in Sources */,
 				86E803911CB4812F00B5C021 /* OCKLabel.m in Sources */,
+				04527AFA2039C10200F4BBE4 /* SLKTextInput+Implementation.m in Sources */,
 				241707DC1C9A3AB7005D7123 /* OCKInsightsViewController.m in Sources */,
 				241707C61C9A3AB7005D7123 /* OCKBarSeries.m in Sources */,
 				BA6610031EB20DAB00B7B1A7 /* OCKReadOnlyTableViewCell.m in Sources */,
+				04527AFC2039C10200F4BBE4 /* SLKTextView+SLKAdditions.m in Sources */,
 				248929851C90E70100EBBE1F /* OCKContactSharingTableViewCell.m in Sources */,
 				BA6610011EB20DAB00B7B1A7 /* OCKCareContentsViewController.m in Sources */,
 				24CE2BA91E023BA30088CAF0 /* OCKCareCardDetailViewController.m in Sources */,
@@ -1157,8 +1282,10 @@
 				BA3793ED1EB66D7D0004A540 /* OCKPatientWidgetView.m in Sources */,
 				BAD328671DB024040021A773 /* OCKRingItem.m in Sources */,
 				24EA9FBD1C9A3D420036028E /* OCKCareCardTableViewCell.m in Sources */,
+				04527B062039C10200F4BBE4 /* SLKTextInputbar.m in Sources */,
 				244A92481CA210F7007B42D6 /* OCKWeekLabelsView.m in Sources */,
 				186D42B51D78D8B60083EF5B /* OCKCarePlanThreshold.m in Sources */,
+				04527AF82039C10200F4BBE4 /* SLKTextViewController.m in Sources */,
 				8677EE151C9775EB00588CD6 /* OCKCarePlanEventResult.m in Sources */,
 				2489297E1C90E70100EBBE1F /* OCKConnectViewController.m in Sources */,
 				242DBA9D1C9F7F8700529386 /* OCKRingView.m in Sources */,
@@ -1167,7 +1294,10 @@
 				BA3793D91EB66BC50004A540 /* OCKPatientWidget.m in Sources */,
 				242DBA9B1C9F7F8700529386 /* OCKRingButton.m in Sources */,
 				BAD328631DB01D650021A773 /* OCKContactInfo.m in Sources */,
+				04A0DD712039E9220009F57A /* MessageTextView.m in Sources */,
+				04527B032039C10200F4BBE4 /* SLKTypingIndicatorView.m in Sources */,
 				2489298E1C90E71700EBBE1F /* OCKHelpers.m in Sources */,
+				04A0DD6F2039E9220009F57A /* TypingIndicatorView.m in Sources */,
 				24EA9FC31C9A3D420036028E /* OCKCareCardViewController.m in Sources */,
 				242DBA911C9F7F8700529386 /* OCKSymptomTrackerTableViewCell.m in Sources */,
 			);

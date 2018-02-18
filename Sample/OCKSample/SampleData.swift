@@ -75,10 +75,19 @@ class SampleData: NSObject {
         OCKContact(contactType: .personal,
             name: "Tom Clark",
             relation: "Father",
-            contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512")],
+            contactInfoItems: [.phone("314-555-1234"),
+                               .phone("314-555-4321"),
+                               .email("ewodehouse@example.com"),
+                               .sms("314-555-4321"),
+                               .facetimeVideo("user@example.com", display: nil),
+                               .facetimeVideo("3145554321", display: "314-555-4321"),
+                               .facetimeAudio("3145554321", display: "314-555-4321"),
+                               OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "starstuff chat", icon: UIImage(named: "starstuff"))],
             tintColor: Colors.yellow.color,
             monogram: "TC",
             image: nil)
+
+
     ]
     
     /**
@@ -94,13 +103,12 @@ class SampleData: NSObject {
     // MARK: Initialization
     
     required init(carePlanStore: OCKCarePlanStore) {
-        self.patient = OCKPatient(identifier: "patient", carePlanStore: carePlanStore, name: "John Doe", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: nil, categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
+        self.patient = OCKPatient(identifier: "patient", carePlanStore: carePlanStore, name: "Johan Sellström", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
         
         for contact in contacts {
             if contact.type == .careTeam {
                 contactsWithMessageItems.append(contact)
                 self.connectMessageItems = [OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, name: patient.name, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.", comment: ""), dateString:dateString), OCKConnectMessageItem(messageType: .received, name: contact.name, message: NSLocalizedString("That is great! Keep up the good work.", comment: ""), dateString: dateString)]
-                break
             }
         }
         

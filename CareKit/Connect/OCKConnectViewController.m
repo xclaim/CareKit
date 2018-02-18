@@ -324,12 +324,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([self shouldInboxBeVisible] && indexPath.section == 0) {
+
+        OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
+
+        viewController.patient = _patient;
+        viewController.dataSource = self.dataSource;
+        viewController.delegate = self.delegate;
+        viewController.masterViewController = self;
+        viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
+
+        
+/*
         OCKConnectMessagesViewController *viewController = [OCKConnectMessagesViewController new];
         viewController.dataSource = self.dataSource;
         viewController.delegate = self.delegate;
         viewController.masterViewController = self;
         viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
+
+*/
+
     } else {
         OCKContact *contact = [self contactForIndexPath:indexPath];
         [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];

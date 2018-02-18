@@ -73,6 +73,8 @@
 #import <CareKit/OCKContact.h>
 #import <CareKit/OCKConnectMessageItem.h>
 #import <CareKit/OCKConnectViewController.h>
+#import <CareKit/SLKTextViewController.h>
+//#import <CareKit/OCKSlackMessagesViewController.h>
 
 // PDF
 #import <CareKit/OCKDocument.h>
