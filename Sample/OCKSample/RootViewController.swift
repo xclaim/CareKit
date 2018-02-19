@@ -288,7 +288,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         
         func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
             let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-            let connectMessage = OCKConnectMessageItem(messageType: .sent, name: sampleData.patient.name, message: message, dateString: dateString)
+            let connectMessage = OCKConnectMessageItem(messageType: .sent, name: sampleData.patient.name, message: message, icon: nil, dateString: dateString)
             print("didSendConnectMessage 1 ", message)
             sampleData.connectMessageItems.append(connectMessage)
         }
@@ -296,7 +296,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
     
     func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
         let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-        let connectMessage = OCKConnectMessageItem(messageType: .sent, name: sampleData.patient.name, message: message, dateString: dateString)
+        let connectMessage = OCKConnectMessageItem(messageType: .sent, name: sampleData.patient.name, message: message, icon: nil, dateString: dateString)
 
         print("didSendConnectMessage 2 ", message)
         sampleData.connectMessageItems.append(connectMessage)

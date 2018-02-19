@@ -73,6 +73,7 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithMessageType:(OCKConnectMessageType)type
                                name:(NSString *)name
                             message:(NSString *)message
+                              icon:(UIImage *_Nullable)icon
                          dateString:(NSString *)dateString;
 
 /**
@@ -89,6 +90,12 @@ OCK_CLASS_AVAILABLE
  A string indicating the message content.
  */
 @property (nonatomic, copy, readonly) NSString *message;
+
+/**
+ An image indicating the message type.
+ */
+@property (nonatomic, copy, readonly, nullable) UIImage *icon;
+
 
 /**
  A string indicating the date for the message.

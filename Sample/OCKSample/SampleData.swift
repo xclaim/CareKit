@@ -108,7 +108,9 @@ class SampleData: NSObject {
         for contact in contacts {
             if contact.type == .careTeam {
                 contactsWithMessageItems.append(contact)
-                self.connectMessageItems = [OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, name: patient.name, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.", comment: ""), dateString:dateString), OCKConnectMessageItem(messageType: .received, name: contact.name, message: NSLocalizedString("That is great! Keep up the good work.", comment: ""), dateString: dateString)]
+                self.connectMessageItems = [
+                    OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, name: patient.name, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: nil, dateString:dateString),
+                    OCKConnectMessageItem(messageType: .received, name: contact.name, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: nil, dateString: dateString)]
             }
         }
         
