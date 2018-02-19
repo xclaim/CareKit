@@ -2823,14 +2823,19 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (void)didPressLeftButton:(id)sender
 {
     // Notifies the view controller when the left button's action has been triggered, manually.
-
     [super didPressLeftButton:sender];
 
-    UIViewController *vc = [UIViewController new];
-    vc.view.backgroundColor = [UIColor whiteColor];
-    vc.title = @"Details";
-
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.delegate) {
+        UIViewController *vc = [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    //UIViewController *vc = [UIViewController new];
+    //vc.view.backgroundColor = [UIColor whiteColor];
+    //ListViewController *vc = [RegimeListViewController new];
+    //vc.title = @"Share";
+    //[self.navigationController presentViewController:vc animated:YES completion:nil];
+    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didPressRightButton:(id)sender

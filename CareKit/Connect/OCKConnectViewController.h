@@ -85,6 +85,16 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol OCKConnectViewControllerDelegate <NSObject>
 
 @optional
+
+/**
+ Tells the delegate when the user selected the share button for a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ @param contact                     The contact that is currently displayed.
+*/
+- (UIViewController *)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachButtonForContact:(OCKContact *)contact;
+
+
 /**
  Tells the delegate when the user selected the share button for a contact.
  

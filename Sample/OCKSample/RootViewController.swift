@@ -160,6 +160,7 @@ extension RootViewController: OCKCareContentsViewControllerDelegate {
             
             present(taskViewController, animated: true, completion: nil)
     }
+
 }
 
 extension RootViewController: ORKTaskViewControllerDelegate {
@@ -266,7 +267,16 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 // MARK: OCKConnectViewControllerDelegate
 
 extension RootViewController: OCKConnectViewControllerDelegate {
-    
+
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact) -> UIViewController {
+
+        print("didSelectAttachButtonFor", contact);
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.white
+        return vc
+        //self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     /// Called when the user taps a contact in the `OCKConnectViewController`.
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
         let document = sampleData.generateSampleDocument()
