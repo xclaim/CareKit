@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param connectViewController       The view controller providing the callback.
  @param contact                     The contact that is currently displayed.
 */
-- (UIViewController *)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachButtonForContact:(OCKContact *)contact;
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachButtonForContact:(OCKContact *)contact;
 
 
 /**

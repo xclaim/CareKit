@@ -2825,9 +2825,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // Notifies the view controller when the left button's action has been triggered, manually.
     [super didPressLeftButton:sender];
 
-    if (self.delegate) {
-        UIViewController *vc = [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
-        [self.navigationController pushViewController:vc animated:YES];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachButtonForContact:)]) {
+        [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
     }
     
     //UIViewController *vc = [UIViewController new];
