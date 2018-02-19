@@ -273,7 +273,6 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         print("didSelectAttachButtonFor", contact);
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.red
-        
         connectViewController.navigationController?.pushViewController(vc, animated: true)
     }
 
