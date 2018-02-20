@@ -2470,8 +2470,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 // =========================================================================================================================================
 @interface OCKSlackMessagesViewController ()
 
-@property (nonatomic, strong) NSMutableArray *messages;
-
 @property (nonatomic, strong) NSArray *users;
 @property (nonatomic, strong) NSArray *channels;
 @property (nonatomic, strong) NSArray *emojis;
@@ -2618,36 +2616,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (void)configureDataSource
 {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    Message *message = [Message new];
-    message.username = @"XConnect";
-    message.text = @"Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote";
-    [array addObject:message];
 
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
         NSInteger numberOfMessages = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
-
         NSLog(@" numberOfMessages ‰d",numberOfMessages);
     }
-
-    /*
-
-     - (void)loadConnectMessages {
-     if (self.dataSource &&
-     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
-     NSInteger numberOfMessages = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
-     [_tableView reloadData];
-
-     NSIndexPath *lastRowIndexPath = [NSIndexPath indexPathForRow:numberOfMessages - 1 inSection:0];
-     [_tableView scrollToRowAtIndexPath:lastRowIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-     }
-     }
-
-     */
-
-    NSArray *reversed = [[array reverseObjectEnumerator] allObjects];
-
-    self.messages = [[NSMutableArray alloc] initWithArray:reversed];
 
     self.users = @[@"Allen", @"Anna", @"Alicia", @"Arnold", @"Armando", @"Antonio", @"Brad", @"Catalaya", @"Christoph", @"Emerson", @"Eric", @"Everyone", @"Steve"];
     self.channels = @[@"General", @"Random", @"iOS", @"Bugs", @"Sports", @"Android", @"UI", @"SSB"];
@@ -2655,6 +2628,16 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.commands = @[@"msg", @"call", @"text", @"skype", @"kick", @"invite"];
 }
 
+- (void)loadConnectMessages {
+    if (self.dataSource &&
+        [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
+        NSInteger numberOfMessages = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
+        [self.tableView reloadData];
+
+        NSIndexPath *lastRowIndexPath = [NSIndexPath indexPathForRow:numberOfMessages - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:lastRowIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
+}
 
 #pragma mark - Actions
 
@@ -2701,8 +2684,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (void)editCellMessage:(UIGestureRecognizer *)gesture
 {
     MessageTableViewCell *cell = (MessageTableViewCell *)gesture.view;
-    self.editingMessage = self.messages[cell.indexPath.row];
-    [self editText:self.editingMessage.text];
+
+    if (self.dataSource &&
+        [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)]) {
+        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:cell.indexPath.row careTeamContact:self.contact];
+
+        [self editText:item.message];
+    }
     [self.tableView scrollToRowAtIndexPath:cell.indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
@@ -2715,12 +2703,20 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     NSInteger lastSectionIndex = [self.tableView numberOfSections]-1;
     NSInteger lastRowIndex = [self.tableView numberOfRowsInSection:lastSectionIndex]-1;
 
-    Message *lastMessage = [self.messages objectAtIndex:lastRowIndex];
+    if (self.dataSource &&
+        [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)]) {
 
-    [self editText:lastMessage.text];
+        //NSInteger lastRowIndex = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact]-1;
 
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-}
+        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:lastRowIndex careTeamContact:self.contact];
+
+        [self editText:item.message];
+
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+    }
+
+ }
 
 - (void)togglePIPWindow:(id)sender
 {
@@ -2849,6 +2845,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     message.username = @"Johan"; //[LoremIpsum name];
     message.text = [self.textView.text copy];
 
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
+    UITableViewScrollPosition scrollPosition = self.inverted ? UITableViewScrollPositionBottom : UITableViewScrollPositionTop;
+
+    [self.tableView beginUpdates];
+
     if (![message.text isEqualToString:@""]) {
         // Send a call back to the CTP delegate with the new message so it can be saved
         if (self.delegate &&
@@ -2857,12 +2860,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         }
     }
 
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
-    UITableViewScrollPosition scrollPosition = self.inverted ? UITableViewScrollPositionBottom : UITableViewScrollPositionTop;
+    //[self.messages insertObject:message atIndex:0];
 
-    [self.tableView beginUpdates];
-    [self.messages insertObject:message atIndex:0];
+
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:rowAnimation];
     [self.tableView endUpdates];
 
@@ -3049,8 +3049,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([tableView isEqual:self.tableView]) {
-        return self.messages.count;
+    if ([tableView isEqual:self.tableView] && self.dataSource &&
+            [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
+        return [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
     }
     else {
         return self.searchResult.count;
@@ -3083,24 +3084,22 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         [cell addGestureRecognizer:longPress];
     }
 
-    Message *message = self.messages[indexPath.row];
+    if (self.dataSource &&
+        [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)]) {
+        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:indexPath.row careTeamContact:self.contact];
+        if (item.sender != nil) {
+            cell.titleLabel.text = item.sender.name  ;//message.username;
+            cell.thumbnailView.image = item.sender.image;
+        }
+        cell.bodyLabel.text = item.message;
+        cell.indexPath = indexPath;
+        cell.usedForMessage = YES;
 
-    if (message.sender != nil) {
-        cell.titleLabel.text = message.sender.name  ;//message.username;
-        cell.thumbnailView.image = message.sender.image;
-    } else {
-        cell.titleLabel.text = message.username;
-        NSBundle *bundle = [NSBundle mainBundle];
-        cell.thumbnailView.image = [UIImage imageNamed:@"logo_xclaim" inBundle:bundle compatibleWithTraitCollection:nil];
+        // Cells must inherit the table view's transform
+        // This is very important, since the main table view may be inverted
+        cell.transform = self.tableView.transform;
     }
-    cell.bodyLabel.text = message.text;
-    cell.indexPath = indexPath;
-    cell.usedForMessage = YES;
-
-    // Cells must inherit the table view's transform
-    // This is very important, since the main table view may be inverted
-    cell.transform = self.tableView.transform;
-
+    //Message *message = self.messages[indexPath.row];
     return cell;
 }
 
@@ -3126,8 +3125,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([tableView isEqual:self.tableView]) {
-        Message *message = self.messages[indexPath.row];
+    if ([tableView isEqual:self.tableView] && self.dataSource &&
+            [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)]) {
+
+        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:indexPath.row careTeamContact:self.contact];
 
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -3141,10 +3142,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         CGFloat width = CGRectGetWidth(tableView.frame)-kMessageTableViewCellAvatarHeight;
         width -= 25.0;
 
-        CGRect titleBounds = [message.username boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
-        CGRect bodyBounds = [message.text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect titleBounds = [item.sender.name boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect bodyBounds = [item.message boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
 
-        if (message.text.length == 0) {
+        if (item.message.length == 0) {
             return 0.0;
         }
 

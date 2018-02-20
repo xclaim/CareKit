@@ -71,7 +71,7 @@ OCK_CLASS_AVAILABLE
  @return An initialzed connect message item.
  */
 - (instancetype)initWithMessageType:(OCKConnectMessageType)type
-                               name:(NSString *)name
+                             sender:(OCKContact *)sender
                             message:(NSString *)message
                               icon:(UIImage *_Nullable)icon
                          dateString:(NSString *)dateString;
@@ -82,9 +82,9 @@ OCK_CLASS_AVAILABLE
 @property (nonatomic, readonly) OCKConnectMessageType type;
 
 /**
- A string indicating the contact name associated with the message.
+ An object indicating the contact  associated with the message.
  */
-@property (nonatomic, copy, readonly) NSString *name;
+@property (nonatomic, copy, readonly) OCKContact *sender;
 
 /**
  A string indicating the message content.

@@ -45,14 +45,14 @@
 }
 
 - (instancetype)initWithMessageType:(OCKConnectMessageType)type
-                               name:(NSString *)name
-                            message:(NSString *)message
+                               sender:(OCKContact *)sender
+                             message:(NSString *)message
                             icon:(UIImage *_Nullable)icon
                          dateString:(NSString *)dateString {
     self = [super init];
     if (self) {
         _type = type;
-        _name = [name copy];
+        _sender = [sender copy];
         _message = [message copy];
         _icon = [icon copy];
         _dateString = [dateString copy];
@@ -67,7 +67,7 @@
     
     __typeof(self) castObject = object;
     return (self.type == castObject.type &&
-            OCKEqualObjects(self.name, castObject.name) &&
+            OCKEqualObjects(self.sender, castObject.sender) &&
             OCKEqualObjects(self.message, castObject.message) &&
             OCKEqualObjects(self.icon, castObject.icon) &&
             OCKEqualObjects(self.dateString, castObject.dateString));
@@ -84,7 +84,7 @@
     self = [super init];
     if (self) {
         OCK_DECODE_ENUM(aDecoder, type);
-        OCK_DECODE_OBJ_CLASS(aDecoder, name, NSString);
+        OCK_DECODE_OBJ_CLASS(aDecoder, sender, OCKContact);
         OCK_DECODE_OBJ_CLASS(aDecoder, message, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, icon, UIImage);
         OCK_DECODE_OBJ_CLASS(aDecoder, dateString, NSString);
@@ -94,7 +94,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     OCK_ENCODE_ENUM(aCoder, type);
-    OCK_ENCODE_OBJ(aCoder, name);
+    OCK_ENCODE_OBJ(aCoder, sender);
     OCK_ENCODE_OBJ(aCoder, message);
     OCK_ENCODE_OBJ(aCoder, icon);
     OCK_ENCODE_OBJ(aCoder, dateString);
@@ -106,7 +106,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     OCKConnectMessageItem *item = [[[self class] allocWithZone:zone] ock_init];
     item->_type = _type;
-    item->_name = [_name copy];
+    item->_sender = [_sender copy];
     item->_message = [_message copy];
     item->_icon = [_icon copy];
     item->_dateString = [_dateString copy];

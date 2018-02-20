@@ -61,6 +61,7 @@ OCK_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                      carePlanStore:(OCKCarePlanStore *)store
+                              contact:(OCKContact *)contact
                               name:(NSString *)name
                         detailInfo:(nullable NSString *)detailInfo
                   careTeamContacts:(nullable NSArray<OCKContact *> *)careTeamContacts
@@ -80,6 +81,11 @@ OCK_CLASS_AVAILABLE
  The care plan store for the patient.
  */
 @property (nonatomic, readonly) OCKCarePlanStore *store;
+
+/**
+ An object indicating the contact details for a patient.
+ */
+@property (nonatomic, copy, readonly) OCKContact *contact;
 
 /**
  A string indicating the name for a patient.

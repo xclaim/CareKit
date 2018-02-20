@@ -107,7 +107,7 @@ static const CGFloat PaddingMargin = 125.0;
 }
 
 - (void)updateView {
-    _nameLabel.text = self.messageItem.name;
+    _nameLabel.text = self.messageItem.sender.name;
     _messageLabel.text = self.messageItem.message;
     _dateLabel.text = self.messageItem.dateString;
 }
