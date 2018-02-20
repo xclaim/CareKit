@@ -252,6 +252,7 @@ extension RootViewController: ORKTaskViewControllerDelegate {
 extension RootViewController: OCKConnectViewControllerDataSource {
     
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
+        print("num ",sampleData.connectMessageItems.count)
         return sampleData.connectMessageItems.count
     }
     

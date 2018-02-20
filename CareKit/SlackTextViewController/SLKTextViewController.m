@@ -339,6 +339,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         _textInputbar = [[SLKTextInputbar alloc] initWithTextViewClass:self.textViewClass];
         _textInputbar.translatesAutoresizingMaskIntoConstraints = NO;
         
+        [_textInputbar.mediaButton addTarget:self action:@selector(didPressMediaButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.leftButton addTarget:self action:@selector(didPressLeftButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.rightButton addTarget:self action:@selector(didPressRightButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.editorLeftButton addTarget:self action:@selector(didCancelTextEditing:) forControlEvents:UIControlEventTouchUpInside];
@@ -389,6 +390,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (SLKTextView *)textView
 {
     return _textInputbar.textView;
+}
+
+- (UIButton *)mediaButton
+{
+    return _textInputbar.mediaButton;
 }
 
 - (UIButton *)leftButton
@@ -777,6 +783,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
     
     return NO;
+}
+
+- (void)didPressMediaButton:(id)sender
+{
+    // No implementation here. Meant to be overriden in subclass.
 }
 
 - (void)didPressLeftButton:(id)sender
@@ -2554,6 +2565,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.inverted = YES;
     NSBundle *bundle = [NSBundle mainBundle];
 
+    [self.mediaButton setTitle:NSLocalizedString(@"M", nil) forState:UIControlStateNormal];
+    [self.mediaButton setImage:[UIImage imageNamed:@"icn_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [self.mediaButton setTintColor:[UIColor grayColor]];
+
     [self.leftButton setTitle:NSLocalizedString(@"A", nil) forState:UIControlStateNormal];
     [self.leftButton setImage:[UIImage imageNamed:@"icn_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
@@ -2708,7 +2723,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
         //NSInteger lastRowIndex = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact]-1;
 
-        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:lastRowIndex careTeamContact:self.contact];
+        // You might end up editing someone elses message....
+        OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:0 careTeamContact:self.contact];
 
         [self editText:item.message];
 
@@ -2816,10 +2832,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [super textDidUpdate:animated];
 }
 
-- (void)didPressLeftButton:(id)sender
+- (void)didPressMediaButton:(id)sender
 {
     // Notifies the view controller when the left button's action has been triggered, manually.
-    [super didPressLeftButton:sender];
+    [super didPressMediaButton:sender];
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachButtonForContact:)]) {
         [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
@@ -2833,6 +2849,22 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     //[self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)didPressLeftButton:(id)sender
+{
+    // Notifies the view controller when the left button's action has been triggered, manually.
+    [super didPressLeftButton:sender];
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachButtonForContact:)]) {
+        [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
+    }
+
+    //UIViewController *vc = [UIViewController new];
+    //vc.view.backgroundColor = [UIColor whiteColor];
+    //ListViewController *vc = [RegimeListViewController new];
+    //vc.title = @"Share";
+    //[self.navigationController presentViewController:vc animated:YES completion:nil];
+    //[self.navigationController pushViewController:vc animated:YES];
+}
 - (void)didPressRightButton:(id)sender
 {
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
@@ -3051,6 +3083,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 {
     if ([tableView isEqual:self.tableView] && self.dataSource &&
             [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
+
+        NSLog(@"%d", [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact]);
+
         return [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
     }
     else {

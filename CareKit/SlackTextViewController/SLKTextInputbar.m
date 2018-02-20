@@ -178,6 +178,27 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     return _inputAccessoryView;
 }
 
+- (UIView *)leftButtons
+{
+    if (!_leftButtons) {
+        _leftButtons = [UIView new];
+        _leftButtons.translatesAutoresizingMaskIntoConstraints = NO;
+        [_leftButtons addSubview:self.leftButton];
+        [_leftButtons addSubview:self.mediaButton];
+    }
+    return _leftButtons;
+}
+
+- (UIButton *)mediaButton
+{
+    if (!_mediaButton) {
+        _mediaButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _mediaButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _mediaButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    }
+    return _mediaButton;
+}
+
 - (UIButton *)leftButton
 {
     if (!_leftButton) {
