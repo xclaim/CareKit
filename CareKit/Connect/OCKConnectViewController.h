@@ -87,6 +87,15 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
+ Tells the delegate when the user selected a post for a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ @param contact                     The contact that is currently displayed.
+ */
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectPost:(OCKConnectMessageItem *)messageItem;
+
+
+/**
  Tells the delegate when the user selected the share button for a contact.
 
  @param connectViewController       The view controller providing the callback.

@@ -3228,22 +3228,25 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isEqual:self.autoCompletionView]) {
-
         NSMutableString *item = [self.searchResult[indexPath.row] mutableCopy];
-
         if ([self.foundPrefix isEqualToString:@"@"] && self.foundPrefixRange.location == 0) {
             [item appendString:@":"];
         }
         else if (([self.foundPrefix isEqualToString:@":"] || [self.foundPrefix isEqualToString:@"+:"])) {
             [item appendString:@":"];
         }
-
         [item appendString:@" "];
-
         [self acceptAutoCompletionWithString:item keepPrefix:YES];
     }
-}
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectPost:)]) {
 
+        if (self.dataSource &&
+            [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)]) {
+            OCKConnectMessageItem *item = [self.dataSource connectViewController:self.masterViewController connectMessageItemAtIndex:indexPath.row careTeamContact:self.contact];
+            [self.delegate connectViewController:self.masterViewController didSelectPost:item];
+        }
+    }
+}
 
 #pragma mark - UIScrollViewDelegate Methods
 

@@ -269,6 +269,10 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
 extension RootViewController: OCKConnectViewControllerDelegate {
 
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
+        print(messageItem)
+    }
+
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact)  {
 
         print("didSelectAttachButtonFor", contact);
