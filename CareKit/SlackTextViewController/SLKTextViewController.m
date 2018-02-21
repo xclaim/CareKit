@@ -43,6 +43,8 @@ NSString * const SLKKeyboardDidShowNotification =       @"SLKKeyboardDidShowNoti
 NSString * const SLKKeyboardWillHideNotification =      @"SLKKeyboardWillHideNotification";
 NSString * const SLKKeyboardDidHideNotification =       @"SLKKeyboardDidHideNotification";
 
+NSString * const SLKDataChangeNotification =      @"SLKDataChangeNotification";
+
 CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 @interface SLKTextViewController ()
@@ -1395,6 +1397,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 #pragma mark - Notification Events
 
+
 - (void)slk_willShowOrHideKeyboard:(NSNotification *)notification
 {
     SLKKeyboardStatus status = [self slk_keyboardStatusForNotification:notification];
@@ -2387,6 +2390,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter addObserver:self selector:@selector(cacheTextView) name:UIApplicationWillTerminateNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(cacheTextView) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(cacheTextView) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+
 }
 
 - (void)slk_unregisterNotifications
@@ -2420,6 +2424,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [notificationCenter removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     [notificationCenter removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [notificationCenter removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+
+    // Data source notifications
+    [notificationCenter removeObserver:self name:SLKDataChangeNotification object:nil];
+
 }
 
 
@@ -2521,12 +2529,21 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     return UITableViewStylePlain;
 }
 
+- (void)slk_updateData:(NSNotification *)notification
+{
+    NSLog(@"slk_updateData");
+    [self loadConnectMessages];
+}
+
 - (void)commonInit
 {
     self.view.backgroundColor = [UIColor whiteColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:UIContentSizeCategoryDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputbarDidMove:) name:SLKTextInputbarDidMoveNotification object:nil];
+
+    // Data source notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(slk_updateData:) name:SLKDataChangeNotification object:nil];
 
     // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
     [self registerClassForTextView:[MessageTextView class]];
@@ -2647,10 +2664,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     if (self.dataSource &&
         [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
         NSInteger numberOfMessages = [self.dataSource connectViewControllerNumberOfConnectMessageItems:self.masterViewController careTeamContact:self.contact];
-        [self.tableView reloadData];
 
+        [self.tableView reloadData];
+/*
         NSIndexPath *lastRowIndexPath = [NSIndexPath indexPathForRow:numberOfMessages - 1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:lastRowIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+*/
+        
     }
 }
 

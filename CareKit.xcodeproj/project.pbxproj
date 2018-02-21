@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		041848F1203D8BD000C464AB /* CareKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 041848F0203D8BD000C464AB /* CareKit.podspec */; };
 		04527AF22039C10200F4BBE4 /* UIResponder+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527ADC2039C10200F4BBE4 /* UIResponder+SLKAdditions.m */; };
 		04527AF32039C10200F4BBE4 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527ADD2039C10200F4BBE4 /* SLKInputAccessoryView.m */; };
 		04527AF42039C10200F4BBE4 /* SLKUIConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527ADE2039C10200F4BBE4 /* SLKUIConstants.h */; };
@@ -219,6 +220,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041848F0203D8BD000C464AB /* CareKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CareKit.podspec; sourceTree = "<group>"; };
 		04527ADC2039C10200F4BBE4 /* UIResponder+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+SLKAdditions.m"; sourceTree = "<group>"; };
 		04527ADD2039C10200F4BBE4 /* SLKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKInputAccessoryView.m; sourceTree = "<group>"; };
 		04527ADE2039C10200F4BBE4 /* SLKUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKUIConstants.h; sourceTree = "<group>"; };
@@ -729,6 +731,7 @@
 		8605A5B01C4F04EC00DD65FF = {
 			isa = PBXGroup;
 			children = (
+				041848F0203D8BD000C464AB /* CareKit.podspec */,
 				8605A5BC1C4F04EC00DD65FF /* CareKit */,
 				8605A5C81C4F04EC00DD65FF /* CareKitTests */,
 				8605A5BB1C4F04EC00DD65FF /* Products */,
@@ -1188,6 +1191,7 @@
 			files = (
 				24F8E47B1C93515A003B77BD /* CareKit.strings in Resources */,
 				24935CD21C7E341E00B208A9 /* Assets.xcassets in Resources */,
+				041848F1203D8BD000C464AB /* CareKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

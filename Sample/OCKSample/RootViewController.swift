@@ -292,6 +292,9 @@ extension RootViewController: OCKConnectViewControllerDelegate {
             let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString)
             print("didSendConnectMessage 1 ", message)
             sampleData.connectMessageItems.insert(connectMessage, at: 0)
+            
+            let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
+            NotificationCenter.default.post(notification)
         }
     }
     
@@ -301,6 +304,10 @@ extension RootViewController: OCKConnectViewControllerDelegate {
 
         print("didSendConnectMessage 2 ", message)
         sampleData.connectMessageItems.insert(connectMessage, at: 0)
+        //SLKDataChangeNotification
+        let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
+        NotificationCenter.default.post(notification)
+
 
     }
 }

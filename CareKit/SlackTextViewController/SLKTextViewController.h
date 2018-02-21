@@ -24,6 +24,9 @@ UIKIT_EXTERN NSString *const SLKKeyboardDidShowNotification;
 UIKIT_EXTERN NSString *const SLKKeyboardWillHideNotification;
 UIKIT_EXTERN NSString *const SLKKeyboardDidHideNotification;
 
+
+UIKIT_EXTERN NSString *const SLKDataChangeNotification;
+
 /**
  This feature doesn't work on iOS 9 due to no legit alternatives to detect the keyboard view.
  Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
