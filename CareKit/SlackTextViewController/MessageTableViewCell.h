@@ -10,7 +10,7 @@
 
 static CGFloat kMessageTableViewCellMinimumHeight = 50.0;
 static CGFloat kMessageTableViewCellAvatarHeight = 30.0;
-static CGFloat kMessageTableViewCellMediaSize = 100.0;
+static CGFloat kMessageTableViewCellMediaSize = 40.0;
 static CGFloat kMessageTableViewCellMediaHeight = 200.0;
 
 static NSString *MessengerCellIdentifier = @"MessengerCell";
