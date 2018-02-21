@@ -3146,6 +3146,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             cell.titleLabel.text = item.sender.name  ;//message.username;
             cell.thumbnailView.image = item.sender.image;
         }
+        if (item.icon != nil) {
+            cell.mediaView.image = item.icon;
+        }
         cell.bodyLabel.text = item.message;
         cell.indexPath = indexPath;
         cell.usedForMessage = YES;

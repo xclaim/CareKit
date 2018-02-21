@@ -292,7 +292,6 @@ extension RootViewController: OCKConnectViewControllerDelegate {
             let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString)
             print("didSendConnectMessage 1 ", message)
             sampleData.connectMessageItems.insert(connectMessage, at: 0)
-            
             let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
             NotificationCenter.default.post(notification)
         }
@@ -301,14 +300,11 @@ extension RootViewController: OCKConnectViewControllerDelegate {
     func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
         let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
         let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString)
-
         print("didSendConnectMessage 2 ", message)
         sampleData.connectMessageItems.insert(connectMessage, at: 0)
         //SLKDataChangeNotification
         let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
         NotificationCenter.default.post(notification)
-
-
     }
 }
 // MARK: CarePlanStoreManagerDelegate

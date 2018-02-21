@@ -26,15 +26,20 @@
 - (void)configureSubviews
 {
     [self.contentView addSubview:self.thumbnailView];
+    [self.contentView addSubview:self.mediaView];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.bodyLabel];
 
     NSDictionary *views = @{@"thumbnailView": self.thumbnailView,
                             @"titleLabel": self.titleLabel,
                             @"bodyLabel": self.bodyLabel,
+                            @"mediaView": self.mediaView,
                             };
     
-    NSDictionary *metrics = @{@"tumbSize": @(kMessageTableViewCellAvatarHeight),
+    NSDictionary *metrics = @{
+                              @"mediaHeight": @(kMessageTableViewCellMediaHeight),
+                              @"mediaSize": @(kMessageTableViewCellMediaSize),
+                              @"tumbSize": @(kMessageTableViewCellAvatarHeight),
                               @"padding": @15,
                               @"right": @10,
                               @"left": @5
@@ -42,10 +47,12 @@
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[titleLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[bodyLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[mediaView(mediaSize)]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[thumbnailView(tumbSize)]-(>=0)-|" options:0 metrics:metrics views:views]];
     
     if ([self.reuseIdentifier isEqualToString:MessengerCellIdentifier]) {
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[titleLabel(20)]-left-[bodyLabel(>=0@999)]-left-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[titleLabel(20)]-left-[mediaView(mediaSize)]-left-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-mediaSize-[titleLabel(mediaSize)]-left-[bodyLabel(>=0@999)]-left-|" options:0 metrics:metrics views:views]];
     }
     else {
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleLabel]|" options:0 metrics:metrics views:views]];
@@ -110,6 +117,21 @@
         _thumbnailView.layer.masksToBounds = YES;
     }
     return _thumbnailView;
+}
+
+- (UIImageView *)mediaView
+{
+    if (!_mediaView) {
+        _mediaView = [UIImageView new];
+        _mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+        _mediaView.userInteractionEnabled = YES;
+        _mediaView.layer.cornerRadius = 2.0;
+        _mediaView.layer.masksToBounds = YES;
+        //[_mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        //[_mediaView.layer setBorderWidth: 1.0];
+        _mediaView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _mediaView;
 }
 
 + (CGFloat)defaultFontSize

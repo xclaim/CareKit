@@ -10,6 +10,8 @@
 
 static CGFloat kMessageTableViewCellMinimumHeight = 50.0;
 static CGFloat kMessageTableViewCellAvatarHeight = 30.0;
+static CGFloat kMessageTableViewCellMediaSize = 100.0;
+static CGFloat kMessageTableViewCellMediaHeight = 200.0;
 
 static NSString *MessengerCellIdentifier = @"MessengerCell";
 static NSString *AutoCompletionCellIdentifier = @"AutoCompletionCell";
@@ -19,6 +21,7 @@ static NSString *AutoCompletionCellIdentifier = @"AutoCompletionCell";
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *bodyLabel;
 @property (nonatomic, strong) UIImageView *thumbnailView;
+@property (nonatomic, strong) UIImageView *mediaView;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 

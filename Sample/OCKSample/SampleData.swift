@@ -117,10 +117,9 @@ class SampleData: NSObject {
                 self.connectMessageItems = [announcement]
                 contactsWithMessageItems.insert(contact, at: 0)
                 self.connectMessageItems.insert(
-                        OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, sender: patient.contact, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: nil, dateString:dateString), at: 0)
-
+                        OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, sender: patient.contact, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: UIImage(named: "photo"), dateString:dateString), at: 0)
                 self.connectMessageItems.insert(
-                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: nil, dateString: dateString), at: 0)
+                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: UIImage(named: "photo"), dateString: dateString), at: 0)
                 break;
             }
         }
@@ -130,7 +129,6 @@ class SampleData: NSObject {
         // Populate the store with the sample activities.
         for sampleActivity in activities {
             let carePlanActivity = sampleActivity.carePlanActivity()
-            
             carePlanStore.add(carePlanActivity) { success, error in
                 if !success {
                     print(error!.localizedDescription)
