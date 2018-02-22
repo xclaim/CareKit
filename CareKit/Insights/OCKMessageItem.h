@@ -51,7 +51,13 @@ typedef NS_ENUM(NSInteger, OCKMessageItemType) {
     /**
      A plain message type.
      */
-    OCKMessageItemTypePlain
+    OCKMessageItemTypePlain,
+
+    /**
+     A regime message type.
+     */
+    OCKMessageItemTypeRegime
+
 };
 
 

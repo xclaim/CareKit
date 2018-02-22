@@ -27,14 +27,9 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-
 #import "OCKMessageItem.h"
 #import "OCKHelpers.h"
-
-
 @implementation OCKMessageItem
-
 - (instancetype)initWithTitle:(NSString *)title
                          text:(NSString *)text
                     tintColor:(UIColor *)tintColor
@@ -48,7 +43,6 @@
     }
     return self;
 }
-
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     
@@ -56,14 +50,11 @@
     return (isParentSame &&
             self.messageType == castObject.messageType);
 }
-
-
 #pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -71,20 +62,14 @@
     }
     return self;
 }
-
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     OCK_ENCODE_ENUM(aCoder, messageType);
 }
-
-
 #pragma mark - NSCopying
-
 - (instancetype)copyWithZone:(NSZone *)zone {
     OCKMessageItem *item = [super copyWithZone:zone];
     item->_messageType = _messageType;
     return item;
 }
-
-
 @end

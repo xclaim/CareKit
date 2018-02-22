@@ -34,6 +34,7 @@
 
 
 #import <CareKit/CareKit.h>
+#import "OCKMessageItem.h"
 #import <MessageUI/MessageUI.h>
 
 

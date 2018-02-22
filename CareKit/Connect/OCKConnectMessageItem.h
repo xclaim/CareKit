@@ -74,7 +74,8 @@ OCK_CLASS_AVAILABLE
                              sender:(OCKContact *)sender
                             message:(NSString *)message
                               icon:(UIImage *_Nullable)icon
-                         dateString:(NSString *)dateString;
+                         dateString:(NSString *)dateString
+                           userData:(NSObject *_Nullable)userData;
 
 /**
  The message type (see OCKConnectMessageType).
@@ -101,6 +102,11 @@ OCK_CLASS_AVAILABLE
  A string indicating the date for the message.
  */
 @property (nonatomic, readonly) NSString *dateString;
+
+/**
+ A string indicating the date for the message.
+ */
+@property (nonatomic, readonly) NSObject *userData;
 
 @end
 

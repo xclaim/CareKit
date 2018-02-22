@@ -2892,10 +2892,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
     [self.textView refreshFirstResponder];
 
-    Message *message = [Message new];
-    message.sender = _patient;
-    message.username = @"Johan"; //[LoremIpsum name];
-    message.text = [self.textView.text copy];
+
+    NSString *text = [self.textView.text copy];
 
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -2904,11 +2902,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
     [self.tableView beginUpdates];
 
-    if (![message.text isEqualToString:@""]) {
+    if (![text isEqualToString:@""]) {
         // Send a call back to the CTP delegate with the new message so it can be saved
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSendConnectMessage:careTeamContact:)]) {
-            [self.delegate connectViewController:self.masterViewController didSendConnectMessage:message.text careTeamContact:self.contact];
+            [self.delegate connectViewController:self.masterViewController didSendConnectMessage:text careTeamContact:self.contact];
         }
     }
 
@@ -3157,7 +3155,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         // This is very important, since the main table view may be inverted
         cell.transform = self.tableView.transform;
     }
-    //Message *message = self.messages[indexPath.row];
     return cell;
 }
 

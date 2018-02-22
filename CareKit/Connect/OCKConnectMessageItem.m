@@ -48,7 +48,8 @@
                                sender:(OCKContact *)sender
                              message:(NSString *)message
                             icon:(UIImage *_Nullable)icon
-                         dateString:(NSString *)dateString {
+                         dateString:(NSString *)dateString
+                           userData:(NSObject *_Nullable)userData{
     self = [super init];
     if (self) {
         _type = type;
@@ -56,6 +57,7 @@
         _message = [message copy];
         _icon = [icon copy];
         _dateString = [dateString copy];
+        _userData = [userData copy];
     }
     return self;
 }
@@ -70,6 +72,7 @@
             OCKEqualObjects(self.sender, castObject.sender) &&
             OCKEqualObjects(self.message, castObject.message) &&
             OCKEqualObjects(self.icon, castObject.icon) &&
+            OCKEqualObjects(self.userData, castObject.userData) &&
             OCKEqualObjects(self.dateString, castObject.dateString));
 }
 
@@ -87,6 +90,7 @@
         OCK_DECODE_OBJ_CLASS(aDecoder, sender, OCKContact);
         OCK_DECODE_OBJ_CLASS(aDecoder, message, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, icon, UIImage);
+        OCK_DECODE_OBJ_CLASS(aDecoder, userData, NSObject);
         OCK_DECODE_OBJ_CLASS(aDecoder, dateString, NSString);
     }
     return self;
@@ -97,6 +101,7 @@
     OCK_ENCODE_OBJ(aCoder, sender);
     OCK_ENCODE_OBJ(aCoder, message);
     OCK_ENCODE_OBJ(aCoder, icon);
+    OCK_ENCODE_OBJ(aCoder, userData);
     OCK_ENCODE_OBJ(aCoder, dateString);
 }
 
@@ -109,6 +114,7 @@
     item->_sender = [_sender copy];
     item->_message = [_message copy];
     item->_icon = [_icon copy];
+    item->_userData = [_userData copy];
     item->_dateString = [_dateString copy];
     return item;
 }

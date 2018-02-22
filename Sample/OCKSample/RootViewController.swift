@@ -269,10 +269,12 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
 extension RootViewController: OCKConnectViewControllerDelegate {
 
-    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
+
+    @nonobjc func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
         print(messageItem)
     }
 
+    
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact)  {
 
         print("didSelectAttachButtonFor", contact);
@@ -280,7 +282,6 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         vc.view.backgroundColor = UIColor.red
         connectViewController.navigationController?.pushViewController(vc, animated: true)
     }
-
     /// Called when the user taps a contact in the `OCKConnectViewController`.
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
         let document = sampleData.generateSampleDocument()
@@ -290,20 +291,18 @@ extension RootViewController: OCKConnectViewControllerDelegate {
                 self.present(activityViewController, animated: true, completion: nil)
             }
         }
-        
         func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
             let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-            let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString)
+            let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString, userData:nil)
             print("didSendConnectMessage 1 ", message)
             sampleData.connectMessageItems.insert(connectMessage, at: 0)
             let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
             NotificationCenter.default.post(notification)
         }
     }
-    
     func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
         let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-        let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString)
+        let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString , userData:nil)
         print("didSendConnectMessage 2 ", message)
         sampleData.connectMessageItems.insert(connectMessage, at: 0)
         //SLKDataChangeNotification
@@ -312,9 +311,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
     }
 }
 // MARK: CarePlanStoreManagerDelegate
-
 extension RootViewController: CarePlanStoreManagerDelegate {
-    
     /// Called when the `CarePlanStoreManager`'s insights are updated.
     func carePlanStoreManager(_ manager: CarePlanStoreManager, didUpdateInsights insights: [OCKInsightItem]) {
         // Update the insights view controller with the new insights.

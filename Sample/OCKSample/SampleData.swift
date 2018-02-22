@@ -106,7 +106,7 @@ class SampleData: NSObject {
 
         let app =  OCKContact(contactType: .personal, name: "XClaim",relation: "App",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
 
-        let announcement = OCKConnectMessageItem(messageType: OCKConnectMessageType.received, sender: app, message: NSLocalizedString("Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote",  comment: ""), icon: nil, dateString:dateString)
+        let announcement = OCKConnectMessageItem(messageType: OCKConnectMessageType.received, sender: app, message: NSLocalizedString("Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote",  comment: ""), icon: nil, dateString:dateString, userData:nil)
 
         let contact =  OCKContact(contactType: .personal, name: "Johan Sellström",relation: "Myself",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
 
@@ -117,9 +117,9 @@ class SampleData: NSObject {
                 self.connectMessageItems = [announcement]
                 contactsWithMessageItems.insert(contact, at: 0)
                 self.connectMessageItems.insert(
-                        OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, sender: patient.contact, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: UIImage(named: "photo"), dateString:dateString), at: 0)
+                        OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, sender: patient.contact, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: UIImage(named: "photo"), dateString:dateString ,userData:nil), at: 0)
                 self.connectMessageItems.insert(
-                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: UIImage(named: "photo"), dateString: dateString), at: 0)
+                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: UIImage(named: "photo"), dateString: dateString ,userData:nil), at: 0)
                 break;
             }
         }
