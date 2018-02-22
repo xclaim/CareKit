@@ -106,7 +106,7 @@ OCK_CLASS_AVAILABLE
 /**
  A string indicating the date for the message.
  */
-@property (nonatomic, readonly) NSObject *userData;
+@property (nonatomic, readonly) id userData;
 
 @end
 
