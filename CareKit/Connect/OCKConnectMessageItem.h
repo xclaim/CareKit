@@ -75,7 +75,7 @@ OCK_CLASS_AVAILABLE
                             message:(NSString *)message
                               icon:(UIImage *_Nullable)icon
                          dateString:(NSString *)dateString
-                           userData:(NSObject *_Nullable)userData;
+                           userData:(id _Nullable)userData;
 
 /**
  The message type (see OCKConnectMessageType).
