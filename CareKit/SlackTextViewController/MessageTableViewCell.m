@@ -45,6 +45,11 @@
                               @"left": @5
                               };
     
+    if (self.mediaView.image != nil ) {
+        [self.mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        [self.mediaView.layer setBorderWidth: 1.0];
+    }
+
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[titleLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[bodyLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[mediaView(mediaSize)]-right-|" options:0 metrics:metrics views:views]];
@@ -127,9 +132,7 @@
         _mediaView.userInteractionEnabled = YES;
         _mediaView.layer.cornerRadius = 2.0;
         _mediaView.layer.masksToBounds = YES;
-        [_mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
-        [_mediaView.layer setBorderWidth: 1.0];
-        _mediaView.contentMode = UIViewContentModeScaleAspectFit;
+         _mediaView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _mediaView;
 }
