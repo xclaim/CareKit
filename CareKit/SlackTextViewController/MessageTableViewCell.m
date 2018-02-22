@@ -127,8 +127,8 @@
         _mediaView.userInteractionEnabled = YES;
         _mediaView.layer.cornerRadius = 2.0;
         _mediaView.layer.masksToBounds = YES;
-        //[_mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
-        //[_mediaView.layer setBorderWidth: 1.0];
+        [_mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        [_mediaView.layer setBorderWidth: 1.0];
         _mediaView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _mediaView;
