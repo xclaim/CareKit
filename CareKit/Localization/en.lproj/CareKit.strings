@@ -48,6 +48,8 @@
 /* Connect */
 "CARE_TEAM_SECTION_TITLE" = "Care Team";
 "PERSONAL_SECTION_TITLE" = "Friends & Family";
+"GROUP_SECTION_TITLE" = "Groups";
+"DEVICE_SECTION_TITLE" = "Devices";
 "CONNECT_NO_CONTACTS_TITLE" = "No contacts";
 "CONTACT_INFO_SECTION_TITLE" = "Contact Info";
 "CONTACT_SHARING_SECTION_TITLE" = "Sharing";

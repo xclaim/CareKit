@@ -237,7 +237,9 @@
     
     NSMutableArray *careTeamContacts = [NSMutableArray new];
     NSMutableArray *personalContacts = [NSMutableArray new];
-    
+    NSMutableArray *groupContacts = [NSMutableArray new];
+    NSMutableArray *deviceContacts = [NSMutableArray new];
+
     for (OCKContact *contact in self.contacts) {
         switch (contact.type) {
             case OCKContactTypeCareTeam:
@@ -245,6 +247,12 @@
                 break;
             case OCKContactTypePersonal:
                 [personalContacts addObject:contact];
+                break;
+            case OCKContactTypeGroup:
+                [groupContacts addObject:contact];
+                break;
+            case OCKContactTypeDevice:
+                [deviceContacts addObject:contact];
                 break;
         }
     }
@@ -258,6 +266,17 @@
         [_sectionedContacts addObject:[personalContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PERSONAL_SECTION_TITLE", nil)];
     }
+
+    if (groupContacts.count > 0) {
+        [_sectionedContacts addObject:[groupContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"GROUP_SECTION_TITLE", nil)];
+    }
+
+    if (deviceContacts.count > 0) {
+        [_sectionedContacts addObject:[deviceContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"DEVICE_SECTION_TITLE", nil)];
+    }
+
 }
 
 - (void)prepareHeaderView {

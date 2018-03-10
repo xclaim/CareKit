@@ -90,8 +90,8 @@ OCK_CLASS_AVAILABLE
                                      title:(NSString *)title
                                       text:(nullable NSString *)text
                                  tintColor:(nullable UIColor *)tintColor
-                              instructions:(nullable NSString *)instructions
-                                  imageURL:(nullable NSURL *)imageURL
+                              instructions:(nullable NSString *)instructionstive
+                                  imageURL:(nullable NSURL *)imageURLage
                                   schedule:(OCKCareSchedule *)schedule
                                   userInfo:(nullable NSDictionary *)userInfo
                                   optional:(BOOL)optional;
