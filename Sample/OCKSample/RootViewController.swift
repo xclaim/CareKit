@@ -250,7 +250,10 @@ extension RootViewController: ORKTaskViewControllerDelegate {
 // MARK: OCKConnectViewControllerDataSource
 
 extension RootViewController: OCKConnectViewControllerDataSource {
-    
+
+    func connectViewController(_ connectViewController: OCKConnectViewController, didClickAddContact x: Int32) {
+        print("didClickAddContact")
+    }
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
         print("num ",sampleData.connectMessageItems.count)
         return sampleData.connectMessageItems.count

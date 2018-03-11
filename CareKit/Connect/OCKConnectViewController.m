@@ -136,7 +136,7 @@
 
     int x = 0;
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact::)]) {
+        [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
         [self.delegate connectViewController:self didClickAddContact:x];
     }
 }
