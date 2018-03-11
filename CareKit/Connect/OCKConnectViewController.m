@@ -96,7 +96,11 @@
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
-    
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                           target:self
+                                                                                           action:@selector(add:)];
+
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
     
@@ -126,6 +130,15 @@
     [self prepareHeaderView];
     [self createSectionedContacts];
     [_tableView reloadData];
+}
+
+- (void)add:(id)sender {
+
+    int x = 0;
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact::)]) {
+        [self.delegate connectViewController:self didClickAddContact:x];
+    }
 }
 
 - (void)setPatient:(OCKPatient *)patient {

@@ -144,7 +144,7 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
         }
         return nil
     }
-    
+
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
         
         let bar1 = OCKBarSeries(title: "Title 1", values: [6, 5], valueLabels: ["6", "5"], tintColor: .brown)

@@ -88,6 +88,13 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
+ Tells the delegate when the user clicked to add a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ */
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didClickAddContact:(int)x;
+
+/**
  Tells the delegate when the user selected a post for a contact.
 
  @param connectViewController       The view controller providing the callback.
