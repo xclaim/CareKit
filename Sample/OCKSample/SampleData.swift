@@ -57,25 +57,28 @@ class SampleData: NSObject {
     */
     let contacts: [OCKContact] = [
         OCKContact(contactType: .careTeam,
-            name: "Dr. Maria Ruiz",
-            relation: "Physician",
-            contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("mruiz2@mac.com")],
-            tintColor: Colors.blue.color,
-            monogram: "MR",
-            image: nil),
+                   uuid: "123",
+                   name: "Dr. Maria Ruiz",
+                   relation: "Physician",
+                   contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("mruiz2@mac.com")],
+                   tintColor: Colors.blue.color,
+                   monogram: "MR",
+                   image: nil),
         
         OCKContact(contactType: .careTeam,
-            name: "Bill James",
-            relation: "Nurse",
-            contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("billjames2@mac.com")],
-            tintColor: Colors.green.color,
-            monogram: "BJ",
-            image: nil),
+                   uuid: "123",
+                   name: "Bill James",
+                   relation: "Nurse",
+                   contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("billjames2@mac.com")],
+                   tintColor: Colors.green.color,
+                   monogram: "BJ",
+                   image: nil),
         
         OCKContact(contactType: .personal,
-            name: "Tom Clark",
-            relation: "Father",
-            contactInfoItems: [.phone("314-555-1234"),
+                   uuid: "123",
+                   name: "Tom Clark",
+                   relation: "Father",
+                   contactInfoItems: [.phone("314-555-1234"),
                                .phone("314-555-4321"),
                                .email("ewodehouse@example.com"),
                                .sms("314-555-4321"),
@@ -83,11 +86,9 @@ class SampleData: NSObject {
                                .facetimeVideo("3145554321", display: "314-555-4321"),
                                .facetimeAudio("3145554321", display: "314-555-4321"),
                                OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "chat", icon: UIImage(named: "starstuff"))],
-            tintColor: Colors.yellow.color,
-            monogram: "TC",
-            image: nil)
-
-
+                   tintColor: Colors.yellow.color,
+                   monogram: "TC",
+                   image: nil)
     ]
     
     /**
@@ -104,11 +105,11 @@ class SampleData: NSObject {
     
     required init(carePlanStore: OCKCarePlanStore) {
 
-        let app =  OCKContact(contactType: .personal, name: "XClaim",relation: "App",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
+        let app =  OCKContact(contactType: .personal, uuid: "123", name: "XClaim",relation: "App",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
 
         let announcement = OCKConnectMessageItem(messageType: OCKConnectMessageType.received, sender: app, message: NSLocalizedString("Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote",  comment: ""), icon: nil, dateString:dateString, userData:nil)
 
-        let contact =  OCKContact(contactType: .personal, name: "Johan Sellström",relation: "Myself",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
+        let contact =  OCKContact(contactType: .personal, uuid: "123", name: "Johan Sellström",relation: "Myself",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
 
         self.patient = OCKPatient(identifier: "patient", carePlanStore: carePlanStore, contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
         

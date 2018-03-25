@@ -67,6 +67,7 @@ OCK_CLASS_AVAILABLE
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
+ @param name                The contact uuid.
  @param name                The contact name.
  @param relation            The relationship to the contact.
  @param tintColor           The contact tint color.
@@ -79,6 +80,7 @@ OCK_CLASS_AVAILABLE
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
+                               uuid:(NSString *)uuid
                                name:(NSString *)name
                            relation:(NSString *)relation
                           tintColor:(nullable UIColor *)tintColor
@@ -93,6 +95,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
+ @param uuid                The contact uuid.
  @param name                The contact name.
  @param relation            The relationship to the contact.
  @param contactInfoItems    The contact information for the contact.
@@ -103,7 +106,8 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
-							   name:(NSString *)name
+                               uuid:(NSString *)uuid
+                               name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
 						  tintColor:(nullable UIColor *)tintColor
@@ -117,6 +121,11 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  See the `OCKContactType` enum.
  */
 @property (nonatomic, readonly) OCKContactType type;
+
+/**
+ A string indicating the uuid for a contact.
+ */
+@property (nonatomic, readonly) NSString *uuid;
 
 /**
  A string indicating the name for a contact.
