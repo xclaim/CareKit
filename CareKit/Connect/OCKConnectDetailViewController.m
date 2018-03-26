@@ -61,7 +61,17 @@ static const CGFloat HeaderViewHeight = 225.0;
     
     self.tableView.estimatedRowHeight = 44.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:OCKLocalizedString(@"CONNECT_CHAT_TITLE", nil)
+                                              style:UIBarButtonItemStylePlain
+                                              target:self
+                                              action:@selector(chat:)];
     [self prepareView];
+}
+
+- (void)chat:(id)sender {
+
 }
 
 - (void)setContact:(OCKContact *)contact {

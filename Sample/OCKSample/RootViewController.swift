@@ -133,7 +133,6 @@ class RootViewController: UITabBarController {
         // Setup the controller's title and tab bar item
         viewController.title = NSLocalizedString("Connect", comment: "")
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"connect"), selectedImage: UIImage(named: "connect-filled"))
-        
         return viewController
     }
 }
