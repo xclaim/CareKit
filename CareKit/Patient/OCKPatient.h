@@ -48,7 +48,7 @@ OCK_CLASS_AVAILABLE
  Returns an initialized patient using the specified values.
  
  @param identifier          The identifier for the patient.
- @param store               The care plan store for the patient.
+ //@param store               The care plan store for the patient.
  @param name                The name for the patient.
  @param detailInfo          Additional information for the patient.
  @param careTeamContacts    The contacts in charge of the patients.
@@ -60,7 +60,7 @@ OCK_CLASS_AVAILABLE
  @return An initialized patient object.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                     carePlanStore:(OCKCarePlanStore *)store
+ //                    carePlanStore:(OCKCarePlanStore *)store
                               contact:(OCKContact *)contact
                               name:(NSString *)name
                         detailInfo:(nullable NSString *)detailInfo
@@ -80,7 +80,7 @@ OCK_CLASS_AVAILABLE
 /**
  The care plan store for the patient.
  */
-@property (nonatomic, readonly) OCKCarePlanStore *store;
+//@property (nonatomic, readonly) OCKCarePlanStore *store;
 
 /**
  An object indicating the contact details for a patient.

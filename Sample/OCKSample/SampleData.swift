@@ -111,7 +111,7 @@ class SampleData: NSObject {
 
         let contact =  OCKContact(contactType: .personal, uuid: "123", name: "Johan Sellström",relation: "Myself",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
 
-        self.patient = OCKPatient(identifier: "patient", carePlanStore: carePlanStore, contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
+        self.patient = OCKPatient(identifier: "patient", contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
         
         for contact in contacts {
             if contact.type == .careTeam {

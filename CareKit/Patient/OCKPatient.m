@@ -41,7 +41,7 @@
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                     carePlanStore:(OCKCarePlanStore *)store
+//                     carePlanStore:(OCKCarePlanStore *)store
                               contact:(OCKContact *)contact
                               name:(NSString *)name
                         detailInfo:(NSString *)detailInfo
@@ -54,7 +54,7 @@
     self = [super init];
     if (self) {
         _identifier = [identifier copy];
-        _store = store;
+//        _store = store;
         _contact = [contact copy];
         _name = [name copy];
         _detailInfo = [detailInfo copy];
@@ -74,7 +74,7 @@
     __typeof(self) castObject = object;
     return (isParentSame &&
             OCKEqualObjects(self.identifier, castObject.identifier) &&
-            OCKEqualObjects(self.store, castObject.store) &&
+//            OCKEqualObjects(self.store, castObject.store) &&
             OCKEqualObjects(self.contact, castObject.contact) &&
             OCKEqualObjects(self.name, castObject.name) &&
             OCKEqualObjects(self.detailInfo, castObject.detailInfo) &&
@@ -97,7 +97,7 @@
     self = [super init];
     if (self) {
         OCK_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        OCK_DECODE_OBJ_CLASS(aDecoder, store, OCKCarePlanStore);
+//        OCK_DECODE_OBJ_CLASS(aDecoder, store, OCKCarePlanStore);
         OCK_DECODE_OBJ_CLASS(aDecoder, contact, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, name, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, detailInfo, NSString);
@@ -113,7 +113,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     OCK_ENCODE_OBJ(aCoder, identifier);
-    OCK_ENCODE_OBJ(aCoder, store);
+//    OCK_ENCODE_OBJ(aCoder, store);
     OCK_ENCODE_OBJ(aCoder, contact);
     OCK_ENCODE_OBJ(aCoder, name);
     OCK_ENCODE_OBJ(aCoder, detailInfo);
@@ -131,7 +131,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     OCKPatient *patient = [[[self class] allocWithZone:zone] init];
     patient->_identifier = [self.identifier copy];
-    patient->_store = self.store;
+//    patient->_store = self.store;
     patient->_contact = [self.contact copy];
     patient->_name = [self.name copy];
     patient->_detailInfo = [self.detailInfo copy];
