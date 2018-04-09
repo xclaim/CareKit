@@ -72,6 +72,11 @@ static const CGFloat HeaderViewHeight = 225.0;
 
 - (void)chat:(id)sender {
 
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectChatButtonForContact:presentationSourceView:)]) {
+        [self.delegate connectViewController:self.masterViewController didSelectChatButtonForContact:self.contact presentationSourceView:nil];
+    }
+
 }
 
 - (void)setContact:(OCKContact *)contact {

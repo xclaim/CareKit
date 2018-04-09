@@ -122,6 +122,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectShareButtonForContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
 
 /**
+ Tells the delegate when the user selected the chat button for a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ @param contact                     The contact that is currently displayed.
+ @param sourceView                  Source view can be used to present a popover on iPad.
+ */
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectChatButtonForContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
+
+
+/**
  Asks the delegate for the title to be shown in the sharing cell for a contact.
  If the method returns nil or is not implemented, the localized string for the `SHARING_CELL_TITLE` key is displayed.
  

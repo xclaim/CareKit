@@ -69,12 +69,13 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
         if (indexPath as NSIndexPath).row == 0 {
             
             // No Delegate
-            
-			let contact1 = OCKContact(contactType: .careTeam, name: "Anne Johnson", relation: "Primary Physician @ Nearby Hospital in my State", contactInfoItems: [.email("annejohnson1@mac.com")], tintColor: .purple, monogram: "AJ", image: nil)
-            let contact2 = OCKContact(contactType: .careTeam, name: "Bill James, Lorem Ipsum dolor", relation: "Doctor", contactInfoItems: [.phone("1-888-555-5512"), .email("this_is_a_very_long_username@example.com")], tintColor: nil, monogram: "Bill James, Lorem Ipsum dolor", image: nil)
-			let contact3 = OCKContact(contactType: .personal, name: "Maria Ruiz", relation: "Friend", contactInfoItems: [], tintColor: .green, monogram: "MR", image: nil)
-			let contact4 = OCKContact(contactType: .personal, name: "Ravi Patel", relation: "Emergency Contact", contactInfoItems: [.phone("8885555512"), .email("888-555-5512")], tintColor: .orange, monogram: "RP",image: UIImage(named: "Stars"))
-            let contact5 = OCKContact(contactType: .personal, name: "", relation: "", contactInfoItems: [], tintColor: nil, monogram: "", image: nil)
+
+
+            let contact1 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString, name: "Anne Johnson", relation: "Primary Physician @ Nearby Hospital in my State", contactInfoItems: [.email("annejohnson1@mac.com")], tintColor: .purple, monogram: "AJ", image: nil)
+            let contact2 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Bill James, Lorem Ipsum dolor", relation: "Doctor", contactInfoItems: [.phone("1-888-555-5512"), .email("this_is_a_very_long_username@example.com")], tintColor: nil, monogram: "Bill James, Lorem Ipsum dolor", image: nil)
+			let contact3 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Maria Ruiz", relation: "Friend", contactInfoItems: [], tintColor: .green, monogram: "MR", image: nil)
+			let contact4 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Ravi Patel", relation: "Emergency Contact", contactInfoItems: [.phone("8885555512"), .email("888-555-5512")], tintColor: .orange, monogram: "RP",image: UIImage(named: "Stars"))
+            let contact5 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "", relation: "", contactInfoItems: [], tintColor: nil, monogram: "", image: nil)
             
 			let connectViewController = OCKConnectViewController(contacts: [contact1, contact2, contact3, contact4, contact5])
             self.navigationController?.pushViewController(connectViewController, animated: true)
@@ -83,18 +84,18 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
             
             // With Delegate & Edge Indicators
             
-            let contact1 = OCKContact(contactType: .careTeam, name: "Dr Kumar, Gita", relation: "Nutritionist", contactInfoItems: [.email("gkumar@mac.com")], tintColor: .blue, monogram: "GK", image: nil)
+            let contact1 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Kumar, Gita", relation: "Nutritionist", contactInfoItems: [.email("gkumar@mac.com")], tintColor: .blue, monogram: "GK", image: nil)
             contact1.image = UIImage(named: "SquareCircle")
 			let contact2Info: [OCKContactInfo] = [OCKContactInfo(type: .phone, display: "888-555-5512", actionURL: nil),
 			                                      OCKContactInfo(type: .message, display: "888-555-5512", actionURL: nil),
 			                                      OCKContactInfo(type: .email, display: "drTomClark@example.com", actionURL: nil)]
-			let contact2 = OCKContact(contactType: .careTeam, name: "Dr Tom Clark", relation: "Physician", contactInfoItems: contact2Info, tintColor: nil, monogram: "TC", image: nil)
-            let contact3 = OCKContact(contactType: .careTeam, name: "Dr Juan Chavez", relation: "Dentist", contactInfoItems: [.sms("888-555-5512")], tintColor: .green, monogram: "JC", image: nil)
-            let contact4 = OCKContact(contactType: .personal, name: "Jason", relation: "Dad", contactInfoItems: [.phone("888-555-5512"), .sms("888-555-5512"), .email("dad@example.com")], tintColor: .orange, monogram: "Dad" , image: UIImage(named: "SquareCircle"))
-            let contact5 = OCKContact(contactType: .personal, name: "Mei Chen", relation: "Sis", contactInfoItems: [], tintColor: nil, monogram: "MC", image: UIImage(named: "Triangles.jpg"))
-            let contact6 = OCKContact(contactType: .personal, name: "Avram", relation: "Bro", contactInfoItems: [.email("avram@example.com")], tintColor: nil, monogram: "Avram", image: nil)
-            let contact7 = OCKContact(contactType: .personal, name: "Jim", relation: "Best Friend", contactInfoItems: [.email("jim12@example.com")], tintColor: nil, monogram: "😊" , image: nil)
-            let contact8 = OCKContact(contactType: .careTeam, name: "Dr Yoshiko Wong", relation: "Doctor", contactInfoItems: [.sms("888-555-5512"), .email("drYoshiko@example.com")], tintColor: .cyan, monogram: "YW", image: nil)
+			let contact2 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Tom Clark", relation: "Physician", contactInfoItems: contact2Info, tintColor: nil, monogram: "TC", image: nil)
+            let contact3 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Juan Chavez", relation: "Dentist", contactInfoItems: [.sms("888-555-5512")], tintColor: .green, monogram: "JC", image: nil)
+            let contact4 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Jason", relation: "Dad", contactInfoItems: [.phone("888-555-5512"), .sms("888-555-5512"), .email("dad@example.com")], tintColor: .orange, monogram: "Dad" , image: UIImage(named: "SquareCircle"))
+            let contact5 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Mei Chen", relation: "Sis", contactInfoItems: [], tintColor: nil, monogram: "MC", image: UIImage(named: "Triangles.jpg"))
+            let contact6 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Avram", relation: "Bro", contactInfoItems: [.email("avram@example.com")], tintColor: nil, monogram: "Avram", image: nil)
+            let contact7 = OCKContact(contactType: .personal, uuid: UUID().uuidString,name: "Jim", relation: "Best Friend", contactInfoItems: [.email("jim12@example.com")], tintColor: nil, monogram: "😊" , image: nil)
+            let contact8 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Yoshiko Wong", relation: "Doctor", contactInfoItems: [.sms("888-555-5512"), .email("drYoshiko@example.com")], tintColor: .cyan, monogram: "YW", image: nil)
 			let contact9Info: [OCKContactInfo] = [.phone("314-555-1234"),
 			                                      .phone("314-555-4321"),
 			                                      .email("ewodehouse@example.com"),
@@ -103,7 +104,7 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
 			                                      .facetimeVideo("3145554321", display: "314-555-4321"),
 			                                      .facetimeAudio("3145554321", display: "314-555-4321"),
 			                                      OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "starstuff chat", icon: UIImage(named: "starstuff"))]
-			let contact9 = OCKContact(contactType: .careTeam, name: "Dr Ezra Wodehouse", relation: "Doctor", contactInfoItems: contact9Info, tintColor: .brown, monogram: "EW", image: nil)
+			let contact9 = OCKContact(contactType: .careTeam,uuid: UUID().uuidString, name: "Dr Ezra Wodehouse", relation: "Doctor", contactInfoItems: contact9Info, tintColor: .brown, monogram: "EW", image: nil)
             
             let connectViewController = OCKConnectViewController(contacts: [contact1, contact2, contact3, contact4, contact5, contact6, contact7, contact8, contact9])
             connectViewController.delegate = self
@@ -113,7 +114,7 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
             
             // No Care Team
 
-            let contact1 = OCKContact(contactType: .personal, name: "Luisa", relation: "Friend", contactInfoItems:[.email("Luisa@example.com")], tintColor: nil, monogram: "Luisa", image: UIImage.init(named: "Triangles.jpg"))
+            let contact1 = OCKContact(contactType: .personal,uuid: UUID().uuidString, name: "Luisa", relation: "Friend", contactInfoItems:[.email("Luisa@example.com")], tintColor: nil, monogram: "Luisa", image: UIImage.init(named: "Triangles.jpg"))
             let connectViewController = OCKConnectViewController.init(contacts: [contact1])
             connectViewController.delegate = self;
             self.navigationController?.pushViewController(connectViewController, animated: true)
@@ -122,8 +123,8 @@ class ConnectTableViewController: UITableViewController, OCKConnectViewControlle
             
             // No Personal Contacts
             
-            let contact1 = OCKContact(contactType: .careTeam, name: "Dr Gabrielle Contreras", relation: "Nutritionist", contactInfoItems: [.email("contreras@example.com")], tintColor: .blue, monogram: "Not Visible", image: UIImage())
-            let contact2 = OCKContact(contactType: .careTeam, name: "Dr Scharanski", relation: "Dental Surgeon", contactInfoItems: [.sms("888-555-5512")], tintColor: .green, monogram: "Hello\nWorld", image: nil)
+            let contact1 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Gabrielle Contreras", relation: "Nutritionist", contactInfoItems: [.email("contreras@example.com")], tintColor: .blue, monogram: "Not Visible", image: UIImage())
+            let contact2 = OCKContact(contactType: .careTeam, uuid: UUID().uuidString,name: "Dr Scharanski", relation: "Dental Surgeon", contactInfoItems: [.sms("888-555-5512")], tintColor: .green, monogram: "Hello\nWorld", image: nil)
             let connectViewController = OCKConnectViewController(contacts: [contact1, contact2])
             connectViewController.delegate = self;
             self.navigationController?.pushViewController(connectViewController, animated: true)
