@@ -45,6 +45,7 @@
 		04527B052039C10200F4BBE4 /* SLKTextView+SLKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04527AEF2039C10200F4BBE4 /* SLKTextView+SLKAdditions.h */; };
 		04527B062039C10200F4BBE4 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AF02039C10200F4BBE4 /* SLKTextInputbar.m */; };
 		04527B072039C10200F4BBE4 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04527AF12039C10200F4BBE4 /* UIScrollView+SLKAdditions.m */; };
+		0463068120963EFA007BF8A8 /* OCKContact_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 0463068020963EF9007BF8A8 /* OCKContact_Internal.h */; };
 		04A0DD6A2039E9220009F57A /* TypingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD622039E9210009F57A /* TypingIndicatorView.h */; };
 		04A0DD6B2039E9220009F57A /* MessageTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD632039E9210009F57A /* MessageTextView.h */; };
 		04A0DD6C2039E9220009F57A /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD642039E9210009F57A /* Message.h */; };
@@ -53,6 +54,9 @@
 		04A0DD6F2039E9220009F57A /* TypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD672039E9220009F57A /* TypingIndicatorView.m */; };
 		04A0DD702039E9220009F57A /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD682039E9220009F57A /* MessageTableViewCell.m */; };
 		04A0DD712039E9220009F57A /* MessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0DD692039E9220009F57A /* MessageTextView.m */; };
+		04DF17E220889B6100E1EDCD /* OCKImmunization_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DF17DF20889B6000E1EDCD /* OCKImmunization_Internal.h */; };
+		04DF17E320889B6100E1EDCD /* OCKImmunization.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DF17E020889B6000E1EDCD /* OCKImmunization.h */; };
+		04DF17E420889B6100E1EDCD /* OCKImmunization.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DF17E120889B6000E1EDCD /* OCKImmunization.m */; };
 		186D42B51D78D8B60083EF5B /* OCKCarePlanThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */; };
 		186D42B71D78D8D60083EF5B /* OCKCarePlanThreshold.h in Headers */ = {isa = PBXBuildFile; fileRef = 186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		241707C31C9A3AB7005D7123 /* OCKBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 241707A71C9A3AB7005D7123 /* OCKBarChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -243,6 +247,7 @@
 		04527AEF2039C10200F4BBE4 /* SLKTextView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLKTextView+SLKAdditions.h"; sourceTree = "<group>"; };
 		04527AF02039C10200F4BBE4 /* SLKTextInputbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextInputbar.m; sourceTree = "<group>"; };
 		04527AF12039C10200F4BBE4 /* UIScrollView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SLKAdditions.m"; sourceTree = "<group>"; };
+		0463068020963EF9007BF8A8 /* OCKContact_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKContact_Internal.h; sourceTree = "<group>"; };
 		04A0DD5E2039D8450009F57A /* SlackTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackTextViewController.h; sourceTree = "<group>"; };
 		04A0DD622039E9210009F57A /* TypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingIndicatorView.h; sourceTree = "<group>"; };
 		04A0DD632039E9210009F57A /* MessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextView.h; sourceTree = "<group>"; };
@@ -252,6 +257,9 @@
 		04A0DD672039E9220009F57A /* TypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingIndicatorView.m; sourceTree = "<group>"; };
 		04A0DD682039E9220009F57A /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		04A0DD692039E9220009F57A /* MessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextView.m; sourceTree = "<group>"; };
+		04DF17DF20889B6000E1EDCD /* OCKImmunization_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKImmunization_Internal.h; sourceTree = "<group>"; };
+		04DF17E020889B6000E1EDCD /* OCKImmunization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKImmunization.h; sourceTree = "<group>"; };
+		04DF17E120889B6000E1EDCD /* OCKImmunization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKImmunization.m; sourceTree = "<group>"; };
 		185BC3A31D81DF0F001AB0A9 /* OCKCarePlanStore v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OCKCarePlanStore v2.xcdatamodel"; sourceTree = "<group>"; };
 		186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKCarePlanThreshold.m; sourceTree = "<group>"; };
 		186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKCarePlanThreshold.h; sourceTree = "<group>"; };
@@ -500,6 +508,16 @@
 			path = SlackTextViewController;
 			sourceTree = "<group>";
 		};
+		04DF17DE20889B6000E1EDCD /* Immunization */ = {
+			isa = PBXGroup;
+			children = (
+				04DF17DF20889B6000E1EDCD /* OCKImmunization_Internal.h */,
+				04DF17E020889B6000E1EDCD /* OCKImmunization.h */,
+				04DF17E120889B6000E1EDCD /* OCKImmunization.m */,
+			);
+			path = Immunization;
+			sourceTree = "<group>";
+		};
 		186D42B31D78D87C0083EF5B /* Thresholds */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +637,7 @@
 		248929631C90E70100EBBE1F /* Connect */ = {
 			isa = PBXGroup;
 			children = (
+				0463068020963EF9007BF8A8 /* OCKContact_Internal.h */,
 				2489296C1C90E70100EBBE1F /* OCKConnectViewController.h */,
 				2489296D1C90E70100EBBE1F /* OCKConnectViewController.m */,
 				2489296F1C90E70100EBBE1F /* OCKContact.h */,
@@ -752,6 +771,7 @@
 		8605A5BC1C4F04EC00DD65FF /* CareKit */ = {
 			isa = PBXGroup;
 			children = (
+				04DF17DE20889B6000E1EDCD /* Immunization */,
 				04527ADB2039C10200F4BBE4 /* SlackTextViewController */,
 				8605A5BD1C4F04EC00DD65FF /* CareKit.h */,
 				8677EE241C97771A00588CD6 /* CareKit_Private.h */,
@@ -988,6 +1008,7 @@
 				04527AFD2039C10200F4BBE4 /* UIResponder+SLKAdditions.h in Headers */,
 				BA274F3A1EB6F63400DD17EF /* OCKConnectMessagesViewController.h in Headers */,
 				04527B012039C10200F4BBE4 /* SLKTypingIndicatorProtocol.h in Headers */,
+				0463068120963EFA007BF8A8 /* OCKContact_Internal.h in Headers */,
 				BA3793DA1EB66BC50004A540 /* OCKPatientWidgetView.h in Headers */,
 				BA8F07021EBE9D8800A14E5F /* OCKReadOnlyTableViewCell.h in Headers */,
 				86E803901CB4812F00B5C021 /* OCKLabel.h in Headers */,
@@ -1003,6 +1024,7 @@
 				BA3793E61EB66D7D0004A540 /* OCKBadgePatientWidgetView.h in Headers */,
 				BA6610001EB20DAB00B7B1A7 /* OCKCareContentsViewController.h in Headers */,
 				BA38457E1D9CA698007990DA /* OCKGlyph.h in Headers */,
+				04DF17E220889B6100E1EDCD /* OCKImmunization_Internal.h in Headers */,
 				BA274F401EB6F75300DD17EF /* OCKConnectMessageItem.h in Headers */,
 				04527B002039C10200F4BBE4 /* SLKTextViewController.h in Headers */,
 				24EA9FB21C9A3D420036028E /* OCKCareCardAdditionalInfoTableViewCell.h in Headers */,
@@ -1016,6 +1038,7 @@
 				8677EE1A1C9775EB00588CD6 /* OCKCarePlanStore_Internal.h in Headers */,
 				2489297D1C90E70100EBBE1F /* OCKConnectViewController.h in Headers */,
 				BA0CCA4D1DA320430003EB6C /* OCKHeaderView.h in Headers */,
+				04DF17E320889B6100E1EDCD /* OCKImmunization.h in Headers */,
 				248929841C90E70100EBBE1F /* OCKContactSharingTableViewCell.h in Headers */,
 				BA3793EE1EB66D7D0004A540 /* OCKStackedPatientWidgetView.h in Headers */,
 				24EA9FC21C9A3D420036028E /* OCKCareCardViewController.h in Headers */,
@@ -1270,6 +1293,7 @@
 				BA274F431EB6F75300DD17EF /* OCKConnectMessageTableViewCell.m in Sources */,
 				8677EE121C9775EB00588CD6 /* OCKCarePlanEvent.m in Sources */,
 				241707D41C9A3AB7005D7123 /* OCKInsightsChartTableViewCell.m in Sources */,
+				04DF17E420889B6100E1EDCD /* OCKImmunization.m in Sources */,
 				24EA9FB71C9A3D420036028E /* OCKCareCardDetailHeaderView.m in Sources */,
 				248929831C90E70100EBBE1F /* OCKContactInfoTableViewCell.m in Sources */,
 				BA3793EB1EB66D7D0004A540 /* OCKImagePatientWidgetView.m in Sources */,

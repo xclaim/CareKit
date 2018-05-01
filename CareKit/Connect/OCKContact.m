@@ -31,6 +31,7 @@
 
 
 #import "OCKContact.h"
+#import "OCKContact_Internal.h"
 #import "OCKHelpers.h"
 
 
@@ -42,7 +43,7 @@
 }
 
 - (instancetype)initWithContactType:(OCKContactType)type
-                               uuid:(NSString *)uuid
+                               identifier:(NSString *)identifier
                                name:(NSString *)name
                            relation:(NSString *)relation
                           tintColor:(UIColor *)tintColor
@@ -63,11 +64,11 @@
 	if (emailAddress.length) {
 		[contactInfoItemsArray addObject:[[OCKContactInfo alloc] initWithType:OCKContactInfoTypeEmail displayString:emailAddress actionURL:nil]];
 	}
-    return [self initWithContactType:type uuid:uuid name:name relation:relation contactInfoItems:contactInfoItemsArray tintColor:tintColor monogram:monogram image:image];
+    return [self initWithContactType:type identifier:identifier name:name relation:relation contactInfoItems:contactInfoItemsArray tintColor:tintColor monogram:monogram image:image];
 }
 
 - (instancetype)initWithContactType:(OCKContactType)type
-                               uuid:(NSString *)uuid
+                               identifier:(NSString *)identifier
                                name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
@@ -77,7 +78,7 @@
 	self = [super init];
 	if (self) {
 		_type = type;
-        _uuid = [uuid copy];
+        _identifier = [identifier copy];
         _name = [name copy];
 		_relation = [relation copy];
 		_contactInfoItems = [contactInfoItems copy];
@@ -88,13 +89,31 @@
 	return self;
 }
 
+- (instancetype)initWithCoreDataObject:(OCKCDContact *)cdObject {
+
+    NSParameterAssert(cdObject);
+
+    self = [self initWithContactType:cdObject.type.integerValue
+                          identifier:cdObject.identifier
+                                name:cdObject.name
+                            relation:cdObject.relation
+                    contactInfoItems:(NSArray<OCKContactInfo *> *)cdObject.contactInfoItems
+                           tintColor:cdObject.tintColor
+                            monogram:cdObject.monogram
+                            image:[UIImage imageWithData:cdObject.image scale:[[UIScreen mainScreen] scale]]
+            ];
+
+
+    return self;
+}
+
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
     return (isParentSame &&
             (self.type == castObject.type) &&
-            OCKEqualObjects(self.uuid, castObject.uuid) &&
+            OCKEqualObjects(self.identifier, castObject.identifier) &&
             OCKEqualObjects(self.name, castObject.name) &&
             OCKEqualObjects(self.relation, castObject.relation) &&
             OCKEqualObjects(self.tintColor, castObject.tintColor) &&
@@ -114,7 +133,7 @@
     self = [super init];
     if (self) {
         OCK_DECODE_ENUM(aDecoder, type);
-        OCK_DECODE_OBJ_CLASS(aDecoder, uuid, NSString);
+        OCK_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, name, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, relation, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, tintColor, UIColor);
@@ -127,7 +146,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     OCK_ENCODE_ENUM(aCoder, type);
-    OCK_ENCODE_OBJ(aCoder, uuid);
+    OCK_ENCODE_OBJ(aCoder, identifier);
     OCK_ENCODE_OBJ(aCoder, name);
     OCK_ENCODE_OBJ(aCoder, relation);
     OCK_ENCODE_OBJ(aCoder, tintColor);
@@ -142,7 +161,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     OCKContact *contact = [[[self class] allocWithZone:zone] init];
     contact->_type = self.type;
-    contact->_uuid = [self.uuid copy];
+    contact->_identifier = [self.identifier copy];
     contact->_name = [self.name copy];
     contact->_relation = [self.relation copy];
     contact->_tintColor = self.tintColor;
@@ -192,3 +211,41 @@
 }
 
 @end
+
+
+@implementation OCKCDContact
+
+- (instancetype)initWithEntity:(NSEntityDescription *)entity
+insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+                          item:(OCKContact *)item {
+
+    NSParameterAssert(item);
+    self = [self initWithEntity:entity insertIntoManagedObjectContext:context];
+    if (self) {
+        self.identifier = item.identifier;
+        self.name = item.name;
+        self.relation = item.relation;
+        self.monogram = item.monogram;
+        self.tintColor = item.tintColor;
+        self.image = UIImageJPEGRepresentation(item.image,1.0);
+        self.type = @(item.type);
+        self.contactInfoItems = item.contactInfoItems;
+    }
+    return self;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"OCKCDContact"];
+}
+
+    @dynamic tintColor;
+    @dynamic identifier;
+    @dynamic name;
+    @dynamic relation;
+    @dynamic type;
+    @dynamic monogram;
+    @dynamic image;
+    @dynamic contactInfoItems;
+
+    @end
+

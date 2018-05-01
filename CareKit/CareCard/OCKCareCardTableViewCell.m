@@ -75,7 +75,10 @@ static const CGFloat ButtonViewSize = 40.0;
 - (void)prepareView {
     [super prepareView];
     
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+
+    //UITableViewCellAccessoryDisclosureIndicator;
     
     if (!_titleLabel) {
         _titleLabel = [OCKLabel new];
@@ -89,7 +92,7 @@ static const CGFloat ButtonViewSize = 40.0;
         _textLabel.textStyle = UIFontTextStyleSubheadline;
         [self addSubview:_textLabel];
     }
-    
+
     for (OCKCareCardButton *button in _frequencyButtons) {
         [button removeFromSuperview];
     }

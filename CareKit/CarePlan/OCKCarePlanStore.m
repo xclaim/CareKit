@@ -36,6 +36,7 @@
 #import "OCKCarePlanEvent_Internal.h"
 #import "OCKCarePlanEventResult_Internal.h"
 #import "OCKCareSchedule_Internal.h"
+#import "OCKContact_Internal.h"
 #import "OCKHelpers.h"
 #import "OCKDefines.h"
 
@@ -66,6 +67,7 @@ static NSString * const CoreDataFileName = @".ock.careplan.db";
 static NSString * const OCKEntityNameActivity =  @"OCKCDCarePlanActivity";
 static NSString * const OCKEntityNameEvent =  @"OCKCDCarePlanEvent";
 static NSString * const OCKEntityNameEventResult =  @"OCKCDCarePlanEventResult";
+static NSString * const OCKEntityNameContact =  @"OCKCDContact";
 
 static NSString * const OCKAttributeNameIdentifier = @"identifier";
 static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
@@ -74,6 +76,7 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
 @implementation OCKCarePlanStore {
     NSURL *_persistenceDirectoryURL;
     NSArray *_cachedActivities;
+    NSArray *_cachedContacts;
     dispatch_queue_t _queue;
     NSManagedObjectContext *_managedObjectContext;
     HKHealthStore *_healthStore;
@@ -179,6 +182,52 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     }
 
     return savedSuccessfully;
+}
+
+- (BOOL)block_addContactItemWithEntityName:(NSString *)entityName
+                             coreDataClass:(Class)coreDataClass
+                                sourceItem:(OCKContact *)sourceItem
+                                     error:(NSError **)error{
+    NSParameterAssert(entityName);
+    NSParameterAssert(coreDataClass);
+    NSParameterAssert(sourceItem);
+
+    NSManagedObjectContext *context = _managedObjectContext;
+    if (context == nil) {
+        return NO;
+    }
+
+    NSError *errorOut = nil;
+
+    OCKContact *item = [self block_fetchItemWithEntityName:entityName
+                                                identifier:sourceItem.identifier
+                                                     class:[OCKContact class]
+                                                     error:&errorOut];
+
+    if (item) {
+        if (error) {
+            NSString *reasonString = [NSString stringWithFormat:@"A contact with the identifier %@ already exists.", sourceItem.identifier];
+            *error = [NSError errorWithDomain:OCKErrorDomain code:OCKErrorInvalidObject userInfo:@{@"reason":reasonString}];
+
+
+            NSLog(@"%@",reasonString);
+        }
+    } else {
+
+        NSManagedObject *cdObject;
+        cdObject = [[coreDataClass alloc] initWithEntity:[NSEntityDescription entityForName:entityName
+                                                                     inManagedObjectContext:context]
+                          insertIntoManagedObjectContext:context
+                                                    item:sourceItem];
+
+        if (![context save:&errorOut]) {
+            if (error) {
+                *error = errorOut;
+            }
+        }
+    }
+
+    return errorOut ? NO : YES;
 }
 
 - (BOOL)block_alterItemWithEntityName:(NSString *)name
@@ -956,6 +1005,132 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
         } else {
             completion(YES, nil, error);
         }
+    }];
+}
+
+
+#pragma mark - contacts
+
+- (void)contactsWithType:(OCKContactType)type
+              completion:(void (^)(BOOL success, NSArray<OCKContact *> *contacts, NSError *error))completion {
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", @(type)];
+    return [self fetchContactsWithPredicate:predicate completion:completion];
+}
+
+- (void)contactForIdentifier:(NSString *)identifier
+                  completion:(void (^)(BOOL success, OCKContact *contact, NSError *error))completion {
+    NSParameterAssert(identifier);
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
+    [self fetchContactsWithPredicate:predicate completion:^(BOOL success, NSArray<OCKContact *> *contacts, NSError *error) {
+        completion(success, contacts.firstObject, error);
+    }];
+}
+
+- (void)contactsWithCompletion:(void (^)(BOOL success, NSArray<OCKContact *> *contacts, NSError *error))completion {
+    [self fetchContactsWithPredicate:nil completion:completion];
+}
+
+- (void)fetchContactsWithPredicate:(NSPredicate *)predicate
+                        completion:(void (^)(BOOL success, NSArray<OCKContact *> *contacts, NSError *error))completion {
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, nil, errorOut);
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+
+        if (_cachedContacts == nil) {
+            NSError *errorOut = nil;
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            _cachedContacts = [strongSelf block_fetchItemsWithEntityName:OCKEntityNameContact class:[OCKContact class] error:&errorOut];
+        }
+
+        NSArray *contacts = _cachedContacts;
+        if (predicate) {
+            contacts = [_cachedContacts filteredArrayUsingPredicate:predicate];
+        }
+        dispatch_async(_queue, ^{
+            completion(errorOut == nil, contacts , errorOut);
+        });
+    }];
+}
+
+
+- (void)handleContactListChange:(BOOL)result type:(OCKContactType)type {
+/*
+    if (result){
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            if ( _contactsUIDelegate && [_contactsUIDelegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
+                [_contactsUIDelegate carePlanStoreContactListDidChange:self];
+            }
+            if (_delegate && [_delegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
+                [_delegate carePlanStoreContactListDidChange:self];
+            }
+        });
+    }
+*/
+}
+
+- (void)addContact:(OCKContact *)contact
+        completion:(void (^)(BOOL success, NSError *error))completion {
+    OCKThrowInvalidArgumentExceptionIfNil(contact);
+
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, errorOut);
+        return;
+    }
+
+    __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        NSError *errorOut = nil;
+        result = [strongSelf block_addContactItemWithEntityName:OCKEntityNameContact coreDataClass:[OCKCDContact class] sourceItem:contact error:&errorOut];
+        if (result) {
+            _cachedContacts = nil;
+        }
+        dispatch_async(_queue, ^{
+            completion(result, errorOut);
+            [self handleContactListChange:result type:contact.type];
+        });
+    }];
+}
+
+- (void)removeContact:(OCKContact *)contact
+           completion:(void (^)(BOOL success, NSError *error))completion {
+    OCKThrowInvalidArgumentExceptionIfNil(contact);
+
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, errorOut);
+        return;
+    }
+
+    __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        NSError *error = nil;
+        result = [strongSelf block_removeItemWithEntityName:OCKEntityNameContact identifier:contact.identifier error:&error];
+        if (result) {
+            _cachedContacts = nil;
+        }
+
+        dispatch_async(_queue, ^{
+            completion(result, error);
+            [self handleContactListChange:result type:contact.type];
+        });
     }];
 }
 

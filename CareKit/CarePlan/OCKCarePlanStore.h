@@ -38,7 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class OCKCarePlanStore;
 @class OCKCarePlanActivity;
 @class OCKCarePlanEvent;
+@class OCKContact;
 @class OCKPatient;
+
 
 /**
  Implement this delegate to subscribe to the notification of changes in this store.
@@ -296,6 +298,56 @@ Get all the `OCKCarePlanEvent` objects for a given date.
 - (void)evaluateAdheranceThresholdForActivity:(OCKCarePlanActivity *)activity
                                          date:(NSDateComponents *)date
                                    completion:(void (^)(BOOL success, OCKCarePlanThreshold * _Nullable threshold, NSError * _Nullable error))completion;
+
+
+/**
+ Add a contact to this store.
+
+The identifiers for contacts in the store should be unique.
+A contact with a duplicate identifier cannot be added.
+
+ @param     contact     Contact object to be added.
+ @param     completion  Completion block to return operation result.
+*/
+- (void)addContact:(OCKContact *)contact
+        completion:(void (^)(BOOL success,  NSError * _Nullable error))completion;
+
+    /**
+     Get all contacts in the store.
+
+     @param     completion  A completion block that returns the result of the operation and a list of contacts.
+     */
+- (void)contactsWithCompletion:(void (^)(BOOL success, NSArray<OCKContact *> *contacts, NSError  * _Nullable error))completion;
+
+    /**
+     Get all contacts with specified type from this store.
+
+     @param     type        Contact type used to filter the contact list.
+     @param     completion  A completion block that returns the result of the operation and a list of contacts.
+     */
+- (void)contactsWithType:(NSInteger)type
+              completion:(void (^)(BOOL success, NSArray<OCKContact *> *contacts, NSError * _Nullable error))completion;
+
+    /**
+     Gets the contact associated with the provided identifier.
+
+     @param     identifier  A contact identifier.
+     @param     completion A completion block that returns the result of the operation and a contact (if the contact is in the store).
+     */
+- (void)contactForIdentifier:(NSString *)identifier
+                  completion:(void (^)(BOOL success, OCKContact * _Nullable contact, NSError * _Nullable error))completion;
+
+
+    /**
+     Remove a contact from this store.
+     All the events and messages(?) related to the contact will also be removed.
+
+     @param     contact        The contact object to remove.
+     @param     completion     A completion block that returns the result of the operation.
+     */
+- (void)removeContact:(OCKContact *)contact
+           completion:(void (^)(BOOL success, NSError * _Nullable error))completion;
+
 
 @end
 

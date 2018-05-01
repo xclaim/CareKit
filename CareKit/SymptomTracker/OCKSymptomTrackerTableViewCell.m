@@ -68,8 +68,9 @@ static const CGFloat HorizontalMargin = 10.0;
 - (void)prepareView {
     [super prepareView];
     
-    self.accessoryType = [self shouldShowDisclosureIndicator] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-    
+//    self.accessoryType = [self shouldShowDisclosureIndicator] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    self.accessoryType = [self shouldShowDisclosureIndicator] ? UITableViewCellAccessoryDetailDisclosureButton :  UITableViewCellAccessoryDetailButton;
+
     if (!_titleLabel) {
         _titleLabel = [OCKLabel new];
         _titleLabel.numberOfLines = 0;
@@ -226,7 +227,7 @@ static const CGFloat HorizontalMargin = 10.0;
                                                                         toItem:self
                                                                      attribute:NSLayoutAttributeTrailing
                                                                     multiplier:1.0
-                                                                      constant:-TrailingMargin],
+                                                                      constant:-2*TrailingMargin],
                                         [NSLayoutConstraint constraintWithItem:_valueLabel
                                                                      attribute:NSLayoutAttributeCenterY
                                                                      relatedBy:NSLayoutRelationEqual

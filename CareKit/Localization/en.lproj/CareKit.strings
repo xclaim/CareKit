@@ -41,6 +41,8 @@
 "TODAY_BUTTON_TITLE" = "Today";
 "CARE_CARD_INSTRUCTIONS_SECTION_TITLE" = "Instructions";
 "CARE_CARD_ADDITIONAL_INFO_SECTION_TITLE" = "Additional Information";
+"CARE_CARD_RESULTS_SECTION_TITLE" = "Results";
+"CARE_CARD_SHARING_SECTION_TITLE" = "Shared With";
 
 /* Symptom Tracker */
 "SYMPTOM_TRACKER_HEADER_TITLE" = "Activity Status";

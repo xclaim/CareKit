@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Apple Inc. All rights reserved.
+ Copyright (c) 2016, Apple Inc. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -29,57 +29,39 @@
  */
 
 
-#import <UIKit/UIKit.h>
-#import <CareKit/OCKDefines.h>
-
-// Glyph
-#import <CareKit/OCKGlyph.h>
-
-// Patient
-#import <CareKit/OCKPatient.h>
-#import <CareKit/OCKPatientWidget.h>
-
-// Connect
-#import <CareKit/OCKContactInfo.h>
-#import <CareKit/OCKContact.h>
-//#import <CareKit/OCKSlackMessagesViewController.h>
+#import "OCKContact.h"
+#import <CoreData/CoreData.h>
+#import "OCKCarePlanActivity_Internal.h"
 
 
-// CarePlan
-#import <CareKit/NSDateComponents+CarePlan.h>
-#import <CareKit/OCKCareSchedule.h>
-#import <CareKit/OCKCarePlanActivity.h>
-#import <CareKit/OCKCarePlanEvent.h>
-#import <CareKit/OCKCarePlanEventResult.h>
-#import <CareKit/OCKCarePlanStore.h>
-#import <CareKit/OCKCarePlanThreshold.h>
+NS_ASSUME_NONNULL_BEGIN
 
-// Insights
-#import <CareKit/OCKInsightItem.h>
-#import <CareKit/OCKMessageItem.h>
-#import <CareKit/OCKChart.h>
-#import <CareKit/OCKBarSeries.h>
-#import <CareKit/OCKBarChart.h>
-#import <CareKit/OCKRingItem.h>
-#import <CareKit/OCKInsightsViewController.h>
-#import <CareKit/OCKGroupedBarChartView.h>
 
-#import <CareKit/OCKConnectMessageItem.h>
-#import <CareKit/OCKConnectViewController.h>
-#import <CareKit/SLKTextViewController.h>
+@interface OCKContact () <OCKCoreDataObjectMirroring, NSCopying>
 
-// Care Card
-#import <CareKit/OCKCareCardViewController.h>
-#import <CareKit/OCKCareCardDetailViewController.h>
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
-// Care Content
-#import <CareKit/OCKCareContentsViewController.h>
+@end
 
-// Symptom Tracker
-#import <CareKit/OCKSymptomTrackerViewController.h>
 
-// PDF
-#import <CareKit/OCKDocument.h>
+@class OCKCDContactItemType;
 
-// Colors
-#import <CareKit/OCKColor.h>
+@interface OCKCDContact : NSManagedObject
+
+- (instancetype)initWithEntity:(NSEntityDescription *)entity
+insertIntoManagedObjectContext:(nullable NSManagedObjectContext *)context
+                          item:(OCKContact *)item;
+
+@property (nullable, nonatomic, retain) id tintColor;
+@property (nullable, nonatomic, retain) NSString *identifier;
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSString *relation;
+@property (nullable, nonatomic, retain) NSString *monogram;
+@property (nullable, nonatomic, retain) NSData *image;
+@property (nullable, nonatomic, retain) NSNumber *type;
+@property (nullable, nonatomic, retain) NSDictionary *userInfo;
+@property (nullable, nonatomic, retain) NSArray<OCKContactInfo *> *contactInfoItems;
+
+@end
+
+NS_ASSUME_NONNULL_END

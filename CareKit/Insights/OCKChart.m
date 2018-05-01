@@ -32,7 +32,6 @@
 #import "OCKChart.h"
 #import "OCKHelpers.h"
 
-
 @implementation OCKChart
 
 - (instancetype)init {

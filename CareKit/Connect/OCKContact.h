@@ -67,7 +67,7 @@ OCK_CLASS_AVAILABLE
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
- @param name                The contact uuid.
+ @param identifier          The contact identifier.
  @param name                The contact name.
  @param relation            The relationship to the contact.
  @param tintColor           The contact tint color.
@@ -80,7 +80,7 @@ OCK_CLASS_AVAILABLE
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
-                               uuid:(NSString *)uuid
+                               identifier:(NSString *)identifier
                                name:(NSString *)name
                            relation:(NSString *)relation
                           tintColor:(nullable UIColor *)tintColor
@@ -95,7 +95,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
- @param uuid                The contact uuid.
+ @param identifier          The contact identifier.
  @param name                The contact name.
  @param relation            The relationship to the contact.
  @param contactInfoItems    The contact information for the contact.
@@ -106,7 +106,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
-                               uuid:(NSString *)uuid
+                               identifier:(NSString *)identifier
                                name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
@@ -125,7 +125,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
 /**
  A string indicating the uuid for a contact.
  */
-@property (nonatomic, readonly) NSString *uuid;
+@property (nonatomic, readonly) NSString *identifier;
 
 /**
  A string indicating the name for a contact.

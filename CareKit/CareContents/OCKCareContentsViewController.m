@@ -831,6 +831,18 @@
     return _tableViewData[section].count;
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    NSArray <OCKCarePlanEvent *> *events = _tableViewData[indexPath.section][indexPath.row];
+
+    OCKCarePlanEvent *event = events.firstObject;
+    OCKCarePlanActivity *activity = event.activity;
+    OCKCarePlanActivityType type = activity.type;
+
+    NSLog(@"accessoryButtonTappedForRowWithIndexPath");
+    [self.navigationController pushViewController:[self detailViewControllerForActivity:activity] animated:YES];
+
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray <OCKCarePlanEvent *> *events = _tableViewData[indexPath.section][indexPath.row];
     

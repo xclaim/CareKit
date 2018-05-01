@@ -43,6 +43,8 @@ static const CGFloat HeaderViewHeight = 100.0;
     NSMutableArray<NSString *> *_sectionTitles;
     NSString *_instructionsSectionTitle;
     NSString *_additionalInfoSectionTitle;
+    NSString *_resultsSectionTitle;
+    NSString *_sharingSectionTitle;
     UITableView *_tableView;
     NSMutableArray *_constraints;
 }
@@ -64,6 +66,10 @@ static const CGFloat HeaderViewHeight = 100.0;
 - (void)prepareView {
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                           target:self
+                                                                                           action:@selector(share:)];
+
     if (!_headerView) {
         _headerView = [[OCKCareCardDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, HeaderViewHeight)];
         [self.view addSubview:_headerView];
@@ -85,6 +91,14 @@ static const CGFloat HeaderViewHeight = 100.0;
     [self setUpConstraints];
 }
 
+
+- (void)share:(id)sender {
+    NSArray* dataToShare = @[_intervention];
+    UIActivityViewController *activityViewController =  [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
+    activityViewController.excludedActivityTypes = nil;
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+    
 - (void)setUpConstraints {
     [NSLayoutConstraint deactivateConstraints:_constraints];
     
@@ -163,6 +177,13 @@ static const CGFloat HeaderViewHeight = 100.0;
         _additionalInfoSectionTitle = OCKLocalizedString(@"CARE_CARD_ADDITIONAL_INFO_SECTION_TITLE", nil);
         [_sectionTitles addObject:_additionalInfoSectionTitle];
     }
+
+    _resultsSectionTitle = OCKLocalizedString(@"CARE_CARD_RESULTS_SECTION_TITLE", nil);
+    [_sectionTitles addObject:_resultsSectionTitle];
+
+    _sharingSectionTitle = OCKLocalizedString(@"CARE_CARD_SHARING_SECTION_TITLE", nil);
+    [_sectionTitles addObject:_sharingSectionTitle];
+
 }
 
 
@@ -210,8 +231,28 @@ static const CGFloat HeaderViewHeight = 100.0;
         cell.intervention = _intervention;
         cell.layer.masksToBounds = YES;
         return cell;
+    } else if ([sectionTitle isEqualToString: _resultsSectionTitle]) {
+        static NSString *ResultsCellIdentifier = @"ResultsCell";
+        OCKCareCardAdditionalInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ResultsCellIdentifier];
+        if (!cell) {
+            cell = [[OCKCareCardAdditionalInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                             reuseIdentifier:ResultsCellIdentifier];
+        }
+        cell.intervention = _intervention;
+        cell.layer.masksToBounds = YES;
+        return cell;
+    } else if ([sectionTitle isEqualToString: _sharingSectionTitle]) {
+        static NSString *SharingCellIdentifier = @"SharingCell";
+        OCKCareCardAdditionalInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SharingCellIdentifier];
+        if (!cell) {
+            cell = [[OCKCareCardAdditionalInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                             reuseIdentifier:SharingCellIdentifier];
+        }
+        cell.intervention = _intervention;
+        cell.layer.masksToBounds = YES;
+        return cell;
     }
-    return nil;
+   return nil;
 }
 
 @end
