@@ -142,9 +142,27 @@ class SampleData: NSObject {
             carePlanStore.add(carePlanActivity) { success, error in
                 if !success {
                     print(error!.localizedDescription)
+                } else {
+                    print(carePlanActivity)
+                }
+            }
+
+            print("carePlanActivity", carePlanActivity)
+
+        }
+
+/*
+        for sampleActivity in activities {
+            let carePlanActivity = sampleActivity.carePlanActivity()
+            carePlanStore.contacts(for: carePlanActivity) { (contacts, error) in
+                if error == nil {
+                    print(contacts)
+                } else {
+                    print(error)
                 }
             }
         }
+*/
         
     }
     

@@ -337,6 +337,8 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
         self.resultResettable  = @(item.resultResettable);
         self.thresholds = item.thresholds;
         self.optional = @(item.optional);
+        self.events = item.events;
+        self.contacts = item.contacts;
     }
     return self;
 }
@@ -358,5 +360,21 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 @dynamic userInfo;
 @dynamic thresholds;
 @dynamic optional;
+@dynamic events;
+@dynamic contacts;
+
+@end
+
+@interface OCKCDCarePlanActivity (CoreDataGeneratedAccessors)
+
+- (void)addEventsObject:(OCKCDCarePlanEvent *)value;
+- (void)removeEventsObject:(OCKCDCarePlanEvent *)value;
+- (void)addEvents:(NSSet<OCKCDCarePlanEvent *> *)values;
+- (void)removeEvents:(NSSet<OCKCDCarePlanEvent *> *)values;
+
+- (void)addContactsObject:(OCKCDContact *)value;
+- (void)removeContactsObject:(OCKCDContact *)value;
+- (void)addContacts:(NSSet<OCKCDContact *> *)values;
+- (void)removeContacts:(NSSet<OCKCDContact *> *)values;
 
 @end

@@ -208,6 +208,9 @@ static NSString *TipSymbol = @"\u2731";
         case OCKMessageItemTypePlain:
             string = nil;
             break;
+        case OCKMessageItemTypeRegime:
+            string = nil;
+            break;
     }
     return string;
 }

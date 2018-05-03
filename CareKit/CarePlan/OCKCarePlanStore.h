@@ -348,6 +348,15 @@ A contact with a duplicate identifier cannot be added.
 - (void)removeContact:(OCKContact *)contact
            completion:(void (^)(BOOL success, NSError * _Nullable error))completion;
 
+/**
+ Obtain contacts that belongs to a `OCKCarePlanActivity` .
+
+ @param     activity        Activity to filter events.
+ @param     completion      A completion block that returns the result of the operation and a list of contact objects.
+ */
+- (void)contactsForActivity:(OCKCarePlanActivity *)activity
+               completion:(void (^)(NSArray<OCKContact *> *contacts, NSError * _Nullable error))completion;
+
 
 @end
 

@@ -37,6 +37,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class OCKCDCarePlanEvent, OCKCDContact;
+
 /**
  Defines the types of activities.
  
@@ -297,6 +299,11 @@ OCK_CLASS_AVAILABLE
  Default value is NO.
  */
 @property (nonatomic, readonly) BOOL optional;
+
+@property (nullable, nonatomic, retain) NSSet<OCKCDCarePlanEvent *> *events;
+
+@property (nullable, nonatomic, retain) NSSet<OCKCDContact *> *contacts;
+
 
 @end
 

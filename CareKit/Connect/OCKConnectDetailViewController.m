@@ -45,6 +45,7 @@ static const CGFloat HeaderViewHeight = 225.0;
     NSMutableArray<NSString *> *_sectionTitles;
     NSString *_contactInfoSectionTitle;
     NSString *_sharingSectionTitle;
+    UISegmentedControl *_segmentedControl;
 }
 
 - (instancetype)initWithContact:(OCKContact *)contact {
@@ -62,11 +63,14 @@ static const CGFloat HeaderViewHeight = 225.0;
     self.tableView.estimatedRowHeight = 44.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectChatButtonForContact:presentationSourceView:)]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithTitle:OCKLocalizedString(@"CONNECT_CHAT_TITLE", nil)
                                               style:UIBarButtonItemStylePlain
                                               target:self
                                               action:@selector(chat:)];
+    }
     [self prepareView];
 }
 
@@ -98,6 +102,16 @@ static const CGFloat HeaderViewHeight = 225.0;
 }
 
 - (void)prepareView {
+
+    if (!_segmentedControl) {
+        NSArray *segments = [NSArray arrayWithObjects: @"Feed", @"Sharing", @"Agreements", nil];
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:segments];
+
+        [_segmentedControl addTarget:self
+                             action:@selector(clickedSegment:)
+                   forControlEvents:UIControlEventValueChanged];
+    }
+
     if (!_headerView) {
         _headerView = [[OCKConnectTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, HeaderViewHeight)];
     }
@@ -107,6 +121,11 @@ static const CGFloat HeaderViewHeight = 225.0;
     self.tableView.tableHeaderView = _headerView;
 }
 
+- (void)clickedSegment:(id)sender {
+    UISegmentedControl *control = (UISegmentedControl *) sender;
+    NSLog(@"segment @%d", control.selectedSegmentIndex);
+
+}
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     

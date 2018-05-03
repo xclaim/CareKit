@@ -33,6 +33,7 @@
 #import "OCKCareCardDetailHeaderView.h"
 #import "OCKCareCardInstructionsTableViewCell.h"
 #import "OCKCareCardAdditionalInfoTableViewCell.h"
+#import "OCKCareCardSharingTableViewCell.h"
 #import "OCKDefines_Private.h"
 
 
@@ -47,6 +48,8 @@ static const CGFloat HeaderViewHeight = 100.0;
     NSString *_sharingSectionTitle;
     UITableView *_tableView;
     NSMutableArray *_constraints;
+    NSMutableArray<OCKContact *> *_sharingContacts;
+    NSArray<OCKCarePlanEvent *> *_events;
 }
 
 - (instancetype)initWithIntervention:(OCKCarePlanActivity *)intervention {
@@ -59,7 +62,6 @@ static const CGFloat HeaderViewHeight = 100.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self prepareView];
 }
 
@@ -87,7 +89,10 @@ static const CGFloat HeaderViewHeight = 100.0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self createTableViewDataArray];
-    
+
+    _sharingContacts= [NSMutableArray arrayWithArray:[_intervention.contacts allObjects]];
+    _events = [NSArray arrayWithArray:[_intervention.events allObjects]];
+
     [self setUpConstraints];
 }
 
@@ -178,11 +183,15 @@ static const CGFloat HeaderViewHeight = 100.0;
         [_sectionTitles addObject:_additionalInfoSectionTitle];
     }
 
-    _resultsSectionTitle = OCKLocalizedString(@"CARE_CARD_RESULTS_SECTION_TITLE", nil);
-    [_sectionTitles addObject:_resultsSectionTitle];
+    if (_events && _events.count>0) {
+        _resultsSectionTitle = OCKLocalizedString(@"CARE_CARD_RESULTS_SECTION_TITLE", nil);
+        [_sectionTitles addObject:_resultsSectionTitle];
+    }
 
-    _sharingSectionTitle = OCKLocalizedString(@"CARE_CARD_SHARING_SECTION_TITLE", nil);
-    [_sectionTitles addObject:_sharingSectionTitle];
+    if (_sharingContacts && _sharingContacts.count>0) {
+        _sharingSectionTitle = OCKLocalizedString(@"CARE_CARD_SHARING_SECTION_TITLE", nil);
+        [_sectionTitles addObject:_sharingSectionTitle];
+    }
 
 }
 
@@ -243,12 +252,13 @@ static const CGFloat HeaderViewHeight = 100.0;
         return cell;
     } else if ([sectionTitle isEqualToString: _sharingSectionTitle]) {
         static NSString *SharingCellIdentifier = @"SharingCell";
-        OCKCareCardAdditionalInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SharingCellIdentifier];
+        OCKCareCardSharingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SharingCellIdentifier];
         if (!cell) {
-            cell = [[OCKCareCardAdditionalInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+            cell = [[OCKCareCardSharingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                              reuseIdentifier:SharingCellIdentifier];
         }
         cell.intervention = _intervention;
+        cell.contact = _sharingContacts[indexPath.row];
         cell.layer.masksToBounds = YES;
         return cell;
     }

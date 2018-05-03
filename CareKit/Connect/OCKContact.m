@@ -34,7 +34,6 @@
 #import "OCKContact_Internal.h"
 #import "OCKHelpers.h"
 
-
 @implementation OCKContact
 
 + (instancetype)new {
@@ -247,5 +246,16 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
     @dynamic image;
     @dynamic contactInfoItems;
 
-    @end
+@end
+
+
+@interface OCKCDContact (CoreDataGeneratedAccessors)
+
+- (void)addActivityObject:(OCKCDCarePlanActivity *)value;
+- (void)removeActivityObject:(OCKCDCarePlanActivity *)value;
+- (void)addActivity:(NSSet<OCKCDCarePlanActivity *> *)values;
+- (void)removeActivity:(NSSet<OCKCDCarePlanActivity *> *)values;
+
+@end
+
 

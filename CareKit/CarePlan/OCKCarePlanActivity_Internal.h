@@ -35,6 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NSObject, OCKCDCarePlanEvent, OCKCDContact;
+
 @protocol OCKCoreDataObjectMirroring <NSObject>
 
 - (instancetype)initWithCoreDataObject:(NSManagedObject *)cdObject;
@@ -70,6 +72,8 @@ insertIntoManagedObjectContext:(nullable NSManagedObjectContext *)context
 @property (nullable, nonatomic, retain) NSDictionary *userInfo;
 @property (nullable, nonatomic, retain) NSArray<NSArray<OCKCarePlanThreshold *> *> *thresholds;
 @property (nullable, nonatomic, retain) NSNumber *optional;
+@property (nullable, nonatomic, retain) NSSet<OCKCDCarePlanEvent *> *events;
+@property (nullable, nonatomic, retain) NSSet<OCKCDContact *> *contacts;
 
 @end
 
