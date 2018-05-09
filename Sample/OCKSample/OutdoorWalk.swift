@@ -50,6 +50,8 @@ struct OutdoorWalk: Activity {
         let instructions = NSLocalizedString("Take a leisurely walk.", comment: "")
         
         // Create the intervention activity.
+
+
         let activity = OCKCarePlanActivity.intervention(
             withIdentifier: activityType.rawValue,
             groupIdentifier: "Physical Activity",
@@ -59,6 +61,7 @@ struct OutdoorWalk: Activity {
             instructions: instructions,
             imageURL: nil,
             schedule: schedule,
+            contacts: [],
             userInfo: nil,
             optional: false
         )

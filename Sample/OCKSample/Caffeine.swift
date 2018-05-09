@@ -56,6 +56,7 @@ struct Caffeine: Activity {
                                                     instructions: instructions,
                                                     imageURL: nil,
                                                     schedule: schedule,
+                                                    contacts: [],
                                                     userInfo: nil)
         
         return activity

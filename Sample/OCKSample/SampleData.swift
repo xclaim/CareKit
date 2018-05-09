@@ -55,12 +55,13 @@ class SampleData: NSObject {
     /**
         An array of `OCKContact`s to display on the Connect view.
     */
-    let contacts: [OCKContact] = [
+    let sampleContacts: [OCKContact] = [
         OCKContact(contactType: .careTeam,
                    identifier: "123",
                    name: "Dr. Maria Ruiz",
                    relation: "Physician",
                    contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("mruiz2@mac.com")],
+                   activities: [],
                    tintColor: Colors.blue.color,
                    monogram: "MR",
                    image: nil),
@@ -70,6 +71,7 @@ class SampleData: NSObject {
                    name: "Bill James",
                    relation: "Nurse",
                    contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("billjames2@mac.com")],
+                   activities: [],
                    tintColor: Colors.green.color,
                    monogram: "BJ",
                    image: nil),
@@ -86,6 +88,7 @@ class SampleData: NSObject {
                                .facetimeVideo("3145554321", display: "314-555-4321"),
                                .facetimeAudio("3145554321", display: "314-555-4321"),
                                OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "chat", icon: UIImage(named: "starstuff"))],
+                   activities: [],
                    tintColor: Colors.yellow.color,
                    monogram: "TC",
                    image: nil)
@@ -106,7 +109,7 @@ class SampleData: NSObject {
     required init(carePlanStore: OCKCarePlanStore) {
 
 
-        for sampleContact in contacts {
+        for sampleContact in sampleContacts {
             carePlanStore.add(sampleContact) { success, error in
                 if !success {
                     print("Could not add :",error?.localizedDescription ?? "")
@@ -114,15 +117,16 @@ class SampleData: NSObject {
             }
         }
 
-        let app =  OCKContact(contactType: .personal, identifier: "02123", name: "XClaim",relation: "App",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
+        let app =  OCKContact(contactType: .personal, identifier: "02123", name: "XClaim",relation: "App",contactInfoItems:[], activities: [],
+tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
 
         let announcement = OCKConnectMessageItem(messageType: OCKConnectMessageType.received, sender: app, message: NSLocalizedString("Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote",  comment: ""), icon: nil, dateString:dateString, userData:nil)
 
-        let contact =  OCKContact(contactType: .personal, identifier: "03123", name: "Johan Sellström",relation: "Myself",contactInfoItems:[],tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
+        let contact =  OCKContact(contactType: .personal, identifier: "03123", name: "Johan Sellström",relation: "Myself", contactInfoItems:[],  activities: [], tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
 
-        self.patient = OCKPatient(identifier: "patient", contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: contacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
+        self.patient = OCKPatient(identifier: "patient", contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: sampleContacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
 
-        for contact in contacts {
+        for contact in sampleContacts {
             if contact.type == .careTeam {
                 self.connectMessageItems = [announcement]
                 contactsWithMessageItems.insert(contact, at: 0)
@@ -141,31 +145,30 @@ class SampleData: NSObject {
             let carePlanActivity = sampleActivity.carePlanActivity()
             carePlanStore.add(carePlanActivity) { success, error in
                 if !success {
-                    print(error!.localizedDescription)
+                    print("error ", error!.localizedDescription)
                 } else {
-                    print(carePlanActivity)
+                    print("success")
+
+                    print("carePlanActivity", carePlanActivity)
+                    var sharingContacts = NSMutableArray(array: carePlanActivity.contacts!)
+                    sharingContacts.add(self.sampleContacts[0])
+                    sharingContacts.add(self.sampleContacts[1])
+
+                    carePlanStore.setContacts(sharingContacts as! [OCKContact], for: carePlanActivity, completion: { (success, activity, error) in
+                        print(activity)
+                    })
+
                 }
+
             }
+         }
 
-            print("carePlanActivity", carePlanActivity)
 
-        }
-
-/*
-        for sampleActivity in activities {
-            let carePlanActivity = sampleActivity.carePlanActivity()
-            carePlanStore.contacts(for: carePlanActivity) { (contacts, error) in
-                if error == nil {
-                    print(contacts)
-                } else {
-                    print(error)
-                }
-            }
-        }
-*/
-        
     }
-    
+
+
+    //carePlanActivity.addContact(self.sampleContacts[0])
+
     // MARK: Convenience
     
     /// Returns the `Activity` that matches the supplied `ActivityType`.

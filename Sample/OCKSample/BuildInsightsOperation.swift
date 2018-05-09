@@ -66,7 +66,7 @@ class BuildInsightsOperation: Operation {
         if let insight = createBackPainInsight() {
             newInsights.append(insight)
         }
-        
+
         // Store any new insights thate were created.
         if !newInsights.isEmpty {
             insights = newInsights
@@ -228,6 +228,9 @@ class BuildInsightsOperation: Operation {
      
         return Float(completedCount) / Float(events.count)
     }
+
+
+    
 }
 
 /**

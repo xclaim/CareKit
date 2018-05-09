@@ -31,6 +31,7 @@
 
 
 #import <CareKit/CareKit.h>
+#import <CareKit/OCKCarePlanActivity.h>
 #import <ContactsUI/ContactsUI.h>
 
 
@@ -109,7 +110,8 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
                                identifier:(NSString *)identifier
                                name:(NSString *)name
 						   relation:(NSString *)relation
-				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
+                   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
+                   activities:(NSArray<OCKCarePlanActivity *> *)activities
 						  tintColor:(nullable UIColor *)tintColor
 						   monogram:(null_unspecified NSString *)monogram
 							  image:(nullable UIImage *)image;
@@ -166,6 +168,11 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  is available, it will be displayed instead of the monogram.
  */
 @property (nonatomic, nullable) UIImage *image;
+
+@property (nullable, nonatomic, readonly) NSArray<OCKCarePlanActivity *> *activities;
+
+-(void) addActivity: (OCKCarePlanActivity *) activity;
+-(void) removeActivity: (OCKCarePlanActivity *) activity;
 
 @end
 

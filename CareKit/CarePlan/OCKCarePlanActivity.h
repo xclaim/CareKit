@@ -37,7 +37,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class OCKCDCarePlanEvent, OCKCDContact;
+@class OCKCarePlanEvent, OCKContact;
 
 /**
  Defines the types of activities.
@@ -95,6 +95,7 @@ OCK_CLASS_AVAILABLE
                               instructions:(nullable NSString *)instructionstive
                                   imageURL:(nullable NSURL *)imageURLage
                                   schedule:(OCKCareSchedule *)schedule
+                                  contacts:(NSArray<OCKContact *> *)contacts
                                   userInfo:(nullable NSDictionary *)userInfo
                                   optional:(BOOL)optional;
 
@@ -123,6 +124,7 @@ OCK_CLASS_AVAILABLE
                                tintColor:(nullable UIColor *)tintColor
                         resultResettable:(BOOL)resultResettable
                                 schedule:(OCKCareSchedule *)schedule
+                                contacts:(NSArray<OCKContact *> *)contacts
                                 userInfo:(nullable NSDictionary *)userInfo
                               thresholds:(nullable NSArray<NSArray<OCKCarePlanThreshold *> *> *)thresholds
                                 optional:(BOOL)optional;
@@ -135,6 +137,7 @@ OCK_CLASS_AVAILABLE
                                tintColor:(nullable UIColor *)tintColor
                         resultResettable:(BOOL)resultResettable
                                 schedule:(OCKCareSchedule *)schedule
+                                contacts:(NSArray<OCKContact *> *)contacts
                                 userInfo:(nullable NSDictionary *)userInfo
                                 optional:(BOOL)optional;
 
@@ -163,6 +166,7 @@ OCK_CLASS_AVAILABLE
                                       instructions:(nullable NSString *)instructions
                                           imageURL:(nullable NSURL *)imageURL
                                           schedule:(OCKCareSchedule *)schedule
+                                          contacts:(NSArray<OCKContact *> *)contacts
                                           userInfo:(nullable NSDictionary *)userInfo;
 
 /**
@@ -194,6 +198,7 @@ OCK_CLASS_AVAILABLE
                       instructions:(nullable NSString *)instructions
                           imageURL:(nullable NSURL *)imageURL
                           schedule:(OCKCareSchedule *)schedule
+                          contacts:(NSArray<OCKContact *> *)contacts
                   resultResettable:(BOOL)resultResettable
                           userInfo:(nullable NSDictionary<NSString *, id<NSCoding>> *)userInfo
                         thresholds:(nullable NSArray<NSArray<OCKCarePlanThreshold *> *> *)thresholds
@@ -210,6 +215,7 @@ OCK_CLASS_AVAILABLE
                       instructions:(nullable NSString *)instructions
                           imageURL:(nullable NSURL *)imageURL
                           schedule:(OCKCareSchedule *)schedule
+                        contacts:(NSArray<OCKContact *> *)contacts
                   resultResettable:(BOOL)resultResettable
                           userInfo:(nullable NSDictionary<NSString *, id<NSCoding>> *)userInfo;
 
@@ -300,9 +306,12 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, readonly) BOOL optional;
 
-@property (nullable, nonatomic, retain) NSSet<OCKCDCarePlanEvent *> *events;
+@property (nullable, nonatomic, retain) NSSet<OCKCarePlanEvent *> *events;
 
-@property (nullable, nonatomic, retain) NSSet<OCKCDContact *> *contacts;
+@property (nullable, nonatomic, readonly) NSArray<OCKContact *> *contacts;
+
+-(void) addContact: (OCKContact *) contact;
+-(void) removeContact: (OCKContact *) contact;
 
 
 @end

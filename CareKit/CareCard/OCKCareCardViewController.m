@@ -467,7 +467,7 @@
 }
 
 - (UIViewController *)detailViewControllerForActivity:(OCKCarePlanActivity *)activity {
-    OCKCareCardDetailViewController *detailViewController = [[OCKCareCardDetailViewController alloc] initWithIntervention:activity];
+    OCKCareCardDetailViewController *detailViewController = [[OCKCareCardDetailViewController alloc] initWithIntervention:activity store:_store];
     return detailViewController;
 }
 

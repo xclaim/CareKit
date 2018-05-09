@@ -347,6 +347,7 @@
     OCKConnectDetailViewController *detailViewController = [[OCKConnectDetailViewController alloc] initWithContact:contact];
     detailViewController.delegate = self.delegate;
     detailViewController.masterViewController = self;
+    detailViewController.store = self.store;
     return detailViewController;
 }
 

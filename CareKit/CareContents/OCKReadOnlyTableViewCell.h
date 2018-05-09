@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OCKReadOnlyTableViewCell : OCKTableViewCell
 
 @property (nonatomic, copy) OCKCarePlanEvent *readOnlyEvent;
+@property (nonatomic, copy) OCKCarePlanActivity *activity;
 
 @end
 

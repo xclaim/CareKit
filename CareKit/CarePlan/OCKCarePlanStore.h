@@ -176,6 +176,9 @@ You can use the watch delegate to subscribe a watch app to notifications of chan
 - (void)activitiesWithType:(OCKCarePlanActivityType)type
                 completion:(void (^)(BOOL success, NSArray<OCKCarePlanActivity *> *activities, NSError * _Nullable error))completion;
 
+- (void)activitiesWithContactsAndIdentifier:(NSString *)identifier
+                                 completion:(void (^)(BOOL success, NSArray<OCKCarePlanActivity *> *activities, NSError *error))completion;
+
 /**
  Gets the activity associated with the provided identifier.
  
@@ -194,6 +197,19 @@ You can use the watch delegate to subscribe a watch app to notifications of chan
  */
 - (void)activitiesWithGroupIdentifier:(NSString *)groupIdentifier
                            completion:(void (^)(BOOL success, NSArray<OCKCarePlanActivity *> *activities, NSError * _Nullable error))completion;
+
+/**
+ Update the contacts of an activity.
+ Use this method to change the end date of an activity after it has been added to store.
+
+ @param     contacts        Contacts to share with.
+ @param     activity        Activity object to receive new end date.
+ @param     completion      A completion block that returns the result of the operation and the activity that was modified.
+ */
+
+- (void)setContacts: (NSArray <OCKContact *> *)contacts
+       forActivity:(OCKCarePlanActivity *)activity
+        completion:(void (^)(BOOL success, OCKCarePlanActivity * _Nullable activity, NSError * _Nullable error))completion;
 
 /**
  Update the end date of an activity.
@@ -347,15 +363,6 @@ A contact with a duplicate identifier cannot be added.
      */
 - (void)removeContact:(OCKContact *)contact
            completion:(void (^)(BOOL success, NSError * _Nullable error))completion;
-
-/**
- Obtain contacts that belongs to a `OCKCarePlanActivity` .
-
- @param     activity        Activity to filter events.
- @param     completion      A completion block that returns the result of the operation and a list of contact objects.
- */
-- (void)contactsForActivity:(OCKCarePlanActivity *)activity
-               completion:(void (^)(NSArray<OCKContact *> *contacts, NSError * _Nullable error))completion;
 
 
 @end

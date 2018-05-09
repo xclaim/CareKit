@@ -29,39 +29,19 @@
  */
 
 
-#import "OCKContact.h"
-#import <CoreData/CoreData.h>
-#import "OCKCarePlanActivity_Internal.h"
+#import <CareKit/CareKit.h>
+#import "OCKTableViewCell.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface OCKConnectSharingTableViewCell : OCKTableViewCell
 
-@interface OCKContact () <OCKCoreDataObjectMirroring, NSCopying>
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
-
-@end
-
-
-@class OCKCDContactItemType;
-
-@interface OCKCDContact : NSManagedObject
-
-- (instancetype)initWithEntity:(NSEntityDescription *)entity
-insertIntoManagedObjectContext:(nullable NSManagedObjectContext *)context
-                          item:(OCKContact *)item;
-
-@property (nullable, nonatomic, retain) id tintColor;
-@property (nullable, nonatomic, retain) NSString *identifier;
-@property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSString *relation;
-@property (nullable, nonatomic, retain) NSString *monogram;
-@property (nullable, nonatomic, retain) NSData *image;
-@property (nullable, nonatomic, retain) NSNumber *type;
-@property (nullable, nonatomic, retain) NSArray<OCKContactInfo *> *contactInfoItems;
-@property (nullable, nonatomic, retain) NSArray<OCKCarePlanActivity *> *activities;
+@property (nonatomic) OCKCarePlanStore *store;
+@property (nonatomic) OCKCarePlanActivity *intervention;
+@property (nonatomic) OCKContact *contact;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

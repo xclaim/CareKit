@@ -58,6 +58,7 @@ struct TakeMedication: Activity {
             instructions: instructions,
             imageURL: nil,
             schedule: schedule,
+            contacts: [],
             userInfo: nil,
             optional: true
         )

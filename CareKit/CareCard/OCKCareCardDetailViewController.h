@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 OCK_CLASS_AVAILABLE
 @interface OCKCareCardDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-- (instancetype)initWithIntervention:(OCKCarePlanActivity *)intervention;
+- (instancetype)initWithIntervention:(OCKCarePlanActivity *)intervention store:(OCKCarePlanStore *)store;
 
 @property (nonatomic, readonly) OCKCarePlanActivity *intervention;
 

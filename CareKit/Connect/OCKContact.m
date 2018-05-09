@@ -51,6 +51,7 @@
                        emailAddress:(NSString *)emailAddress
                            monogram:(NSString *)monogram
                               image:(UIImage *)image {
+    
 	NSMutableArray *contactInfoItemsArray = [NSMutableArray array]; 
 	if (phoneNumber) {
 		[contactInfoItemsArray addObject:[[OCKContactInfo alloc] initWithType:OCKContactInfoTypePhone displayString:phoneNumber.stringValue actionURL:nil]];
@@ -63,7 +64,7 @@
 	if (emailAddress.length) {
 		[contactInfoItemsArray addObject:[[OCKContactInfo alloc] initWithType:OCKContactInfoTypeEmail displayString:emailAddress actionURL:nil]];
 	}
-    return [self initWithContactType:type identifier:identifier name:name relation:relation contactInfoItems:contactInfoItemsArray tintColor:tintColor monogram:monogram image:image];
+    return [self initWithContactType:type identifier:identifier name:name relation:relation contactInfoItems:contactInfoItemsArray activities:nil tintColor:tintColor monogram:monogram image:image];
 }
 
 - (instancetype)initWithContactType:(OCKContactType)type
@@ -71,6 +72,7 @@
                                name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
+                         activities:(NSArray<OCKCarePlanActivity *> *)activities
 						  tintColor:(nullable UIColor *)tintColor
 						   monogram:(null_unspecified NSString *)monogram
 							  image:(nullable UIImage *)image {
@@ -80,7 +82,8 @@
         _identifier = [identifier copy];
         _name = [name copy];
 		_relation = [relation copy];
-		_contactInfoItems = [contactInfoItems copy];
+        _contactInfoItems = [contactInfoItems copy];
+        _activities = [activities copy];
 		_tintColor = tintColor;
 		self.monogram = [self clippedMonogramForString:monogram];
 		_image = image;
@@ -97,6 +100,7 @@
                                 name:cdObject.name
                             relation:cdObject.relation
                     contactInfoItems:(NSArray<OCKContactInfo *> *)cdObject.contactInfoItems
+                    activities:(NSArray<OCKCarePlanActivity *> *)cdObject.activities
                            tintColor:cdObject.tintColor
                             monogram:cdObject.monogram
                             image:[UIImage imageWithData:cdObject.image scale:[[UIScreen mainScreen] scale]]
@@ -117,6 +121,7 @@
             OCKEqualObjects(self.relation, castObject.relation) &&
             OCKEqualObjects(self.tintColor, castObject.tintColor) &&
             OCKEqualObjects(self.contactInfoItems, castObject.contactInfoItems) &&
+            OCKEqualObjects(self.activities, castObject.activities) &&
             OCKEqualObjects(self.monogram, castObject.monogram) &&
             OCKEqualObjects(self.image, castObject.image));
 }
@@ -136,7 +141,8 @@
         OCK_DECODE_OBJ_CLASS(aDecoder, name, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, relation, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, tintColor, UIColor);
-		OCK_DECODE_OBJ_CLASS(aDecoder, contactInfoItems, NSArray);
+        OCK_DECODE_OBJ_CLASS(aDecoder, contactInfoItems, NSArray);
+        OCK_DECODE_OBJ_CLASS(aDecoder, activities, NSArray);
         OCK_DECODE_OBJ_CLASS(aDecoder, monogram, NSString);
         OCK_DECODE_IMAGE(aDecoder, image);
     }
@@ -150,6 +156,7 @@
     OCK_ENCODE_OBJ(aCoder, relation);
     OCK_ENCODE_OBJ(aCoder, tintColor);
     OCK_ENCODE_OBJ(aCoder, contactInfoItems);
+    OCK_ENCODE_OBJ(aCoder, activities);
     OCK_ENCODE_OBJ(aCoder, monogram);
     OCK_ENCODE_IMAGE(aCoder, image);
 }
@@ -167,6 +174,7 @@
     contact->_contactInfoItems = [self.contactInfoItems copy];
     contact->_monogram = [self.monogram copy];
     contact->_image = self.image;
+    contact->_activities =  [self.activities copy];
     return contact;
 }
 
@@ -209,6 +217,14 @@
     return [NSString stringWithFormat:@"%@%@",[first uppercaseString],[last uppercaseString]];
 }
 
+-(void) addActivity:(OCKCarePlanActivity *)activity {
+    NSLog(@"Adding activity %@", activity);
+}
+
+-(void) removeActivity:(OCKCarePlanActivity *)activity {
+    NSLog(@"Removing activity %@", activity);
+}
+
 @end
 
 
@@ -229,6 +245,7 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
         self.image = UIImageJPEGRepresentation(item.image,1.0);
         self.type = @(item.type);
         self.contactInfoItems = item.contactInfoItems;
+        self.activities = item.activities;
     }
     return self;
 }
@@ -245,17 +262,7 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
     @dynamic monogram;
     @dynamic image;
     @dynamic contactInfoItems;
+    @dynamic activities;
 
 @end
-
-
-@interface OCKCDContact (CoreDataGeneratedAccessors)
-
-- (void)addActivityObject:(OCKCDCarePlanActivity *)value;
-- (void)removeActivityObject:(OCKCDCarePlanActivity *)value;
-- (void)addActivity:(NSSet<OCKCDCarePlanActivity *> *)values;
-- (void)removeActivity:(NSSet<OCKCDCarePlanActivity *> *)values;
-
-@end
-
 

@@ -32,6 +32,7 @@
 
 
 #import "OCKConnectDetailViewController.h"
+#import "OCKShareActivitiesViewController.h"
 #import "OCKConnectTableViewHeader.h"
 #import "OCKDefines_Private.h"
 #import "OCKHelpers.h"
@@ -45,7 +46,6 @@ static const CGFloat HeaderViewHeight = 225.0;
     NSMutableArray<NSString *> *_sectionTitles;
     NSString *_contactInfoSectionTitle;
     NSString *_sharingSectionTitle;
-    UISegmentedControl *_segmentedControl;
 }
 
 - (instancetype)initWithContact:(OCKContact *)contact {
@@ -63,6 +63,7 @@ static const CGFloat HeaderViewHeight = 225.0;
     self.tableView.estimatedRowHeight = 44.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
+    /*
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(connectViewController:didSelectChatButtonForContact:presentationSourceView:)]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -70,10 +71,24 @@ static const CGFloat HeaderViewHeight = 225.0;
                                               style:UIBarButtonItemStylePlain
                                               target:self
                                               action:@selector(chat:)];
-    }
+    }*/
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:OCKLocalizedString(@"CONNECT_EDIT_SHARING", nil)
+                                              style:UIBarButtonItemStylePlain
+                                              target:self
+                                              action:@selector(share:)];
+
     [self prepareView];
 }
 
+- (void)share:(id)sender {
+    OCKShareActivitiesViewController *shareViewController = [[OCKShareActivitiesViewController alloc] initWithCarePlanStore:self.store];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+/*
 - (void)chat:(id)sender {
 
     if (self.delegate &&
@@ -81,7 +96,7 @@ static const CGFloat HeaderViewHeight = 225.0;
         [self.delegate connectViewController:self.masterViewController didSelectChatButtonForContact:self.contact presentationSourceView:nil];
     }
 
-}
+}*/
 
 - (void)setContact:(OCKContact *)contact {
     _contact = contact;
@@ -103,13 +118,8 @@ static const CGFloat HeaderViewHeight = 225.0;
 
 - (void)prepareView {
 
-    if (!_segmentedControl) {
-        NSArray *segments = [NSArray arrayWithObjects: @"Feed", @"Sharing", @"Agreements", nil];
-        _segmentedControl = [[UISegmentedControl alloc] initWithItems:segments];
-
-        [_segmentedControl addTarget:self
-                             action:@selector(clickedSegment:)
-                   forControlEvents:UIControlEventValueChanged];
+    for (OCKCarePlanActivity *activity in _contact.activities) {
+        NSLog(@"%@",activity);
     }
 
     if (!_headerView) {
@@ -121,11 +131,6 @@ static const CGFloat HeaderViewHeight = 225.0;
     self.tableView.tableHeaderView = _headerView;
 }
 
-- (void)clickedSegment:(id)sender {
-    UISegmentedControl *control = (UISegmentedControl *) sender;
-    NSLog(@"segment @%d", control.selectedSegmentIndex);
-
-}
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     

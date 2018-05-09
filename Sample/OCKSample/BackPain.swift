@@ -58,6 +58,7 @@ struct BackPain: Assessment {
             tintColor: Colors.blue.color,
             resultResettable: true,
             schedule: schedule,
+            contacts: [],
             userInfo: nil,
             thresholds: [thresholds],
             optional: false

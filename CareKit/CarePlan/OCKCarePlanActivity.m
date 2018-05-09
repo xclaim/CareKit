@@ -50,7 +50,8 @@
                       instructions:(NSString *)instructions
                           imageURL:(NSURL *)imageURL
                           schedule:(OCKCareSchedule *)schedule
-                  resultResettable:(BOOL)resultResettable
+                          contacts:(NSArray<OCKContact *> *)contacts
+                 resultResettable:(BOOL)resultResettable
                           userInfo:(NSDictionary<NSString *,id<NSCoding>> *)userInfo
                         thresholds:(NSArray<NSArray<OCKCarePlanThreshold *> *> *)thresholds
                           optional:(BOOL)optional {
@@ -77,6 +78,7 @@
         _imageURL = imageURL;
         _schedule = schedule;
         _resultResettable = resultResettable;
+        _contacts = [contacts copy];
         _userInfo = [userInfo copy];
         _thresholds = thresholds;
         _optional = optional;
@@ -93,6 +95,7 @@
                       instructions:(NSString *)instructions
                           imageURL:(NSURL *)imageURL
                           schedule:(OCKCareSchedule *)schedule
+                          contacts:(NSArray<OCKContact *> *)contacts
                   resultResettable:(BOOL)resultResettable
                           userInfo:(NSDictionary *)userInfo {
     return [self initWithIdentifier:identifier
@@ -104,6 +107,7 @@
                        instructions:instructions
                            imageURL:imageURL
                            schedule:schedule
+                           contacts:contacts
                    resultResettable:resultResettable
                            userInfo:userInfo
                          thresholds:nil
@@ -117,6 +121,7 @@
                                tintColor:(UIColor *)tintColor
                         resultResettable:(BOOL)resultResettable
                                 schedule:(OCKCareSchedule *)schedule
+                                contacts:(NSArray<OCKContact *> *)contacts
                                 userInfo:(NSDictionary *)userInfo
                               thresholds:(NSArray<NSArray<OCKCarePlanThreshold *> *> *)thresholds
                                 optional:(BOOL)optional {
@@ -129,6 +134,7 @@
                                instructions:nil
                                    imageURL:nil
                                    schedule:schedule
+                                   contacts:contacts
                            resultResettable:resultResettable
                                    userInfo:userInfo
                                  thresholds:thresholds
@@ -142,6 +148,7 @@
                                tintColor:(UIColor *)tintColor
                         resultResettable:(BOOL)resultResettable
                                 schedule:(OCKCareSchedule *)schedule
+                                contacts:(NSArray<OCKContact *> *)contacts
                                 userInfo:(NSDictionary *)userInfo
                                 optional:(BOOL)optional {
     
@@ -154,6 +161,7 @@
                                instructions:nil
                                    imageURL:nil
                                    schedule:schedule
+                                   contacts:contacts
                            resultResettable:resultResettable
                                    userInfo:userInfo
                                  thresholds:nil
@@ -168,6 +176,7 @@
                               instructions:(NSString *)instructions
                                   imageURL:(NSURL *)imageURL
                                   schedule:(OCKCareSchedule *)schedule
+                                  contacts:(NSArray<OCKContact *> *)contacts
                                   userInfo:(NSDictionary *)userInfo
                                   optional:(BOOL)optional {
     
@@ -180,6 +189,7 @@
                                instructions:instructions
                                    imageURL:imageURL
                                    schedule:schedule
+                                   contacts:contacts
                            resultResettable:YES
                                    userInfo:userInfo
                                  thresholds:nil
@@ -193,6 +203,7 @@
                                       instructions:(nullable NSString *)instructions
                                           imageURL:(nullable NSURL *)imageURL
                                           schedule:(OCKCareSchedule *)schedule
+                                          contacts:(NSArray<OCKContact *> *)contacts
                                           userInfo:(nullable NSDictionary *)userInfo {
     
     return [[self alloc] initWithIdentifier:identifier
@@ -204,6 +215,7 @@
                                instructions:instructions
                                    imageURL:imageURL
                                    schedule:schedule
+                                   contacts:contacts
                            resultResettable:NO
                                    userInfo:userInfo
                                  thresholds:nil
@@ -222,7 +234,8 @@
                        instructions:cdObject.instructions
                            imageURL:OCKURLFromBookmarkData(cdObject.imageURL)
                            schedule:cdObject.schedule
-                   resultResettable:cdObject.resultResettable.boolValue
+                         contacts:(NSArray<OCKCarePlanActivity *> *)cdObject.contacts
+                  resultResettable:cdObject.resultResettable.boolValue
                            userInfo:cdObject.userInfo
                          thresholds:cdObject.thresholds
                            optional:cdObject.optional.boolValue];
@@ -244,6 +257,7 @@
         OCK_DECODE_OBJ_CLASS(coder, instructions, NSString);
         OCK_DECODE_OBJ_CLASS(coder, tintColor, UIColor);
         OCK_DECODE_OBJ_CLASS(coder, schedule, OCKCareSchedule);
+        OCK_DECODE_OBJ_CLASS(coder, contacts, NSArray);
         OCK_DECODE_ENUM(coder, type);
         OCK_DECODE_URL_BOOKMARK(coder, imageURL);
         OCK_DECODE_BOOL(coder, resultResettable);
@@ -262,6 +276,7 @@
     OCK_ENCODE_OBJ(coder, instructions);
     OCK_ENCODE_OBJ(coder, tintColor);
     OCK_ENCODE_OBJ(coder, schedule);
+    OCK_ENCODE_OBJ(coder, contacts);
     OCK_ENCODE_ENUM(coder, type);
     OCK_ENCODE_URL_BOOKMARK(coder, imageURL);
     OCK_ENCODE_BOOL(coder, resultResettable);
@@ -280,6 +295,7 @@
             OCKEqualObjects(self.instructions, castObject.instructions) &&
             OCKEqualObjects(self.tintColor, castObject.tintColor) &&
             OCKEqualObjects(self.schedule, castObject.schedule) &&
+            OCKEqualObjects(self.contacts, castObject.contacts) &&
             (self.type == castObject.type) &&
             OCKEqualObjects(self.identifier, castObject.identifier) &&
             OCKEqualObjects(self.groupIdentifier, castObject.groupIdentifier) &&
@@ -299,6 +315,7 @@
     item->_instructions = [_instructions copy];
     item->_tintColor = _tintColor;
     item->_schedule = _schedule;
+    item->_contacts =  [_contacts copy];
     item->_type = _type;
     item->_imageURL = _imageURL;
     item->_resultResettable = _resultResettable;
@@ -311,6 +328,19 @@
 - (NSUInteger)hash {
     return [self.identifier hash];
 }
+
+-(void) addContact: (OCKContact *) contact {
+
+    NSMutableArray *contacts = [[NSMutableArray alloc] initWithArray:[self contacts]];
+    [contacts addObject:contact];
+    NSLog(@"Adding contact %@", contact);
+}
+
+-(void) removeContact: (OCKContact *) contact {
+    NSLog(@"Removing contact %@", contact);
+
+}
+
 
 @end
 
@@ -362,19 +392,5 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 @dynamic optional;
 @dynamic events;
 @dynamic contacts;
-
-@end
-
-@interface OCKCDCarePlanActivity (CoreDataGeneratedAccessors)
-
-- (void)addEventsObject:(OCKCDCarePlanEvent *)value;
-- (void)removeEventsObject:(OCKCDCarePlanEvent *)value;
-- (void)addEvents:(NSSet<OCKCDCarePlanEvent *> *)values;
-- (void)removeEvents:(NSSet<OCKCDCarePlanEvent *> *)values;
-
-- (void)addContactsObject:(OCKCDContact *)value;
-- (void)removeContactsObject:(OCKCDContact *)value;
-- (void)addContacts:(NSSet<OCKCDContact *> *)values;
-- (void)removeContacts:(NSSet<OCKCDContact *> *)values;
 
 @end

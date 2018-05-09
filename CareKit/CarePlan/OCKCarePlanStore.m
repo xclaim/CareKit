@@ -451,30 +451,17 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
 
 #pragma mark - activities
 
-- (void) addContactForActivityWithIdentifier:(NSString *)identifier
-                         contact: (OCKContact *)contact {
-
-    [self cdActivityForIdentifier:identifier completion:^(BOOL success, OCKCDCarePlanActivity *activity, NSError *error) {
-        if (error == nil) {
-
-        }
-    }];
-}
-
-- (void)cdActivityForIdentifier:(NSString *)identifier
-                   completion:(void (^)(BOOL success, OCKCDCarePlanActivity *activity, NSError *error))completion {
-    NSParameterAssert(identifier);
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
-    [self fetchCDActivitiesWithPredicate:predicate completion:^(BOOL success, NSArray<OCKCDCarePlanActivity *> *activities, NSError *error) {
-        completion(success, activities.firstObject, error);
-    }];
-}
-
 - (void)activitiesWithType:(OCKCarePlanActivityType)type
                 completion:(void (^)(BOOL success, NSArray<OCKCarePlanActivity *> *activities, NSError *error))completion {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type = %@", @(type)];
+    return [self fetchActivitiesWithPredicate:predicate completion:completion];
+}
+
+- (void)activitiesWithContactsAndIdentifier:(NSString *)identifier
+                completion:(void (^)(BOOL success, NSArray<OCKCarePlanActivity *> *activities, NSError *error))completion {
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@ AND contacts != nil", identifier];
     return [self fetchActivitiesWithPredicate:predicate completion:completion];
 }
 
@@ -630,6 +617,47 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
         dispatch_async(_queue, ^{
             completion(result, error);
             [self handleActivityListChange:result type:activity.type];
+        });
+    }];
+}
+
+- (void)setContacts: (NSArray <OCKContact *> *) contacts
+       forActivity:(OCKCarePlanActivity *)activity
+        completion:(void (^)(BOOL success, OCKCarePlanActivity *activity, NSError *error))completion {
+
+    OCKThrowInvalidArgumentExceptionIfNil(activity);
+
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, nil, errorOut);
+        return;
+    }
+
+    __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+
+        NSError *errorOut = nil;
+        result = [strongSelf block_alterItemWithEntityName:OCKEntityNameActivity
+                                                identifier:activity.identifier
+                                                   opBlock:^BOOL(NSManagedObject *cdObject, NSManagedObjectContext *context) {
+                                                       OCKCDCarePlanActivity *cdActivity = (OCKCDCarePlanActivity *)cdObject;
+                                                       cdActivity.contacts = contacts;
+                                                       return YES;
+                                                   } error:&errorOut];
+        OCKCarePlanActivity *modifiedActivity;
+        if (result) {
+            _cachedActivities = nil;
+            modifiedActivity = [strongSelf block_fetchItemWithEntityName:OCKEntityNameActivity
+                                                              identifier:activity.identifier
+                                                                   class:[OCKCarePlanActivity class]
+                                                                   error:&errorOut];
+        }
+        dispatch_async(_queue, ^{
+            completion(result, modifiedActivity, errorOut);
         });
     }];
 }
@@ -1210,49 +1238,6 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
         });
     }];
 }
-
-
-- (void)contactsForActivity:(OCKCarePlanActivity *)activity
-               completion:(void (^)(NSArray<OCKContact *> *contacts, NSError *error))completion {
-
-    OCKThrowInvalidArgumentExceptionIfNil(activity);
-    OCKThrowInvalidArgumentExceptionIfNil(completion);
-
-    NSError *error = nil;
-    NSManagedObjectContext *context = _managedObjectContext;
-    if (context == nil) {
-        completion(nil, error);
-        return;
-    }
-    __weak typeof(self) weakSelf = self;
-    [context performBlock:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-
-        NSError *error = nil;
-
-        /*
-        OCKCarePlanActivity *fetchActivity = [strongSelf block_fetchItemWithEntityName:OCKEntityNameActivity identifier:activity.identifier class:[OCKCarePlanActivity class] error:&error];
-        if (!fetchActivity) {
-            error = [NSError errorWithDomain:OCKErrorDomain
-                                        code:OCKErrorInvalidObject
-                                    userInfo:@{@"reason":[NSString stringWithFormat:@"Cannot find activity with identifier %@", activity.identifier]}];
-        } else {
-*/
-
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@",
-                                           @"activity.identifier", activity.identifier];
-
-            NSArray<OCKContact *> *contactGroup = (NSArray<OCKContact *> *)[strongSelf block_fetchItemsWithEntityName:OCKEntityNameContact
-                                                                                                                           predicate:predicate
-                                                                                                                               class:[OCKContact class]
-                                                                                                                               error:&error];
-            dispatch_async(_queue, ^{
-                completion([contactGroup copy], error);
-            });
-      //  }
-    }];
-}
-
 
 #pragma mark - coredata
 

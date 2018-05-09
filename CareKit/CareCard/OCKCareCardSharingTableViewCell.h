@@ -34,6 +34,7 @@
 
 @interface OCKCareCardSharingTableViewCell : UITableViewCell
 
+@property (nonatomic) OCKCarePlanStore *store;
 @property (nonatomic) OCKCarePlanActivity *intervention;
 @property (nonatomic) OCKContact *contact;
 

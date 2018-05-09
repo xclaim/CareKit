@@ -53,6 +53,13 @@ static const CGFloat HorizontalMargin = 5.0;
     NSMutableArray *_constraints;
 }
 
+
+- (void)setActivity:(OCKCarePlanActivity *)activity {
+    self.tintColor = activity.tintColor;
+    [self prepareView];
+
+}
+
 - (void)setReadOnlyEvent:(OCKCarePlanEvent *)readOnlyEvent {
     _readOnlyEvent = readOnlyEvent;
     self.tintColor = _readOnlyEvent.activity.tintColor;

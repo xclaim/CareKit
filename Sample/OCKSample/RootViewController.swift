@@ -58,7 +58,7 @@ class RootViewController: UITabBarController {
         careContentsViewController = createCareContentsViewController()
         insightsViewController = createInsightsViewController()
         connectViewController = createConnectViewController()
-        
+
         self.viewControllers = [
             UINavigationController(rootViewController: careContentsViewController),
             UINavigationController(rootViewController: insightsViewController),
@@ -127,12 +127,15 @@ class RootViewController: UITabBarController {
     }
 
     fileprivate func createConnectViewController() -> OCKConnectViewController {
-        let viewController = OCKConnectViewController.init(contacts: sampleData.contacts, patient: sampleData.patient)
+        let viewController = OCKConnectViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
         viewController.delegate = self
         viewController.dataSource = self
         // Setup the controller's title and tab bar item
         viewController.title = NSLocalizedString("Connect", comment: "")
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"connect"), selectedImage: UIImage(named: "connect-filled"))
+
+        viewController.store = storeManager.store;
+
         return viewController
     }
 }

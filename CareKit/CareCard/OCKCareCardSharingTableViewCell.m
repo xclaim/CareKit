@@ -50,6 +50,11 @@ static const CGFloat TrailingMargin = 20.0;
     return self;
 }
 
+- (void)setStore:(OCKCarePlanStore *)store {
+    _store = store;
+    [self updateView];
+}
+
 - (void)setIntervention:(OCKCarePlanActivity *)intervention {
     _intervention = intervention;
     [self updateView];

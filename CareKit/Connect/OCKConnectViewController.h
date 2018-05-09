@@ -240,6 +240,8 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic) BOOL showEdgeIndicators;
 
+@property (nonatomic) OCKCarePlanStore *store;
+
 @end
 
 NS_ASSUME_NONNULL_END

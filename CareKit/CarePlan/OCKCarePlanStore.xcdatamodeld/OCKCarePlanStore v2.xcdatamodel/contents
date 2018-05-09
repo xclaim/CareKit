@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="OCKCDCarePlanActivity" representedClassName="OCKCDCarePlanActivity" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="contacts" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="groupIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -14,7 +15,6 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="userInfo" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OCKCDContact" inverseName="activity" inverseEntity="OCKCDContact" syncable="YES"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OCKCDCarePlanEvent" inverseName="activity" inverseEntity="OCKCDCarePlanEvent" syncable="YES"/>
     </entity>
     <entity name="OCKCDCarePlanEvent" representedClassName="OCKCDCarePlanEvent" syncable="YES">
@@ -39,6 +39,7 @@
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDCarePlanEvent" inverseName="result" inverseEntity="OCKCDCarePlanEvent" syncable="YES"/>
     </entity>
     <entity name="OCKCDContact" representedClassName="OCKCDContact" syncable="YES">
+        <attribute name="activities" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="contactInfoItems" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -47,7 +48,6 @@
         <attribute name="relation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tintColor" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="activity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OCKCDCarePlanActivity" inverseName="contacts" inverseEntity="OCKCDCarePlanActivity" syncable="YES"/>
     </entity>
     <entity name="OCKCDContactInfo" representedClassName="OCKCDContactInfo" syncable="YES">
         <attribute name="actionURL" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -57,10 +57,10 @@
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OCKCDCarePlanActivity" positionX="-1125" positionY="-639" width="200" height="28"/>
+        <element name="OCKCDCarePlanActivity" positionX="-1125" positionY="-639" width="200" height="268"/>
         <element name="OCKCDCarePlanEvent" positionX="-846" positionY="-621" width="243" height="120"/>
         <element name="OCKCDCarePlanEventResult" positionX="-783" positionY="-396" width="128" height="225"/>
-        <element name="OCKCDContact" positionX="-1089" positionY="-288" width="128" height="180"/>
+        <element name="OCKCDContact" positionX="-1089" positionY="-288" width="128" height="178"/>
         <element name="OCKCDContactInfo" positionX="-821" positionY="-117" width="128" height="120"/>
     </elements>
 </model>

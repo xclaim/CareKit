@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL showEdgeIndicator;
 
+@property (nonatomic) OCKCarePlanStore *store;
+
 @end
 
 NS_ASSUME_NONNULL_END

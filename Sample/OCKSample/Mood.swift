@@ -57,6 +57,7 @@ struct Mood: Assessment {
             tintColor: Colors.green.color,
             resultResettable: false,
             schedule: schedule,
+            contacts: [],
             userInfo: nil,
             thresholds: [thresholds],
             optional: false
