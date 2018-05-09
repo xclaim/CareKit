@@ -95,6 +95,21 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
     
     [self createSectionedContacts];
+    [self prepareHeaderView];
+}
+
+- (void)prepareHeaderView {
+    if (self.contacts.count == 0) {
+        if (!_noContactsLabel) {
+            _noContactsLabel = [OCKLabel new];
+            _noContactsLabel.textStyle = UIFontTextStyleTitle2;
+            _noContactsLabel.text = OCKLocalizedString(@"CONNECT_NO_CONTACTS_TITLE", nil);
+            _noContactsLabel.textColor = [UIColor lightGrayColor];
+        }
+        [self.view addSubview:_noContactsLabel];
+    } else {
+        [_noContactsLabel removeFromSuperview];
+    }
 }
 
 - (void)share:(id)sender {
