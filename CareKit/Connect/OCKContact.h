@@ -111,7 +111,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
                                name:(NSString *)name
 						   relation:(NSString *)relation
                    contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
-                   activities:(NSArray<OCKCarePlanActivity *> *)activities
+                   activities:(nullable NSArray<OCKCarePlanActivity *> *)activities
 						  tintColor:(nullable UIColor *)tintColor
 						   monogram:(null_unspecified NSString *)monogram
 							  image:(nullable UIImage *)image;

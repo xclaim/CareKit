@@ -72,7 +72,7 @@
                                name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
-                         activities:(NSArray<OCKCarePlanActivity *> *)activities
+                         activities:(nullable NSArray<OCKCarePlanActivity *> *)activities
 						  tintColor:(nullable UIColor *)tintColor
 						   monogram:(null_unspecified NSString *)monogram
 							  image:(nullable UIImage *)image {
@@ -121,7 +121,6 @@
             OCKEqualObjects(self.relation, castObject.relation) &&
             OCKEqualObjects(self.tintColor, castObject.tintColor) &&
             OCKEqualObjects(self.contactInfoItems, castObject.contactInfoItems) &&
-            OCKEqualObjects(self.activities, castObject.activities) &&
             OCKEqualObjects(self.monogram, castObject.monogram) &&
             OCKEqualObjects(self.image, castObject.image));
 }

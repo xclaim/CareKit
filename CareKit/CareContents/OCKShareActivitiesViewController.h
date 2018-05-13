@@ -35,15 +35,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class OCKCarePlanStore;
+@class OCKCarePlanStore, OCKShareActivitiesViewController;
 
+/**
+ An object that adopts the `OCKShareActivitiesViewControllerDelegate` protocol can use it to modify or update the events before they are displayed.
+ */
+@protocol OCKShareActivitiesViewControllerDelegate <NSObject>
+
+@required
+
+/**
+ Tells the delegate which contacts were selected for sharing.
+
+ @param shareViewController       The view controller providing the callback.
+ */
+- (void)shareViewController:(OCKShareActivitiesViewController *)shareViewController shareWith:(NSArray <OCKCarePlanActivity *> *) activities;
+
+
+@optional
+
+@end
 
 
 /**
- The `OCKShareActivitiesViewController` class is a view controller that displays the activities and events
- from an `OCKCarePlanStore` that are of intervention type (see `OCKCarePlanActivityTypeIntervention`).
+ The `OCKShareActivitiesViewController` class is a view controller that displays the activities and events from an `OCKCarePlanStore` that are of
+ intervention type (see `OCKCarePlanActivityTypeIntervention`), assessment type (see `OCKCarePlanActivityTypeAssessment`), and read only 
+ intervention and assessment types (see `OCKCarePlanActivityTypeReadOnly`).
  
- It includes a master view and a detail view. Therefore, it must be embedded inside a `UINavigationController`.
+ Activities can include a detail view. Therefore, it must be embedded inside a `UINavigationController`.
  */
 OCK_CLASS_AVAILABLE
 @interface OCKShareActivitiesViewController : UIViewController
@@ -51,25 +70,37 @@ OCK_CLASS_AVAILABLE
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- Returns an initialized care card view controller using the specified store.
+ Returns an initialized care view controller using the specified store.
  
  @param store        A care plan store.
  
- @return An initialized care card view controller.
+ @return An initialized care view controller.
  */
-- (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store;
+- (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store sharing:(NSArray <OCKCarePlanActivity *> *)sharingActivities;
 
 /**
  The care plan store that provides the content for the care card.
  
- The care card displays activites and events that are of intervention type (see `OCKCarePlanActivityTypeIntervention`).
+ The care view displays activites and events of type intervention, assessment, intervention read-only, 
+ and assessment read-only (see `OCKCarePlanActivityType`).
  */
 @property (nonatomic, readonly) OCKCarePlanStore *store;
 
-/** 
- A reference to the `UITableView` contained in the view controller
+
+/**
+ The last activity selected by the user.
+ 
+ This value is nil if no activity has been selected yet.
  */
-@property (nonatomic, readonly, nonnull) UITableView *tableView;
+@property (nonatomic, readonly, nullable) OCKCarePlanActivity *lastSelectedActivity;
+
+
+/**
+ The last event selected by the user.
+ 
+ This value is nil if no event has been selected yet.
+ */
+@property (nonatomic, readonly, nullable) OCKCarePlanEvent *lastSelectedEvent;
 
 /**
  The image that will be used to mask the fill shape in the week view.
@@ -77,19 +108,13 @@ OCK_CLASS_AVAILABLE
  In order to provide a custom maskImage, you must have a regular size and small size.
  For example, in the assets catalog, there are "heart" and a "heart-small" assets.
  Both assets must be provided in order to properly render the interface.
-
+ 
  The tint color that will be used to fill the shape.
  
  If tint color is not specified, a default red color will be used.
  */
 @property (nonatomic, null_resettable) UIColor *glyphTintColor;
 
-/**
- The string that will be used as the Care Card header title.
- 
- If the value is not specified, CareKit's default string ("Care Completion") is used.
- */
-@property (nonatomic, null_resettable) NSString *headerTitle;
 
 /**
  The glyph type for the header view (see OCKGlyphType).
@@ -102,20 +127,36 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, copy) NSString *customGlyphImageName;
 
-/** 
- A message that will be displayed in the table view's background view if there are
- no intervention activities to display.
+
+/**
+ The delegate can be used to modify or update the internvention events before they are displayed.
  
- If the value is not specified, nothing will be shown when the table is empty.
+ See the `OCKShareActivitiesViewControllerDelegate` protocol.
+ */
+@property (nonatomic, weak, nullable) id<OCKShareActivitiesViewControllerDelegate> delegate;
+
+/**
+ The section header title for all the Optional activities. Default is `Optional` if nil.
+ */
+@property (nonatomic, nullable) NSString *optionalSectionHeader;
+
+/**
+ The section header title for all the ReadOnly activities. Default is `Read Only` if nil.
+ */
+@property (nonatomic, nullable) NSString *readOnlySectionHeader;
+
+/**
+ Optional: A message that will be displayed in the table view's background view
+ if there are no interventions, assessments, or ReadOnly activities to display.
  */
 @property (nonatomic, nullable) NSString *noActivitiesText;
 
 /**
  The property that allows activities to be grouped.
  
- If true, the activities will be grouped by groupIdentifier into sections, 
+ If true, the activities will be grouped by groupIdentifier into sections,
  otherwise the activities will all be in one section and groupIdentifier is ignored.
- 
+  
  The default is true.
  */
 @property (nonatomic) BOOL isGrouped;

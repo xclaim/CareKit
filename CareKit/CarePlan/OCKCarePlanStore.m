@@ -621,6 +621,48 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     }];
 }
 
+
+- (void)setActivities: (NSArray <OCKCarePlanActivity *> *) activities
+           forContact:(OCKContact *)contact
+           completion:(void (^)(BOOL success, OCKContact *contact, NSError *error))completion {
+
+    OCKThrowInvalidArgumentExceptionIfNil(contact);
+
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, nil, errorOut);
+        return;
+    }
+
+    __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+
+        NSError *errorOut = nil;
+        result = [strongSelf block_alterItemWithEntityName:OCKEntityNameContact
+                                                identifier:contact.identifier
+                                                   opBlock:^BOOL(NSManagedObject *cdObject, NSManagedObjectContext *context) {
+                                                       OCKCDContact *cdContact = (OCKCDContact *)cdObject;
+                                                       cdContact.activities = activities;
+                                                       return YES;
+                                                   } error:&errorOut];
+        OCKContact *modifiedContact;
+        if (result) {
+            _cachedContacts = nil;
+            modifiedContact = [strongSelf block_fetchItemWithEntityName:OCKEntityNameContact
+                                                              identifier:contact.identifier
+                                                                   class:[OCKContact class]
+                                                                   error:&errorOut];
+        }
+        dispatch_async(_queue, ^{
+            completion(result, modifiedContact, errorOut);
+        });
+    }];
+}
+
 - (void)setContacts: (NSArray <OCKContact *> *) contacts
        forActivity:(OCKCarePlanActivity *)activity
         completion:(void (^)(BOOL success, OCKCarePlanActivity *activity, NSError *error))completion {

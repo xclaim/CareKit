@@ -141,8 +141,11 @@ tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xcla
         super.init()
 
         // Populate the store with the sample activities.
+
+        var sharingActivities:[OCKCarePlanActivity] = [OCKCarePlanActivity]()
         for sampleActivity in activities {
             let carePlanActivity = sampleActivity.carePlanActivity()
+            sharingActivities.append(carePlanActivity)
             carePlanStore.add(carePlanActivity) { success, error in
                 if !success {
                     print("error ", error!.localizedDescription)
@@ -151,21 +154,48 @@ tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xcla
 
                     print("carePlanActivity", carePlanActivity)
                     var sharingContacts = NSMutableArray(array: carePlanActivity.contacts!)
+
                     sharingContacts.add(self.sampleContacts[0])
                     sharingContacts.add(self.sampleContacts[1])
 
                     carePlanStore.setContacts(sharingContacts as! [OCKContact], for: carePlanActivity, completion: { (success, activity, error) in
                         print(activity)
                     })
-
                 }
-
             }
          }
+        print("Setting activities")
+        for activity in sharingActivities {
+            print(activity.identifier)
+        }
+        carePlanStore.setActivities(sharingActivities, for: self.sampleContacts[0], completion: { (success, activity, error) in
+            if success {
+                print("carePlanStore.setActivities ",self.sampleContacts[0].name)
+            } else {
+                print("carePlanStore.setActivities ",error.localizedDescription)
+            }
+            print("Did set activities 0")
+
+            for activity in self.sampleContacts[0].activities! {
+                print(activity.identifier)
+            }
+        })
+
+        carePlanStore.setActivities(sharingActivities, for: self.sampleContacts[1], completion: { (success, activity, error) in
+            if success {
+                print("carePlanStore.setActivities ",self.sampleContacts[1].name)
+            } else {
+                print("carePlanStore.setActivities ",error.localizedDescription)
+            }
+            print("Did set activities 1")
+            for activity in self.sampleContacts[1].activities! {
+                print(activity.identifier)
+            }
+        })
+
 
 
     }
-
 
     //carePlanActivity.addContact(self.sampleContacts[0])
 

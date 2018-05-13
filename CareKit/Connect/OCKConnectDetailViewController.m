@@ -40,6 +40,10 @@
 
 static const CGFloat HeaderViewHeight = 225.0;
 
+@interface OCKConnectDetailViewController() <OCKShareActivitiesViewControllerDelegate>
+
+@end
+
 @implementation OCKConnectDetailViewController {
     OCKConnectTableViewHeader *_headerView;
     NSMutableArray<NSArray *> *_tableViewData;
@@ -63,40 +67,42 @@ static const CGFloat HeaderViewHeight = 225.0;
     self.tableView.estimatedRowHeight = 44.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    /*
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(connectViewController:didSelectChatButtonForContact:presentationSourceView:)]) {
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectInsightsButtonForContact:presentationSourceView:)]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithTitle:OCKLocalizedString(@"CONNECT_CHAT_TITLE", nil)
-                                              style:UIBarButtonItemStylePlain
-                                              target:self
-                                              action:@selector(chat:)];
-    }*/
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithTitle:OCKLocalizedString(@"CONNECT_EDIT_SHARING", nil)
-                                              style:UIBarButtonItemStylePlain
-                                              target:self
-                                              action:@selector(share:)];
-
+                                                  initWithImage:[UIImage imageNamed:@"insights"] landscapeImagePhone:[UIImage imageNamed:@"insights"]
+                                                  style:UIBarButtonItemStylePlain
+                                                  target:self
+                                                  action:@selector(insights:)];
+    }
     [self prepareView];
 }
 
-- (void)share:(id)sender {
-    OCKShareActivitiesViewController *shareViewController = [[OCKShareActivitiesViewController alloc] initWithCarePlanStore:self.store];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
 
-/*
-- (void)chat:(id)sender {
+- (void)insights:(id)sender {
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(connectViewController:didSelectChatButtonForContact:presentationSourceView:)]) {
-        [self.delegate connectViewController:self.masterViewController didSelectChatButtonForContact:self.contact presentationSourceView:nil];
-    }
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectInsightsButtonForContact:presentationSourceView:)]) {
 
-}*/
+        [self.delegate connectViewController:self.masterViewController didSelectInsightsButtonForContact:self.contact presentationSourceView:nil];
+    }
+}
+
+- (void)share:(id)sender {
+
+    NSLog(@"activities for contact %@",_contact.name);
+
+    [_store contactForIdentifier:_contact.identifier completion:^(BOOL success, OCKContact * _Nullable contact, NSError * _Nullable error) {
+        OCKShareActivitiesViewController *shareViewController = [[OCKShareActivitiesViewController alloc] initWithCarePlanStore:self.store sharing:contact.activities];
+
+        for (OCKCarePlanActivity *activity in contact.activities) {
+            NSLog(@"%@",activity.identifier);
+        }
+        shareViewController.delegate = self;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
+        [self presentViewController:navigationController animated:YES completion:nil];
+     }];
+ }
 
 - (void)setContact:(OCKContact *)contact {
     _contact = contact;
@@ -370,6 +376,30 @@ static const CGFloat HeaderViewHeight = 225.0;
         [actions addObject:shareAction];
     }
     return actions;
+}
+
+- (void)careContentsViewController:(nonnull OCKShareActivitiesViewController *)viewController didSelectRowWithAssessmentEvent:(nonnull OCKCarePlanEvent *)assessmentEvent {
+
+}
+
+- (void)shareViewController:(nonnull OCKShareActivitiesViewController *)shareViewController shareWith:(nonnull NSArray<OCKCarePlanActivity *> *)activities {
+
+    NSLog(@" DELEGATE");
+    for (OCKCarePlanActivity *activity in activities) {
+        NSLog(@" %@", activity.identifier);
+    }
+
+    [_store setActivities:activities forContact:_contact completion:^(BOOL success, OCKContact * _Nonnull contact, NSError * _Nonnull error) {
+        if (success) {
+            NSLog(@"UPDATED");
+            for (OCKCarePlanActivity *activity in contact.activities) {
+                NSLog(@" %@", activity.identifier);
+            }
+
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 @end

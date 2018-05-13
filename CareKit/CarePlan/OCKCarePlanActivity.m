@@ -295,7 +295,6 @@
             OCKEqualObjects(self.instructions, castObject.instructions) &&
             OCKEqualObjects(self.tintColor, castObject.tintColor) &&
             OCKEqualObjects(self.schedule, castObject.schedule) &&
-            OCKEqualObjects(self.contacts, castObject.contacts) &&
             (self.type == castObject.type) &&
             OCKEqualObjects(self.identifier, castObject.identifier) &&
             OCKEqualObjects(self.groupIdentifier, castObject.groupIdentifier) &&

@@ -56,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<OCKCareCardCellDelegate> delegate;
 
+@property (nonatomic) BOOL readOnly;
+
+
 @end
 
 

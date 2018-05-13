@@ -55,6 +55,7 @@
 "CONNECT_NO_CONTACTS_TITLE" = "No contacts";
 "CONTACT_INFO_SECTION_TITLE" = "Contact Info";
 "CONTACT_SHARING_SECTION_TITLE" = "Sharing";
+"EDIT_SHARING" = "Edit Sharing";
 "CONTACT_INFO_PHONE_TITLE" = "phone";
 "CONTACT_INFO_MESSAGE_TITLE" = "text";
 "CONTACT_INFO_EMAIL_TITLE" = "email";
@@ -66,6 +67,8 @@
 "CONNECT_SEND_BUTTON_TITLE" = "Send";
 "CONNECT_INBOX_TITLE" = "Inbox";
 "CONNECT_CHAT_TITLE" = "Chat";
+"SHARE_ACTIVITIES" = "Share Activities";
+"SHARE_WITH" = "Share With";
 
 /* Patient */
 "PROFILE_VIEW_CONTROLLER_TITLE" = "Profile";

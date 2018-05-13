@@ -116,7 +116,9 @@ static const CGFloat ButtonViewSize = 40.0;
     
     if (!_button) {
         _button = [UIButton new];
-        [_button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        if (!self.readOnly) {
+            [_button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        }
         [self addSubview:_button];
     }
     
@@ -312,6 +314,7 @@ static const CGFloat ButtonViewSize = 40.0;
 }
 
 - (void)toggleFrequencyButton:(id)sender {
+    
     OCKCareCardButton *button = (OCKCareCardButton *)sender;
     [self updateAccessibilityInfo];
     
@@ -326,10 +329,12 @@ static const CGFloat ButtonViewSize = 40.0;
 }
 
 - (void)buttonTapped:(id)sender {
-    if (self.delegate &&
+
+    if (!self.readOnly && self.delegate &&
         [self.delegate respondsToSelector:@selector(careCardTableViewCell:didSelectInterventionActivity:)]) {
         [self.delegate careCardTableViewCell:self didSelectInterventionActivity:self.interventionEvents.firstObject.activity];
     }
+    
 }
 
 

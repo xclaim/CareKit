@@ -203,13 +203,27 @@ You can use the watch delegate to subscribe a watch app to notifications of chan
  Use this method to change the end date of an activity after it has been added to store.
 
  @param     contacts        Contacts to share with.
- @param     activity        Activity object to receive new end date.
+ @param     activity        Activity object to receive new contacts.
  @param     completion      A completion block that returns the result of the operation and the activity that was modified.
  */
 
 - (void)setContacts: (NSArray <OCKContact *> *)contacts
        forActivity:(OCKCarePlanActivity *)activity
         completion:(void (^)(BOOL success, OCKCarePlanActivity * _Nullable activity, NSError * _Nullable error))completion;
+
+/**
+ Update the activities of a contact.
+ Use this method to change the end date of an activity after it has been added to store.
+
+ @param     activities      Activities to share
+ @param     contact         Contact object to receive new activities.
+ @param     completion      A completion block that returns the result of the operation and the contact that was modified.
+ */
+
+- (void)setActivities: (NSArray <OCKCarePlanActivity *> *) activities
+           forContact:(OCKContact *)contact
+           completion:(void (^)(BOOL success, OCKContact *contact, NSError *error))completion;
+
 
 /**
  Update the end date of an activity.

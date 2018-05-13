@@ -104,6 +104,9 @@ class RootViewController: UITabBarController {
         let activityType1: ActivityType = .backPain
         let activityType2: ActivityType = .bloodGlucose
         let activityType3: ActivityType = .weight
+
+        print(activityType1.rawValue,activityType2.rawValue,activityType3.rawValue)
+
         let widget1 = OCKPatientWidget.defaultWidget(withActivityIdentifier: activityType1.rawValue, tintColor: OCKColor.red)
         let widget2 = OCKPatientWidget.defaultWidget(withActivityIdentifier: activityType2.rawValue, tintColor: OCKColor.red)
         let widget3 = OCKPatientWidget.defaultWidget(withActivityIdentifier: activityType3.rawValue, tintColor: OCKColor.red)
@@ -279,7 +282,17 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         print(messageItem)
     }
 
-    
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectChatButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
+
+
+    }
+
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectInsightsButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
+       // let nav = UINavigationController(rootViewController: insightsViewController)
+        connectViewController.navigationController?.pushViewController(insightsViewController, animated: true)
+    }
+
+
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact)  {
 
         print("didSelectAttachButtonFor", contact);

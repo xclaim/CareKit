@@ -73,6 +73,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = OCKLocalizedString(@"SHARE_WITH", nil);
 
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
@@ -315,7 +316,7 @@
     for (OCKContact *contact in _selectedContacts) {
         NSLog(@"%@ %@ ",contact.name, x.name  );
 
-        if (contact.identifier == x.identifier) {
+        if ([contact.identifier isEqualToString:x.identifier]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }

@@ -79,7 +79,8 @@ static const CGFloat HeaderViewHeight = 100.0;
 - (void)prepareView {
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit Sharing" style:UIBarButtonItemStylePlain target:self action:@selector(share:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"EDIT_SHARING", nil)
+        style:UIBarButtonItemStylePlain target:self action:@selector(share:)];
 
     if (!_headerView) {
         _headerView = [[OCKCareCardDetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, HeaderViewHeight)];
