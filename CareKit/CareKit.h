@@ -83,3 +83,6 @@
 
 // Colors
 #import <CareKit/OCKColor.h>
+
+#import <CareKit/OCKConnectDetailViewController.h>
+

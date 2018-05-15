@@ -32,13 +32,15 @@
 
 #import <CareKit/CareKit.h>
 #import <MessageUI/MessageUI.h>
-#import "OCKContactInfoTableViewCell.h"
-#import "OCKContactSharingTableViewCell.h"
+//#import "OCKContactInfoTableViewCell.h"
+//#import "OCKContactSharingTableViewCell.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol OCKConnectViewControllerDelegate;
+@class OCKConnectViewController;
+
+@protocol OCKConnectViewControllerDelegate, OCKContactInfoTableViewCellDelegate, OCKContactSharingTableViewCellDelegate;
 
 @interface OCKConnectDetailViewController : UITableViewController <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, OCKContactInfoTableViewCellDelegate, OCKContactSharingTableViewCellDelegate>
 

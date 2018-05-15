@@ -32,6 +32,9 @@
 
 
 #import "OCKConnectDetailViewController.h"
+#import "OCKContactInfoTableViewCell.h"
+#import "OCKContactSharingTableViewCell.h"
+
 #import "OCKShareActivitiesViewController.h"
 #import "OCKConnectTableViewHeader.h"
 #import "OCKDefines_Private.h"

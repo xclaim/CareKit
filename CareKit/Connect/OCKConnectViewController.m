@@ -34,6 +34,8 @@
 #import "OCKConnectViewController.h"
 #import "OCKContact.h"
 #import "OCKConnectDetailViewController.h"
+#import "OCKContactInfoTableViewCell.h"
+#import "OCKContactSharingTableViewCell.h"
 #import "OCKHelpers.h"
 #import "OCKDefines_Private.h"
 #import "OCKLabel.h"
