@@ -109,15 +109,17 @@
     if ([self respondsToSelector:@selector(registerForPreviewingWithDelegate:sourceView:)]) {
         [self registerForPreviewingWithDelegate:self sourceView:_tableView];
     }
+
+    if (_patient) {
+        _headerView = [OCKConnectHeaderView new];
+        _headerView.patient = _patient;
+        [self.view addSubview:_headerView];
     
-    _headerView = [OCKConnectHeaderView new];
-    _headerView.patient = _patient;
-    [self.view addSubview:_headerView];
+        UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
+        [_headerView addGestureRecognizer:singleFingerTap];
     
-    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
-    [_headerView addGestureRecognizer:singleFingerTap];
-    
-    [self updateHeaderView];
+        [self updateHeaderView];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -161,7 +163,8 @@
     
     _headerView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
+    if (_patient) {
     [_constraints addObjectsFromArray:@[
                                         [NSLayoutConstraint constraintWithItem:_headerView
                                                                      attribute:NSLayoutAttributeTop
@@ -213,7 +216,39 @@
                                                                     multiplier:1.0
                                                                       constant:0.0]
                                         ]];
-    
+    } else {
+        [_constraints addObjectsFromArray:@[
+                                            [NSLayoutConstraint constraintWithItem:_tableView
+                                                                         attribute:NSLayoutAttributeTop
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.topLayoutGuide
+                                                                         attribute:NSLayoutAttributeBottom
+                                                                        multiplier:1.0
+                                                                          constant:0.0],
+                                              [NSLayoutConstraint constraintWithItem:_tableView
+                                                                         attribute:NSLayoutAttributeBottom
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.view
+                                                                         attribute:NSLayoutAttributeBottom
+                                                                        multiplier:1.0
+                                                                          constant:0.0],
+                                            [NSLayoutConstraint constraintWithItem:_tableView
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.view
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                        multiplier:1.0
+                                                                          constant:0.0],
+                                            [NSLayoutConstraint constraintWithItem:_tableView
+                                                                         attribute:NSLayoutAttributeTrailing
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.view
+                                                                         attribute:NSLayoutAttributeTrailing
+                                                                        multiplier:1.0
+                                                                          constant:0.0],
+                                              ]];
+
+    }
     if (self.contacts.count == 0) {
         _noContactsLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -249,6 +284,7 @@
     }
     
     NSMutableArray *careTeamContacts = [NSMutableArray new];
+    NSMutableArray *patientContacts = [NSMutableArray new];
     NSMutableArray *personalContacts = [NSMutableArray new];
     NSMutableArray *groupContacts = [NSMutableArray new];
     NSMutableArray *deviceContacts = [NSMutableArray new];
@@ -257,6 +293,9 @@
         switch (contact.type) {
             case OCKContactTypeCareTeam:
                 [careTeamContacts addObject:contact];
+                break;
+            case OCKContactTypePatient:
+                [patientContacts addObject:contact];
                 break;
             case OCKContactTypePersonal:
                 [personalContacts addObject:contact];
@@ -275,6 +314,11 @@
         [_sectionTitles addObject:OCKLocalizedString(@"CARE_TEAM_SECTION_TITLE", nil)];
     }
     
+    if (patientContacts.count > 0) {
+        [_sectionedContacts addObject:[patientContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
+    }
+
     if (personalContacts.count > 0) {
         [_sectionedContacts addObject:[personalContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PERSONAL_SECTION_TITLE", nil)];

@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, OCKContactType) {
      A personal contact such as a friend or family member.
      */
     OCKContactTypePersonal,
+    OCKContactTypePatient,
     OCKContactTypeGroup,
     OCKContactTypeDevice
 };

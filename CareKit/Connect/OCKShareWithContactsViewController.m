@@ -211,6 +211,7 @@
     _sectionTitles = [NSMutableArray new];
         
     NSMutableArray *careTeamContacts = [NSMutableArray new];
+    NSMutableArray *patientContacts = [NSMutableArray new];
     NSMutableArray *personalContacts = [NSMutableArray new];
     NSMutableArray *groupContacts = [NSMutableArray new];
     NSMutableArray *deviceContacts = [NSMutableArray new];
@@ -219,6 +220,9 @@
         switch (contact.type) {
             case OCKContactTypeCareTeam:
                 [careTeamContacts addObject:contact];
+                break;
+            case OCKContactTypePatient:
+                [patientContacts addObject:contact];
                 break;
             case OCKContactTypePersonal:
                 [personalContacts addObject:contact];
@@ -237,6 +241,11 @@
         [_sectionTitles addObject:OCKLocalizedString(@"CARE_TEAM_SECTION_TITLE", nil)];
     }
     
+    if (patientContacts.count > 0) {
+        [_sectionedContacts addObject:[patientContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
+    }
+
     if (personalContacts.count > 0) {
         [_sectionedContacts addObject:[personalContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PERSONAL_SECTION_TITLE", nil)];
