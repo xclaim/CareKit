@@ -49,6 +49,7 @@
 
 /* Connect */
 "CARE_TEAM_SECTION_TITLE" = "Care Team";
+"PATIENT_TEAM_SECTION_TITLE" = "Patients";
 "PERSONAL_SECTION_TITLE" = "Friends & Family";
 "GROUP_SECTION_TITLE" = "Groups";
 "DEVICE_SECTION_TITLE" = "Devices";

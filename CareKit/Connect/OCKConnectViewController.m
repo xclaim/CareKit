@@ -161,11 +161,11 @@
     
     _constraints = [NSMutableArray new];
     
-    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
 
     if (_patient) {
-    [_constraints addObjectsFromArray:@[
+        _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+   [_constraints addObjectsFromArray:@[
                                         [NSLayoutConstraint constraintWithItem:_headerView
                                                                      attribute:NSLayoutAttributeTop
                                                                      relatedBy:NSLayoutRelationEqual
@@ -422,11 +422,18 @@
 
 */
 
-    } else {
+    } else if (_patient) {
         OCKContact *contact = [self contactForIndexPath:indexPath];
         [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
+    } else {
+        OCKContact *contact = [self contactForIndexPath:indexPath];
+
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(connectViewController:didSelectContact:presentationSourceView:)] ) {
+            [self.delegate connectViewController:self didSelectContact:contact presentationSourceView:nil];
+        }
     }
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
