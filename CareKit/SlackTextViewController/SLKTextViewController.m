@@ -200,17 +200,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [self.view addSubview:self.typingIndicatorProxyView];
     [self.view addSubview:self.textInputbar];
 
-    // Set custom button on navigation bar
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
-    [self slk_setupViewConstraints];
+     [self slk_setupViewConstraints];
     
     [self slk_registerKeyCommands];
 }
 
-- (void) done
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -2576,6 +2570,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 {
     [super viewDidLoad];
 
+    // Set custom button on navigation bar
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
+
     // Example's configuration
     [self configureDataSource];
     [self configureActionItems];
@@ -2649,6 +2646,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [super viewDidAppear:animated];
 }
 
+
+- (void) done
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - Example's Configuration
 

@@ -108,6 +108,15 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param connectViewController       The view controller providing the callback.
  @param contact                     The contact that is currently displayed.
+ */
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didPressDoneButton:(int)x;
+
+
+/**
+ Tells the delegate when the user selected the share button for a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ @param contact                     The contact that is currently displayed.
 */
 - (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachButtonForContact:(OCKContact *)contact;
 
