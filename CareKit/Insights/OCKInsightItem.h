@@ -63,6 +63,11 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, strong, nullable) UIColor *tintColor;
 
+/**
+ URL linking to the blockchain verification.
+ */
+@property (nonatomic, copy, nullable) NSURL *verificationURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

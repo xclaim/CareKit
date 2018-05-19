@@ -43,6 +43,7 @@ static const CGFloat VerticalMargin = 10.0;
 @implementation OCKInsightsChartTableViewCell {
     OCKLabel *_titleLabel;
     OCKLabel *_textLabel;
+    UIButton *_verificationButton;
     UIView *_chartView;
     NSMutableArray *_constraints;
 }
@@ -73,10 +74,22 @@ static const CGFloat VerticalMargin = 10.0;
         [self addSubview:_textLabel];
     }
     
+
     [_chartView removeFromSuperview];
     _chartView = self.chart.chartView;
     [self addSubview:_chartView];
-    
+
+    if (!_verificationButton) {
+        NSBundle *bundle = [NSBundle mainBundle];
+       _verificationButton = [UIButton new];
+        //_verificationButton.titleLabel.textColor = [UIColor redColor];
+        [_verificationButton setTitle:@"V" forState:UIControlStateNormal];
+        [_verificationButton setImage:[UIImage imageNamed:@"verified" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        [_verificationButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self addSubview:_verificationButton];
+        _verificationButton.layer.zPosition = 10000;
+    }
+
     [self updateView];
     [self setUpConstraints];
 }
@@ -94,7 +107,8 @@ static const CGFloat VerticalMargin = 10.0;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _chartView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+    _verificationButton.translatesAutoresizingMaskIntoConstraints = NO;
+
     [_constraints addObjectsFromArray:@[
                                         [NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeTop
@@ -165,7 +179,22 @@ static const CGFloat VerticalMargin = 10.0;
                                                                         toItem:self
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:-BottomMargin]
+                                                                      constant:-BottomMargin],
+                                        [NSLayoutConstraint constraintWithItem:_verificationButton
+                                                                     attribute:NSLayoutAttributeBottom
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:_chartView
+                                                                     attribute:NSLayoutAttributeBottom
+                                                                    multiplier:1.0
+                                                                      constant:BottomMargin],
+                                        [NSLayoutConstraint constraintWithItem:_verificationButton
+                                                                     attribute:NSLayoutAttributeTrailing
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:_chartView
+                                                                     attribute:NSLayoutAttributeTrailing
+                                                                    multiplier:1.0
+                                                                      constant:TrailingMargin],
+
                                         ]];
     
     [NSLayoutConstraint activateConstraints:_constraints];

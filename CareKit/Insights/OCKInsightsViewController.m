@@ -326,7 +326,7 @@
         }
     } else {
         OCKInsightItem *item = self.items[indexPath.row];
-        
+        item.verificationURL = [[NSURL alloc] initWithString:@"https://etherscan.io/tx/0xdf3ecc898944dd4f006321046524a6fca2f48303d61fe8e3ba79da3e7c86b4d2"];
         if ([item isKindOfClass:[OCKChart class]]) {
             static NSString *ChartCellIdentifier = @"ChartCell";
             OCKInsightsChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChartCellIdentifier];
