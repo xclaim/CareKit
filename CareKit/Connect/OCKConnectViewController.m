@@ -395,7 +395,7 @@
 }
 
 - (OCKContact *)contactForIndexPath:(NSIndexPath *)indexPath {
-    return _sectionedContacts[indexPath.section][indexPath.row];
+    return _sectionedContacts[indexPath.section-1][indexPath.row];
 }
 
 - (OCKConnectDetailViewController *)detailViewControllerForContact:(OCKContact *)contact {
@@ -456,7 +456,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _sectionedContacts.count;
+    return _sectionedContacts.count+1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -469,11 +469,11 @@
     } else if ([self shouldInboxBeVisible] && section == 1) {
         return [self.dataSource connectViewControllerCareTeamConnections:self].count;
     }
-    return _sectionedContacts[section].count;
+    return _sectionedContacts[section-1].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     if (indexPath.section == 0) {
         static NSString *FeedCellIdentifier = @"FeedCell";
 
@@ -499,7 +499,7 @@
         cell.imageView.image = [[UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.imageView.tintColor = [UIColor lightGrayColor];
         cell.tintColor = self.view.tintColor;
-        cell.textLabel.text = _sectionedContacts[indexPath.section][indexPath.row].name;
+        cell.textLabel.text = _sectionedContacts[indexPath.section-1][indexPath.row].name;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
         
@@ -510,7 +510,7 @@
             cell = [[OCKConnectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                   reuseIdentifier:CellIdentifier];
         }
-        cell.contact = _sectionedContacts[indexPath.section][indexPath.row];
+        cell.contact = _sectionedContacts[indexPath.section-1][indexPath.row];
         return cell;
     }
     return nil;
