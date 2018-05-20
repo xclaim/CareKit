@@ -278,10 +278,11 @@
     _sectionedContacts = [NSMutableArray new];
     _sectionTitles = [NSMutableArray new];
     
+    [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
+
     if ([self shouldInboxBeVisible]) {
         NSArray *connections = [self.dataSource connectViewControllerCareTeamConnections:self];
         [_sectionedContacts addObject:connections];
-        [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
         [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_INBOX_TITLE", nil)];
     }
     
@@ -463,7 +464,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self shouldInboxBeVisible] && section == 0) {
+    if (section == 0) {
+        return 1;
+    } else if ([self shouldInboxBeVisible] && section == 1) {
         return [self.dataSource connectViewControllerCareTeamConnections:self].count;
     }
     return _sectionedContacts[section].count;
@@ -471,7 +474,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
     if (indexPath.section == 0) {
         static NSString *FeedCellIdentifier = @"FeedCell";
 
