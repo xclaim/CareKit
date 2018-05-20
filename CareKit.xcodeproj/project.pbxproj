@@ -65,6 +65,9 @@
 		04DF17E220889B6100E1EDCD /* OCKImmunization_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DF17DF20889B6000E1EDCD /* OCKImmunization_Internal.h */; };
 		04DF17E320889B6100E1EDCD /* OCKImmunization.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DF17E020889B6000E1EDCD /* OCKImmunization.h */; };
 		04DF17E420889B6100E1EDCD /* OCKImmunization.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DF17E120889B6000E1EDCD /* OCKImmunization.m */; };
+		04F956A420B181B900359F22 /* OCKPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F956A120B181B700359F22 /* OCKPost.h */; };
+		04F956A520B181B900359F22 /* OCKPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F956A220B181B800359F22 /* OCKPost.m */; };
+		04F956A620B181B900359F22 /* OCKPost_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F956A320B181B900359F22 /* OCKPost_Internal.h */; };
 		186D42B51D78D8B60083EF5B /* OCKCarePlanThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */; };
 		186D42B71D78D8D60083EF5B /* OCKCarePlanThreshold.h in Headers */ = {isa = PBXBuildFile; fileRef = 186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		241707C31C9A3AB7005D7123 /* OCKBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 241707A71C9A3AB7005D7123 /* OCKBarChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -276,6 +279,9 @@
 		04DF17DF20889B6000E1EDCD /* OCKImmunization_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKImmunization_Internal.h; sourceTree = "<group>"; };
 		04DF17E020889B6000E1EDCD /* OCKImmunization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKImmunization.h; sourceTree = "<group>"; };
 		04DF17E120889B6000E1EDCD /* OCKImmunization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKImmunization.m; sourceTree = "<group>"; };
+		04F956A120B181B700359F22 /* OCKPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKPost.h; sourceTree = "<group>"; };
+		04F956A220B181B800359F22 /* OCKPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKPost.m; sourceTree = "<group>"; };
+		04F956A320B181B900359F22 /* OCKPost_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKPost_Internal.h; sourceTree = "<group>"; };
 		185BC3A31D81DF0F001AB0A9 /* OCKCarePlanStore v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OCKCarePlanStore v2.xcdatamodel"; sourceTree = "<group>"; };
 		186D42B41D78D8B60083EF5B /* OCKCarePlanThreshold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKCarePlanThreshold.m; sourceTree = "<group>"; };
 		186D42B61D78D8D60083EF5B /* OCKCarePlanThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKCarePlanThreshold.h; sourceTree = "<group>"; };
@@ -653,6 +659,9 @@
 		248929631C90E70100EBBE1F /* Connect */ = {
 			isa = PBXGroup;
 			children = (
+				04F956A320B181B900359F22 /* OCKPost_Internal.h */,
+				04F956A120B181B700359F22 /* OCKPost.h */,
+				04F956A220B181B800359F22 /* OCKPost.m */,
 				04CF056120A0EDE7003A5ED1 /* OCKShareWithContactsViewController.h */,
 				04CF056020A0EDE7003A5ED1 /* OCKShareWithContactsViewController.m */,
 				0463068020963EF9007BF8A8 /* OCKContact_Internal.h */,
@@ -1109,6 +1118,7 @@
 				242DBA961C9F7F8700529386 /* OCKSymptomTrackerViewController.h in Headers */,
 				24EA9FBA1C9A3D420036028E /* OCKCareCardInstructionsTableViewCell.h in Headers */,
 				8677EE161C9775EB00588CD6 /* OCKCarePlanEventResult_Internal.h in Headers */,
+				04F956A620B181B900359F22 /* OCKPost_Internal.h in Headers */,
 				8677EE0D1C9775EB00588CD6 /* NSDateComponents+CarePlanInternal.h in Headers */,
 				04A0DD6E2039E9220009F57A /* MessageTableViewCell.h in Headers */,
 				04750DEC20A3464600729C7D /* OCKShareActivitiesViewController.h in Headers */,
@@ -1116,6 +1126,7 @@
 				8677EE251C97776100588CD6 /* CareKit_Private.h in Headers */,
 				242DBA9A1C9F7F8700529386 /* OCKRingButton.h in Headers */,
 				2489298D1C90E71700EBBE1F /* OCKHelpers.h in Headers */,
+				04F956A420B181B900359F22 /* OCKPost.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,6 +1368,7 @@
 				04A0DD712039E9220009F57A /* MessageTextView.m in Sources */,
 				04527B032039C10200F4BBE4 /* SLKTypingIndicatorView.m in Sources */,
 				2489298E1C90E71700EBBE1F /* OCKHelpers.m in Sources */,
+				04F956A520B181B900359F22 /* OCKPost.m in Sources */,
 				04A0DD6F2039E9220009F57A /* TypingIndicatorView.m in Sources */,
 				24EA9FC31C9A3D420036028E /* OCKCareCardViewController.m in Sources */,
 				242DBA911C9F7F8700529386 /* OCKSymptomTrackerTableViewCell.m in Sources */,
@@ -1556,6 +1568,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(SRCROOT)/CareKit/CareKit.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKit;
@@ -1577,6 +1590,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CareKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$(SRCROOT)/CareKit/CareKit.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKit;

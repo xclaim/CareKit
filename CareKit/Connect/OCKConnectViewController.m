@@ -42,7 +42,6 @@
 #import "OCKConnectMessagesViewController.h"
 #import "OCKConnectHeaderView.h"
 
-
 @interface OCKConnectViewController() <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @end
@@ -282,6 +281,7 @@
     if ([self shouldInboxBeVisible]) {
         NSArray *connections = [self.dataSource connectViewControllerCareTeamConnections:self];
         [_sectionedContacts addObject:connections];
+        [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
         [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_INBOX_TITLE", nil)];
     }
     
@@ -378,6 +378,14 @@
 
 #pragma mark - Helpers
 
+- (BOOL)shouldFeedBeVisible {
+    return self.dataSource &&
+    [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:careTeamContact:)] &&
+    [self.dataSource respondsToSelector:@selector(connectViewController:connectFeedMessageItemAtIndex:careTeamContact:)] &&
+    [self.dataSource respondsToSelector:@selector(connectViewControllerFeedMessages:)];
+}
+
+
 - (BOOL)shouldInboxBeVisible {
     return self.dataSource &&
     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)] &&
@@ -401,8 +409,14 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if ([self shouldInboxBeVisible] && indexPath.section == 0) {
+
+
+    if (indexPath.section == 0) {
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(connectViewController:didSelectFeed:presentationSourceView:)] ) {
+            [self.delegate connectViewController:self didSelectFeed:0 presentationSourceView:nil];
+        }
+    } else if ([self shouldInboxBeVisible] && indexPath.section == 1) {
 
         OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
 
@@ -413,7 +427,6 @@
         viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
 
-        
 /*
         OCKConnectMessagesViewController *viewController = [OCKConnectMessagesViewController new];
         viewController.dataSource = self.dataSource;
@@ -429,7 +442,6 @@
         [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
     } else {
         OCKContact *contact = [self contactForIndexPath:indexPath];
-
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectContact:contact presentationSourceView:nil];
@@ -459,7 +471,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self shouldInboxBeVisible] && indexPath.section == 0) {
+
+    if (indexPath.section == 0) {
+        static NSString *FeedCellIdentifier = @"FeedCell";
+
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:FeedCellIdentifier];
+        }
+        cell.imageView.image = [[UIImage imageNamed:@"feed" inBundle:OCKBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        cell.imageView.tintColor = [UIColor lightGrayColor];
+        cell.tintColor = self.view.tintColor;
+        cell.textLabel.text = OCKLocalizedString(@"CONNECT_FEED_BUTTON_TITLE", nil);
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
+
+    } else if ([self shouldInboxBeVisible] && indexPath.section == 1) {
         static NSString *ConnectMessageCellIdentifier = @"ConnectMessageCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ConnectMessageCellIdentifier];
         if (!cell) {

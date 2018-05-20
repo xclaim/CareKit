@@ -83,15 +83,23 @@ static const CGFloat VerticalMargin = 10.0;
         NSBundle *bundle = [NSBundle mainBundle];
        _verificationButton = [UIButton new];
         //_verificationButton.titleLabel.textColor = [UIColor redColor];
-        [_verificationButton setTitle:@"V" forState:UIControlStateNormal];
+        [_verificationButton setTitle:@"#" forState:UIControlStateNormal];
         [_verificationButton setImage:[UIImage imageNamed:@"verified" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
         [_verificationButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_verificationButton addTarget:self action:@selector(verify:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_verificationButton];
         _verificationButton.layer.zPosition = 10000;
     }
 
     [self updateView];
     [self setUpConstraints];
+}
+
+- (void)verify:(id)sender
+{
+
+    NSLog(@"verify");
+
 }
 
 - (void)updateView {

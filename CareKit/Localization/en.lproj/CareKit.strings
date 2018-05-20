@@ -66,6 +66,8 @@
 "EMAIL_SEND_ERROR" = "Email send failed";
 "CONNECT_MESSAGE_PLACEHOLDER" = "Type a message...";
 "CONNECT_SEND_BUTTON_TITLE" = "Send";
+"CONNECT_FEED_TITLE" = "History";
+"CONNECT_FEED_BUTTON_TITLE" = "Feed";
 "CONNECT_INBOX_TITLE" = "Inbox";
 "CONNECT_CHAT_TITLE" = "Chat";
 "SHARE_ACTIVITIES" = "Share Activities";

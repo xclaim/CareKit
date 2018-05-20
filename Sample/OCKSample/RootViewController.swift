@@ -259,6 +259,7 @@ extension RootViewController: OCKConnectViewControllerDataSource {
     func connectViewController(_ connectViewController: OCKConnectViewController, didClickAddContact x: Int32) {
         print("didClickAddContact")
     }
+
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
         print("num ",sampleData.connectMessageItems.count)
         return sampleData.connectMessageItems.count
@@ -267,7 +268,7 @@ extension RootViewController: OCKConnectViewControllerDataSource {
     func connectViewControllerCareTeamConnections(_ viewController: OCKConnectViewController) -> [OCKContact] {
         return sampleData.contactsWithMessageItems
     }
-    
+
     func connectViewController(_ viewController: OCKConnectViewController, connectMessageItemAt index: Int, careTeamContact contact: OCKContact) -> OCKConnectMessageItem {
         return sampleData.connectMessageItems[index]
     }
@@ -282,6 +283,9 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         print(messageItem)
     }
 
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectFeed x: Int32, presentationSourceView sourceView: UIView?) {
+        print("feed")
+    }
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectChatButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
 
 
