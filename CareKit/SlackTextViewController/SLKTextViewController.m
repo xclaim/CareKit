@@ -2586,11 +2586,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     NSBundle *bundle = [NSBundle mainBundle];
 
     [self.mediaButton setTitle:NSLocalizedString(@"M", nil) forState:UIControlStateNormal];
-    [self.mediaButton setImage:[UIImage imageNamed:@"icn_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [self.mediaButton setImage:[UIImage imageNamed:@"icn_media_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.mediaButton setTintColor:[UIColor grayColor]];
 
     [self.leftButton setTitle:NSLocalizedString(@"A", nil) forState:UIControlStateNormal];
-    [self.leftButton setImage:[UIImage imageNamed:@"icn_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"icn_regime_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
 
     [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
@@ -2865,8 +2865,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // Notifies the view controller when the left button's action has been triggered, manually.
     [super didPressMediaButton:sender];
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachButtonForContact:)]) {
-        [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachMediaButtonForContact:)]) {
+        [self.delegate connectViewController:self didSelectAttachMediaButtonForContact:self.contact];
     }
     
     //UIViewController *vc = [UIViewController new];
@@ -2882,16 +2882,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // Notifies the view controller when the left button's action has been triggered, manually.
     [super didPressLeftButton:sender];
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachButtonForContact:)]) {
-        [self.delegate connectViewController:self didSelectAttachButtonForContact:self.contact];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachRegimeButtonForContact:)]) {
+        [self.delegate connectViewController:self didSelectAttachRegimeButtonForContact:self.contact];
     }
-
-    //UIViewController *vc = [UIViewController new];
-    //vc.view.backgroundColor = [UIColor whiteColor];
-    //ListViewController *vc = [RegimeListViewController new];
-    //vc.title = @"Share";
-    //[self.navigationController presentViewController:vc animated:YES completion:nil];
-    //[self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didPressRightButton:(id)sender
 {
