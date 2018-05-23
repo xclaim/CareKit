@@ -111,21 +111,18 @@
         [self registerForPreviewingWithDelegate:self sourceView:_tableView];
     }
 
-    if (_patient) {
-        _headerView = [OCKConnectHeaderView new];
-        _headerView.patient = _patient;
-        [self.view addSubview:_headerView];
+
+    _headerView = [OCKConnectHeaderView new];
+    _headerView.patient = _patient;
+    [self.view addSubview:_headerView];
     
-        UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
-        [_headerView addGestureRecognizer:singleFingerTap];
-    
-        [self updateHeaderView];
-    }
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
+    [_headerView addGestureRecognizer:singleFingerTap];
+    [self updateHeaderView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSAssert(self.navigationController, @"OCKConnectViewController must be embedded in a navigation controller.");
+    [super viewWillAppear:animated];    NSAssert(self.navigationController, @"OCKConnectViewController must be embedded in a navigation controller.");
 }
 
 - (void)setContacts:(NSArray<OCKContact *> *)contacts {
@@ -275,10 +272,13 @@
 }
 
 - (void)createSectionedContacts {
+
     _sectionedContacts = [NSMutableArray new];
     _sectionTitles = [NSMutableArray new];
-    
-    [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
+
+    if ([self shouldFeedBeVisible]) {
+        [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
+    }
 
     if ([self shouldInboxBeVisible]) {
         NSArray *connections = [self.dataSource connectViewControllerCareTeamConnections:self];
@@ -380,10 +380,14 @@
 #pragma mark - Helpers
 
 - (BOOL)shouldFeedBeVisible {
+
+    return true;
+
+    /*
     return self.dataSource &&
     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:careTeamContact:)] &&
     [self.dataSource respondsToSelector:@selector(connectViewController:connectFeedMessageItemAtIndex:careTeamContact:)] &&
-    [self.dataSource respondsToSelector:@selector(connectViewControllerFeedMessages:)];
+    [self.dataSource respondsToSelector:@selector(connectViewControllerFeedMessages:)];*/
 }
 
 
@@ -395,7 +399,11 @@
 }
 
 - (OCKContact *)contactForIndexPath:(NSIndexPath *)indexPath {
-    return _sectionedContacts[indexPath.section-1][indexPath.row];
+    if ([self shouldFeedBeVisible])
+        return _sectionedContacts[indexPath.section-1][indexPath.row];
+    else
+        return _sectionedContacts[indexPath.section][indexPath.row];
+
 }
 
 - (OCKConnectDetailViewController *)detailViewControllerForContact:(OCKContact *)contact {
@@ -412,21 +420,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
-    if (indexPath.section == 0) {
+    NSUInteger *inboxSection = [self shouldFeedBeVisible] ? 1:0;
+    if ([self shouldFeedBeVisible] && indexPath.section == 0) {
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectFeed:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectFeed:0 presentationSourceView:nil];
         }
-    } else if ([self shouldInboxBeVisible] && indexPath.section == 1) {
+    } else if ([self shouldInboxBeVisible] && indexPath.section == inboxSection) {
 
-        OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
-
-        viewController.patient = _patient;
-        viewController.dataSource = self.dataSource;
-        viewController.delegate = self.delegate;
-        viewController.masterViewController = self;
-        viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
-        [self.navigationController pushViewController:viewController animated:YES];
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(connectViewController:didSelectInboxForContact:presentationSourceView:)] ) {
+            [self.delegate connectViewController:self didSelectInboxForContact:[self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row] presentationSourceView:nil];
+        } else {
+            OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
+            viewController.patient = _patient;
+            viewController.dataSource = self.dataSource;
+            viewController.delegate = self.delegate;
+            viewController.masterViewController = self;
+            viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
 
 /*
         OCKConnectMessagesViewController *viewController = [OCKConnectMessagesViewController new];
@@ -456,7 +469,10 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _sectionedContacts.count+1;
+    if ([self shouldFeedBeVisible])
+        return _sectionedContacts.count+1;
+    else
+        return _sectionedContacts.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -464,17 +480,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else if ([self shouldInboxBeVisible] && section == 1) {
-        return [self.dataSource connectViewControllerCareTeamConnections:self].count;
+    if ([self shouldFeedBeVisible]) {
+        if (section == 0) {
+            return 1;
+        } else if ([self shouldInboxBeVisible] && section == 1) {
+            return [self.dataSource connectViewControllerCareTeamConnections:self].count;
+        }
+        return _sectionedContacts[section-1].count;
+    } else {
+        if ([self shouldInboxBeVisible] && section == 0) {
+                return [self.dataSource connectViewControllerCareTeamConnections:self].count;
+        }
+        return _sectionedContacts[section].count;
     }
-    return _sectionedContacts[section-1].count;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 0) {
+    NSUInteger *inboxSection = [self shouldFeedBeVisible] ? 1:0;
+
+    if ([self shouldFeedBeVisible] && indexPath.section == 0) {
         static NSString *FeedCellIdentifier = @"FeedCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
@@ -489,7 +515,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
 
-    } else if ([self shouldInboxBeVisible] && indexPath.section == 1) {
+    } else if ([self shouldInboxBeVisible] && indexPath.section == inboxSection) {
         static NSString *ConnectMessageCellIdentifier = @"ConnectMessageCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ConnectMessageCellIdentifier];
         if (!cell) {
@@ -499,7 +525,12 @@
         cell.imageView.image = [[UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         cell.imageView.tintColor = [UIColor lightGrayColor];
         cell.tintColor = self.view.tintColor;
-        cell.textLabel.text = _sectionedContacts[indexPath.section-1][indexPath.row].name;
+        if ([self shouldFeedBeVisible]) {
+            cell.textLabel.text = _sectionedContacts[indexPath.section-1][indexPath.row].name;
+
+        } else {
+            cell.textLabel.text = _sectionedContacts[indexPath.section][indexPath.row].name;
+        }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
         
@@ -510,7 +541,13 @@
             cell = [[OCKConnectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                   reuseIdentifier:CellIdentifier];
         }
-        cell.contact = _sectionedContacts[indexPath.section-1][indexPath.row];
+
+        if ([self shouldFeedBeVisible]) {
+            cell.contact = _sectionedContacts[indexPath.section-1][indexPath.row];
+        } else {
+            cell.contact = _sectionedContacts[indexPath.section][indexPath.row];
+        }
+
         return cell;
     }
     return nil;

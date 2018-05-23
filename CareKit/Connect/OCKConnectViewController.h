@@ -149,6 +149,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
 
 /**
+ Tells the delegate when the user selected the inbox for a contact.
+
+ @param connectViewController       The view controller providing the callback.
+ @param contact                     The contact that is currently displayed.
+ @param sourceView                  Source view can be used to present a popover on iPad.
+ */
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectInboxForContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
+
+/**
  Tells the delegate when the user selected the chat button for a contact.
 
  @param connectViewController       The view controller providing the callback.
