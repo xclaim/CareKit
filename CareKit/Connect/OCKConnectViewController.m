@@ -451,14 +451,13 @@
 
 */
 
-    } else if (_patient) {
-        OCKContact *contact = [self contactForIndexPath:indexPath];
-        [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
     } else {
         OCKContact *contact = [self contactForIndexPath:indexPath];
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectContact:contact presentationSourceView:nil];
+        } else {
+            [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
         }
     }
 
