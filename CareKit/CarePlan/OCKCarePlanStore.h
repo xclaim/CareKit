@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class OCKCarePlanEvent;
 @class OCKContact;
 @class OCKPatient;
+@class OCKMessage;
 
 
 /**
@@ -328,6 +329,17 @@ Get all the `OCKCarePlanEvent` objects for a given date.
 - (void)evaluateAdheranceThresholdForActivity:(OCKCarePlanActivity *)activity
                                          date:(NSDateComponents *)date
                                    completion:(void (^)(BOOL success, OCKCarePlanThreshold * _Nullable threshold, NSError * _Nullable error))completion;
+
+
+/**
+ Add a message to this store.
+
+
+ @param     contact     Contact object to be added.
+ @param     completion  Completion block to return operation result.
+ */
+- (void)addMessage:(OCKMessage *)message
+        completion:(void (^)(BOOL success,  NSError * _Nullable error))completion;
 
 
 /**

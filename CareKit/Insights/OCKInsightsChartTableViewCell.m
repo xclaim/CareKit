@@ -99,6 +99,8 @@ static const CGFloat VerticalMargin = 10.0;
 {
 
     NSLog(@"verify");
+    // ObjC
+    [[UIApplication sharedApplication] openURL:_chart.verificationURL];
 
 }
 

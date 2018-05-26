@@ -178,16 +178,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     return _inputAccessoryView;
 }
 
-- (UIView *)leftButtons
-{
-    if (!_leftButtons) {
-        _leftButtons = [UIView new];
-        _leftButtons.translatesAutoresizingMaskIntoConstraints = NO;
-        [_leftButtons addSubview:self.leftButton];
-        [_leftButtons addSubview:self.mediaButton];
-    }
-    return _leftButtons;
-}
+
 
 - (UIButton *)mediaButton
 {
@@ -222,6 +213,27 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         [_rightButton setTitle:title forState:UIControlStateNormal];
     }
     return _rightButton;
+}
+
+- (UIView *)leftButtons
+{
+    if (!_leftButtons) {
+        _leftButtons = [UIView new];
+        _leftButtons.translatesAutoresizingMaskIntoConstraints = NO;
+        [_leftButtons addSubview:self.leftButton];
+        [_leftButtons addSubview:self.mediaButton];
+
+        NSDictionary *views = @{
+                                @"mediaButton": self.mediaButton,
+                                @"leftButton":  self.leftButton,
+                                };
+        NSDictionary *metrics = @{@"space" : @(4) };
+
+        [_leftButtons addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(space)-[mediaButton(60)]-(space)-[leftButton(60)]-(space)-|" options:0 metrics:metrics views:views]];
+        [_leftButtons addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mediaButton]|" options:0 metrics:metrics views:views]];
+        [_leftButtons addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[leftButton]|" options:0 metrics:metrics  views:views]];
+    }
+    return _leftButtons;
 }
 
 - (UIView *)editorContentView
@@ -728,14 +740,14 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         self.editorContentViewHC.constant = zero;
         
         CGSize leftButtonSize = [self.leftButton imageForState:self.leftButton.state].size;
-        
+
         if (leftButtonSize.width > 0) {
-            self.leftButtonHC.constant = roundf(leftButtonSize.height);
-            self.leftButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - leftButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
+            self.leftButtonHC.constant = roundf(2*leftButtonSize.height);
+            self.leftButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - 2*leftButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
         }
         
-        self.leftButtonWC.constant = roundf(leftButtonSize.width);
-        self.leftMarginWC.constant = (leftButtonSize.width > 0) ? self.contentInset.left : zero;
+        self.leftButtonWC.constant = roundf(2*leftButtonSize.width);
+        self.leftMarginWC.constant = (2*leftButtonSize.width > 0) ? self.contentInset.left : zero;
         
         self.rightButtonWC.constant = [self slk_appropriateRightButtonWidth];
         self.rightMarginWC.constant = [self slk_appropriateRightButtonMargin];

@@ -2585,11 +2585,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.inverted = YES;
     NSBundle *bundle = [NSBundle mainBundle];
 
-    [self.mediaButton setTitle:NSLocalizedString(@"M", nil) forState:UIControlStateNormal];
+    //[self.mediaButton setTitle:NSLocalizedString(@"M", nil) forState:UIControlStateNormal];
     [self.mediaButton setImage:[UIImage imageNamed:@"icn_media_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.mediaButton setTintColor:[UIColor grayColor]];
 
-    [self.leftButton setTitle:NSLocalizedString(@"A", nil) forState:UIControlStateNormal];
+    //[self.leftButton setTitle:NSLocalizedString(@"A", nil) forState:UIControlStateNormal];
     [self.leftButton setImage:[UIImage imageNamed:@"icn_regime_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
 

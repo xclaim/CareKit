@@ -36,6 +36,7 @@
 #import "OCKCarePlanEvent_Internal.h"
 #import "OCKCarePlanEventResult_Internal.h"
 #import "OCKCareSchedule_Internal.h"
+#import "OCKMessage_Internal.h"
 #import "OCKContact_Internal.h"
 #import "OCKHelpers.h"
 #import "OCKDefines.h"
@@ -68,6 +69,8 @@ static NSString * const OCKEntityNameActivity =  @"OCKCDCarePlanActivity";
 static NSString * const OCKEntityNameEvent =  @"OCKCDCarePlanEvent";
 static NSString * const OCKEntityNameEventResult =  @"OCKCDCarePlanEventResult";
 static NSString * const OCKEntityNameContact =  @"OCKCDContact";
+static NSString * const OCKEntityNameMessage =  @"OCKCDMessage";
+static NSString * const OCKEntityNamePost =  @"OCKCDPost";
 
 static NSString * const OCKAttributeNameIdentifier = @"identifier";
 static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
@@ -76,6 +79,7 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
 @implementation OCKCarePlanStore {
     NSURL *_persistenceDirectoryURL;
     NSArray *_cachedActivities;
+    NSArray *_cachedMessages;
     NSArray *_cachedContacts;
     dispatch_queue_t _queue;
     NSManagedObjectContext *_managedObjectContext;
@@ -182,6 +186,51 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     }
 
     return savedSuccessfully;
+}
+
+
+- (BOOL)block_addMessageItemWithEntityName:(NSString *)entityName
+                             coreDataClass:(Class)coreDataClass
+                                sourceItem:(OCKMessage *)sourceItem
+                                     error:(NSError **)error{
+    NSParameterAssert(entityName);
+    NSParameterAssert(coreDataClass);
+    NSParameterAssert(sourceItem);
+
+    NSManagedObjectContext *context = _managedObjectContext;
+    if (context == nil) {
+        return NO;
+    }
+
+    NSError *errorOut = nil;
+
+    OCKMessage *item = [self block_fetchItemWithEntityName:entityName
+                                                identifier:sourceItem.identifier
+                                                     class:[OCKMessage class]
+                                                     error:&errorOut];
+
+    if (item) {
+        if (error) {
+            NSString *reasonString = [NSString stringWithFormat:@"A message with the identifier %@ already exists.", sourceItem.identifier];
+            *error = [NSError errorWithDomain:OCKErrorDomain code:OCKErrorInvalidObject userInfo:@{@"reason":reasonString}];
+            NSLog(@"%@",reasonString);
+        }
+    } else {
+
+        NSManagedObject *cdObject;
+        cdObject = [[coreDataClass alloc] initWithEntity:[NSEntityDescription entityForName:entityName
+                                                                     inManagedObjectContext:context]
+                          insertIntoManagedObjectContext:context
+                                                    item:sourceItem];
+
+        if (![context save:&errorOut]) {
+            if (error) {
+                *error = errorOut;
+            }
+        }
+    }
+
+    return errorOut ? NO : YES;
 }
 
 - (BOOL)block_addContactItemWithEntityName:(NSString *)entityName
@@ -1207,7 +1256,8 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     }];
 }
 
-
+- (void)handleMessageListChange:(BOOL)result {
+}
 - (void)handleContactListChange:(BOOL)result type:(OCKContactType)type {
 /*
     if (result){
@@ -1223,6 +1273,35 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     }
 */
 }
+
+- (void)addMessage:(OCKMessage *)message
+        completion:(void (^)(BOOL success, NSError *error))completion {
+    OCKThrowInvalidArgumentExceptionIfNil(message);
+
+    NSError *errorOut = nil;
+    NSManagedObjectContext *context = _managedObjectContext;
+
+    if (context == nil) {
+        completion(NO, errorOut);
+        return;
+    }
+
+    __block BOOL result = NO;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        NSError *errorOut = nil;
+        result = [strongSelf block_addMessageItemWithEntityName:OCKEntityNameMessage coreDataClass:[OCKCDMessage class] sourceItem:message error:&errorOut];
+        if (result) {
+            _cachedMessages = nil;
+        }
+        dispatch_async(_queue, ^{
+            completion(result, errorOut);
+            [self handleMessageListChange:result];
+        });
+    }];
+}
+
 
 - (void)addContact:(OCKContact *)contact
         completion:(void (^)(BOOL success, NSError *error))completion {

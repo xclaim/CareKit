@@ -335,6 +335,7 @@
                                                             reuseIdentifier:ChartCellIdentifier];
             }
             cell.chart = (OCKChart *)item;
+
             return cell;
         }
         else if ([item isKindOfClass:[OCKMessageItem class]]) {

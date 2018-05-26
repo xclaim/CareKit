@@ -29,6 +29,7 @@
  */
 
 
+#import "OCKMessage.h"
 #import "OCKConnectMessageItem.h"
 #import "OCKHelpers.h"
 

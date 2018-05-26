@@ -132,7 +132,7 @@ class SampleData: NSObject {
                 self.connectMessageItems.insert(
                         OCKConnectMessageItem(messageType: OCKConnectMessageType.sent, sender: patient.contact, message: NSLocalizedString("I am feeling good after taking the medication! Thank you.",  comment: ""), icon: UIImage(named: "photo"), dateString:dateString ,userData:nil), at: 0)
                 self.connectMessageItems.insert(
-                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: UIImage(named: "photo"), dateString: dateString ,userData:nil), at: 0)
+                    OCKConnectMessageItem(messageType: .received, sender: contact, message: NSLocalizedString("That is great! Keep up the good work.",  comment: ""), icon: UIImage(named: "photo"), dateString: dateString , userData:nil), at: 0)
                 break;
             }
         }
@@ -191,9 +191,6 @@ class SampleData: NSObject {
                 print(activity.identifier)
             }
         })
-
-
-
     }
 
     //carePlanActivity.addContact(self.sampleContacts[0])
