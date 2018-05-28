@@ -319,6 +319,7 @@
     }
     NSArray <OCKContact *> *contacts = [[NSMutableArray alloc] initWithObjects:_sectionedContacts[indexPath.section][indexPath.row], nil];
     cell.contact = contacts[0];
+    
     OCKContact *x = _sectionedContacts[indexPath.section][indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryNone;
 

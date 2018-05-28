@@ -57,9 +57,13 @@
 			defaultLabel = OCKLocalizedString(@"CONTACT_INFO_EMAIL_TITLE", nil);
 			break;
 			
-		case OCKContactInfoTypeVideo:
-			defaultLabel = OCKLocalizedString(@"CONTACT_INFO_VIDEO_TITLE", nil);
-			break;
+            case OCKContactInfoTypeVideo:
+            defaultLabel = OCKLocalizedString(@"CONTACT_INFO_VIDEO_TITLE", nil);
+            break;
+
+        case OCKContactInfoTypeWhisper:
+            defaultLabel = OCKLocalizedString(@"CONTACT_INFO_WHISPER_TITLE", nil);
+            break;
 	}
 	return [self initWithType:type displayString:displayString actionURL:actionURL label:defaultLabel];
 }
@@ -122,6 +126,13 @@
 + (OCKContactInfo *)facetimeAudio:(NSString *)emailAddressOrRawPhoneNumber displayString:(NSString *)displayString{
 	NSURL *actionURL = [[NSURL alloc] initWithString:[@"facetime-audio://" stringByAppendingString:emailAddressOrRawPhoneNumber]];
 	return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypePhone displayString:displayString ?: emailAddressOrRawPhoneNumber actionURL:actionURL];
+}
+
++ (OCKContactInfo *)whisper:(NSString *)publicKey {
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"shh://" stringByAppendingString:publicKey]];
+
+    return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeWhisper displayString:publicKey actionURL:actionURL];
+
 }
 
 

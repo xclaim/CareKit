@@ -87,6 +87,7 @@ class SampleData: NSObject {
                                .facetimeVideo("user@example.com", display: nil),
                                .facetimeVideo("3145554321", display: "314-555-4321"),
                                .facetimeAudio("3145554321", display: "314-555-4321"),
+                               .whisper("3145554321"),
                                OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "chat", icon: UIImage(named: "starstuff"))],
                    activities: [],
                    tintColor: Colors.yellow.color,
@@ -191,6 +192,14 @@ class SampleData: NSObject {
                 print(activity.identifier)
             }
         })
+
+
+
+        carePlanStore.contacts { (success, contacts, error) in
+            for contact in contacts    {
+                print(contact.name)
+            }
+        }
     }
 
     //carePlanActivity.addContact(self.sampleContacts[0])

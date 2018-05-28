@@ -59,7 +59,12 @@ typedef NS_ENUM(NSInteger, OCKContactInfoType) {
 	/**
 	 A video call contact info.
 	 */
-	OCKContactInfoTypeVideo
+	OCKContactInfoTypeVideo,
+
+    /**
+     A whisper public key.
+     */
+    OCKContactInfoTypeWhisper
 };
 
 /**
@@ -154,6 +159,13 @@ OCK_CLASS_AVAILABLE
  @param emailAddress    The email address.
  */
 + (OCKContactInfo *)email:(NSString *)emailAddress;
+
+/**
+ Creates a new contact info with a whisper: action URL.
+
+ @param publicKey    The email address.
+ */
++ (OCKContactInfo *)whisper:(NSString *)publicKey;
 
 /**
  Creates a new contact info with a facetime: action URL.
