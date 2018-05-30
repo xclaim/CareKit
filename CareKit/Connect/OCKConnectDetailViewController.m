@@ -78,6 +78,12 @@ static const CGFloat HeaderViewHeight = 225.0;
                                                   target:self
                                                   action:@selector(insights:)];
     }
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"SHARE_ACTIVITIES", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(share:)];
+
     [self prepareView];
 }
 
@@ -247,6 +253,9 @@ static const CGFloat HeaderViewHeight = 225.0;
                 case OCKContactInfoTypeVideo:
                     [self makeVideoCallToNumber:contactInfo.displayString];
                     break;
+                case OCKContactInfoTypeWhisper:
+                    break;
+
             }
         }
     }

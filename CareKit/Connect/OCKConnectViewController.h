@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol OCKConnectViewControllerDataSource <NSObject>
 
 @required
+
+
 /**
  Asks the data source for an array of contacts to be displayed under inbox.
  
@@ -77,6 +79,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param contact                 The care team contact.
  */
 - (NSInteger)connectViewControllerNumberOfConnectMessageItems:(OCKConnectViewController *)viewController careTeamContact:(OCKContact *)contact;
+
+@optional
+
+/**
+ Asks the data source for an array of all contacts.
+
+ @param viewController          The view controller providing the callback.
+ */
+- (void)connectViewControllerContacts:(OCKConnectViewController *)viewController completion:(void (NSArray<OCKContact *> * contacts))completion;
 @end
 
 /**

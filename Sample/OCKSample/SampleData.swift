@@ -60,7 +60,7 @@ class SampleData: NSObject {
                    identifier: "123",
                    name: "Dr. Maria Ruiz",
                    relation: "Physician",
-                   contactInfoItems: [OCKContactInfo.phone("888-555-5512"), OCKContactInfo.sms("888-555-5512"), OCKContactInfo.email("mruiz2@mac.com")],
+                   contactInfoItems: [OCKContactInfo.phone("+46709756404"), OCKContactInfo.sms("+46709756404"), OCKContactInfo.email("mruiz2@mac.com")],
                    activities: [],
                    tintColor: Colors.blue.color,
                    monogram: "MR",

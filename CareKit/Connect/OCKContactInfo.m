@@ -75,11 +75,15 @@
 		case OCKContactInfoTypePhone:
 			defaultIcon = [UIImage imageNamed:@"phone" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
 			break;
-			
-		case OCKContactInfoTypeMessage:
-			defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
-			break;
-			
+
+        case OCKContactInfoTypeMessage:
+            defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
+            break;
+
+        case OCKContactInfoTypeWhisper:
+            defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
+            break;
+
 		case OCKContactInfoTypeEmail:
 			defaultIcon = [UIImage imageNamed:@"email" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
 			break;

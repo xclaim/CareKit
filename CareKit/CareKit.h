@@ -86,3 +86,5 @@
 
 #import <CareKit/OCKConnectDetailViewController.h>
 
+#import "OCKShareActivitiesViewController.h"
+

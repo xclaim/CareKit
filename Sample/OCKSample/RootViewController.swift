@@ -256,6 +256,16 @@ extension RootViewController: ORKTaskViewControllerDelegate {
 
 extension RootViewController: OCKConnectViewControllerDataSource {
 
+    @nonobjc func connectViewControllerContacts(_ viewController: OCKConnectViewController, completion: (([OCKContact]) -> Void)!) {
+         storeManager.store.contacts { (success, contacts, error) in
+            if success {
+                completion(contacts)
+            } else {
+                completion([])
+            }
+        }
+    }
+
     func connectViewController(_ connectViewController: OCKConnectViewController, didClickAddContact x: Int32) {
         print("didClickAddContact")
     }
@@ -278,7 +288,6 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
 extension RootViewController: OCKConnectViewControllerDelegate {
 
-
     @nonobjc func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
         print(messageItem)
     }
@@ -286,6 +295,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectFeed x: Int32, presentationSourceView sourceView: UIView?) {
         print("feed")
     }
+    
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectChatButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
 
 

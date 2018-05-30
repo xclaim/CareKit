@@ -49,7 +49,7 @@
 		04740532209A6BB800B06013 /* OCKCareCardSharingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 04740530209A6BB700B06013 /* OCKCareCardSharingTableViewCell.h */; };
 		04740533209A6BB800B06013 /* OCKCareCardSharingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04740531209A6BB800B06013 /* OCKCareCardSharingTableViewCell.m */; };
 		04750DEB20A3464600729C7D /* OCKShareActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04750DE920A3464000729C7D /* OCKShareActivitiesViewController.m */; };
-		04750DEC20A3464600729C7D /* OCKShareActivitiesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04750DEA20A3464400729C7D /* OCKShareActivitiesViewController.h */; };
+		04750DEC20A3464600729C7D /* OCKShareActivitiesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04750DEA20A3464400729C7D /* OCKShareActivitiesViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A0DD6A2039E9220009F57A /* TypingIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD622039E9210009F57A /* TypingIndicatorView.h */; };
 		04A0DD6B2039E9220009F57A /* MessageTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD632039E9210009F57A /* MessageTextView.h */; };
 		04A0DD6C2039E9220009F57A /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A0DD642039E9210009F57A /* Message.h */; };
