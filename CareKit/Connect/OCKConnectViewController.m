@@ -280,8 +280,8 @@
         [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_FEED_TITLE", nil)];
     }
 
-    if ([self shouldInboxBeVisible]) {
-        NSArray *connections = [self.dataSource connectViewControllerCareTeamConnections:self];
+    NSArray *connections = [self.dataSource connectViewControllerCareTeamConnections:self];
+    if ([self shouldInboxBeVisible] && connections.count >0) {
         [_sectionedContacts addObject:connections];
         [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_INBOX_TITLE", nil)];
     }
