@@ -256,6 +256,10 @@ extension RootViewController: ORKTaskViewControllerDelegate {
 
 extension RootViewController: OCKConnectViewControllerDataSource {
 
+    func connectViewControllerNumber(ofFeedMessageItems viewController: OCKConnectViewController) -> Int {
+        return 0
+    }
+    
     @nonobjc func connectViewControllerContacts(_ viewController: OCKConnectViewController, completion: (([OCKContact]) -> Void)!) {
          storeManager.store.contacts { (success, contacts, error) in
             if success {

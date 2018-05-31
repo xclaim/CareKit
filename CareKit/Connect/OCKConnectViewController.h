@@ -80,6 +80,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSInteger)connectViewControllerNumberOfConnectMessageItems:(OCKConnectViewController *)viewController careTeamContact:(OCKContact *)contact;
 
+/**
+ Asks the data source for the number of feed message items.
+
+ Some feed items (connect messages) are displayed in the inbox under connect.
+ The `connectViewController:connectMessageItemAtIndex:` implementation is required with this method.
+
+ @param viewController          The view controller providing the callback.
+ */
+- (NSInteger)connectViewControllerNumberOfFeedMessageItems:(OCKConnectViewController *)viewController;
+
 @optional
 
 /**

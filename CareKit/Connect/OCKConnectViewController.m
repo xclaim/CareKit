@@ -380,14 +380,8 @@
 #pragma mark - Helpers
 
 - (BOOL)shouldFeedBeVisible {
-
-    return true;
-
-    /*
     return self.dataSource &&
-    [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:careTeamContact:)] &&
-    [self.dataSource respondsToSelector:@selector(connectViewController:connectFeedMessageItemAtIndex:careTeamContact:)] &&
-    [self.dataSource respondsToSelector:@selector(connectViewControllerFeedMessages:)];*/
+    [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:)] && [self.dataSource connectViewControllerNumberOfFeedMessageItems:self] >0 ;
 }
 
 
