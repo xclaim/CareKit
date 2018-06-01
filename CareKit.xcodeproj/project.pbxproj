@@ -792,8 +792,8 @@
 		8605A5B01C4F04EC00DD65FF = {
 			isa = PBXGroup;
 			children = (
-				041848F0203D8BD000C464AB /* CareKit.podspec */,
 				8605A5BC1C4F04EC00DD65FF /* CareKit */,
+				041848F0203D8BD000C464AB /* CareKit.podspec */,
 				8605A5C81C4F04EC00DD65FF /* CareKitTests */,
 				8605A5BB1C4F04EC00DD65FF /* Products */,
 			);

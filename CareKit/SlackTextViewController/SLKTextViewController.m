@@ -2596,7 +2596,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
 
     self.textInputbar.autoHideRightButton = YES;
-    self.textInputbar.maxCharCount = 256;
+    self.textInputbar.maxCharCount = 1024;
     self.textInputbar.counterStyle = SLKCounterStyleSplit;
     self.textInputbar.counterPosition = SLKCounterPositionTop;
 
@@ -2884,10 +2884,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
     UIButton *button = (UIButton *)sender;
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachRegimeButtonForContact::)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachRegimeButtonForContact:presentationSourceView:)]) {
         [self.delegate connectViewController:self didSelectAttachRegimeButtonForContact:self.contact presentationSourceView:button];
     }
 }
+
 - (void)didPressRightButton:(id)sender
 {
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
