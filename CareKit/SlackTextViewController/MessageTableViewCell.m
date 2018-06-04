@@ -17,7 +17,7 @@
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor whiteColor];
-        
+
         [self configureSubviews];
     }
     return self;
@@ -35,7 +35,7 @@
                             @"bodyLabel": self.bodyLabel,
                             @"mediaView": self.mediaView,
                             };
-    
+
     NSDictionary *metrics = @{
                               @"mediaHeight": @(kMessageTableViewCellMediaHeight),
                               @"mediaSize": @(kMessageTableViewCellMediaSize),
@@ -44,7 +44,7 @@
                               @"right": @10,
                               @"left": @5
                               };
-    
+
     if (self.mediaView.image != nil ) {
         [self.mediaView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
         [self.mediaView.layer setBorderWidth: 1.0];
@@ -52,12 +52,12 @@
 
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[titleLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[bodyLabel(>=0)]-right-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[mediaView(mediaSize)]-right-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[thumbnailView(tumbSize)]-right-[mediaView]-right-|" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[thumbnailView(tumbSize)]-(>=0)-|" options:0 metrics:metrics views:views]];
-    
+
     if ([self.reuseIdentifier isEqualToString:MessengerCellIdentifier]) {
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[titleLabel(20)]-left-[mediaView(mediaSize)]-left-|" options:0 metrics:metrics views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-mediaSize-[titleLabel(mediaSize)]-left-[bodyLabel(>=0@999)]-left-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[titleLabel(20)]-right-[mediaView]|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-right-[titleLabel(mediaSize)]-left-[bodyLabel(>=0@999)]-left-|" options:0 metrics:metrics views:views]];
     }
     else {
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleLabel]|" options:0 metrics:metrics views:views]];
@@ -67,17 +67,12 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     CGFloat pointSize = [MessageTableViewCell defaultFontSize];
-    
     self.titleLabel.font = [UIFont boldSystemFontOfSize:pointSize];
     self.bodyLabel.font = [UIFont systemFontOfSize:pointSize];
-    
     self.titleLabel.text = @"";
     self.bodyLabel.text = @"";
-
 }
 
 #pragma mark - Getters
@@ -117,7 +112,7 @@
         _thumbnailView.translatesAutoresizingMaskIntoConstraints = NO;
         _thumbnailView.userInteractionEnabled = NO;
         _thumbnailView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-        
+
         _thumbnailView.layer.cornerRadius = kMessageTableViewCellAvatarHeight/2.0;
         _thumbnailView.layer.masksToBounds = YES;
     }
@@ -132,7 +127,7 @@
         _mediaView.userInteractionEnabled = YES;
         _mediaView.layer.cornerRadius = 2.0;
         _mediaView.layer.masksToBounds = YES;
-         _mediaView.contentMode = UIViewContentModeScaleAspectFit;
+        _mediaView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _mediaView;
 }
@@ -140,10 +135,10 @@
 + (CGFloat)defaultFontSize
 {
     CGFloat pointSize = 16.0;
-    
+
     NSString *contentSizeCategory = [[UIApplication sharedApplication] preferredContentSizeCategory];
     pointSize += SLKPointSizeDifferenceForCategory(contentSizeCategory);
-    
+
     return pointSize;
 }
 
