@@ -2573,6 +2573,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // Set custom button on navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 
+    // Set custom button on navigation bar
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
+
     // Example's configuration
     [self configureDataSource];
     [self configureActionItems];
@@ -2652,6 +2655,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)add
+{
+
+}
+
 #pragma mark - Example's Configuration
 
 - (void)configureDataSource
@@ -2686,11 +2694,16 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (void)configureActionItems
 {
+    /*
     UIBarButtonItem *pipItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn_pic"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(togglePIPWindow:)];
-    self.navigationItem.rightBarButtonItems = @[pipItem];
+    self.navigationItem.rightBarButtonItems = @[pipItem];*/
+
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addContact:)];
+    self.navigationItem.rightBarButtonItems = @[addItem];
+
 }
 
 #pragma mark - Action Methods
@@ -2759,7 +2772,15 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
     }
+}
 
+- (void)addContact:(id)sender
+{
+    UIBarButtonItem *button = ( UIBarButtonItem *)sender;
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAddContact:presentationSourceView:)]) {
+        [self.delegate connectViewController:self didSelectAddContact:self.contact presentationSourceView:button];
+    }
 }
 
 - (void)togglePIPWindow:(id)sender
@@ -3212,12 +3233,18 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         height += CGRectGetHeight(bodyBounds);
         height += 40.0;
 
+
         if (item.icon != nil ) {
-            height += 350.0;
+            height += item.icon.size.height;
+            //350.0;
         }
 
         if (height < kMessageTableViewCellMinimumHeight) {
             height = kMessageTableViewCellMinimumHeight;
+        }
+
+        if (height > kMessageTableViewCellMaximumHeight) {
+            height = kMessageTableViewCellMaximumHeight;
         }
 
         return height;
