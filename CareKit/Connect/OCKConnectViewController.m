@@ -114,6 +114,8 @@
 
     _headerView = [OCKConnectHeaderView new];
     _headerView.patient = _patient;
+    [_headerView addTarget:self action:@selector(didClickEdit) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:_headerView];
     
     UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
@@ -123,6 +125,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];    NSAssert(self.navigationController, @"OCKConnectViewController must be embedded in a navigation controller.");
+}
+
+
+- (void)didClickEdit
+{
+    NSLog(@"didClickEdit");
+
+    // No implementation here. Meant to be overriden in subclass.
 }
 
 - (void)setContacts:(NSArray<OCKContact *> *)contacts {

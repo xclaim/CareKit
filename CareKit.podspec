@@ -34,7 +34,7 @@
 
 Pod::Spec.new do |s|
   s.name                  = 'CareKit'
-  s.version               = '1.2.3.13'
+  s.version               = '0.1'
   s.summary               = 'CareKit is an open source software framework for creating apps that help people better understand and manage their health.'
   s.homepage              = 'https://github.com/xclaim/CareKit/'
   s.documentation_url     = 'http://carekit.org/docs/'
