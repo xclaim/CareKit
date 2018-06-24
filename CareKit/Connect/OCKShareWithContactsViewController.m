@@ -215,6 +215,7 @@
     NSMutableArray *personalContacts = [NSMutableArray new];
     NSMutableArray *groupContacts = [NSMutableArray new];
     NSMutableArray *deviceContacts = [NSMutableArray new];
+    NSMutableArray *contactContacts = [NSMutableArray new];
 
     for (OCKContact *contact in self.contacts) {
         switch (contact.type) {
@@ -223,6 +224,9 @@
                 break;
             case OCKContactTypePatient:
                 [patientContacts addObject:contact];
+                break;
+            case OCKContactTypeContact:
+                [contactContacts addObject:contact];
                 break;
             case OCKContactTypePersonal:
                 [personalContacts addObject:contact];
@@ -244,6 +248,11 @@
     if (patientContacts.count > 0) {
         [_sectionedContacts addObject:[patientContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
+    }
+
+    if (contactContacts.count > 0) {
+        [_sectionedContacts addObject:[contactContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"CONTACT_SECTION_TITLE", nil)];
     }
 
     if (personalContacts.count > 0) {

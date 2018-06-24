@@ -98,9 +98,12 @@
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                            target:self
                                                                                            action:@selector(add:)];
+    }
 
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
@@ -114,7 +117,6 @@
 
     _headerView = [OCKConnectHeaderView new];
     _headerView.patient = _patient;
-    [_headerView addTarget:self action:@selector(didClickEdit) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:_headerView];
     
@@ -125,14 +127,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];    NSAssert(self.navigationController, @"OCKConnectViewController must be embedded in a navigation controller.");
-}
-
-
-- (void)didClickEdit
-{
-    NSLog(@"didClickEdit");
-
-    // No implementation here. Meant to be overriden in subclass.
 }
 
 - (void)setContacts:(NSArray<OCKContact *> *)contacts {
@@ -301,6 +295,7 @@
     NSMutableArray *personalContacts = [NSMutableArray new];
     NSMutableArray *groupContacts = [NSMutableArray new];
     NSMutableArray *deviceContacts = [NSMutableArray new];
+    NSMutableArray *contactContacts = [NSMutableArray new];
 
     for (OCKContact *contact in self.contacts) {
         switch (contact.type) {
@@ -309,6 +304,9 @@
                 break;
             case OCKContactTypePatient:
                 [patientContacts addObject:contact];
+                break;
+            case OCKContactTypeContact:
+                [contactContacts addObject:contact];
                 break;
             case OCKContactTypePersonal:
                 [personalContacts addObject:contact];
@@ -330,6 +328,11 @@
     if (patientContacts.count > 0) {
         [_sectionedContacts addObject:[patientContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
+    }
+
+    if (contactContacts.count > 0) {
+        [_sectionedContacts addObject:[contactContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"CONTACT_SECTION_TITLE", nil)];
     }
 
     if (personalContacts.count > 0) {
