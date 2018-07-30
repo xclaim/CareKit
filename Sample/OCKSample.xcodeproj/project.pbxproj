@@ -963,7 +963,7 @@
 				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				INFOPLIST_FILE = OCKSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 3.0;
@@ -980,7 +980,7 @@
 				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				INFOPLIST_FILE = OCKSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

@@ -54,7 +54,8 @@ typedef NS_ENUM(NSInteger, OCKContactType) {
     OCKContactTypePatient,
     OCKContactTypeGroup,
     OCKContactTypeDevice,
-    OCKContactTypeContact
+    OCKContactTypeContact,
+    OCKContactTypeDataProvider
 };
 
 

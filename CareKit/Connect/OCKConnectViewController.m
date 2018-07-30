@@ -296,6 +296,7 @@
     NSMutableArray *groupContacts = [NSMutableArray new];
     NSMutableArray *deviceContacts = [NSMutableArray new];
     NSMutableArray *contactContacts = [NSMutableArray new];
+    NSMutableArray *providerContacts = [NSMutableArray new];
 
     for (OCKContact *contact in self.contacts) {
         switch (contact.type) {
@@ -316,6 +317,8 @@
                 break;
             case OCKContactTypeDevice:
                 [deviceContacts addObject:contact];
+            case OCKContactTypeDataProvider:
+                [providerContacts addObject:contact];
                 break;
         }
     }
@@ -348,6 +351,11 @@
     if (deviceContacts.count > 0) {
         [_sectionedContacts addObject:[deviceContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"DEVICE_SECTION_TITLE", nil)];
+    }
+
+    if (providerContacts.count > 0) {
+        [_sectionedContacts addObject:[providerContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"PROVIDER_SECTION_TITLE", nil)];
     }
 
 }
@@ -427,7 +435,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
-    NSUInteger *inboxSection = [self shouldFeedBeVisible] ? 1:0;
+    NSUInteger inboxSection = [self shouldFeedBeVisible] ? 1:0;
     if ([self shouldFeedBeVisible] && indexPath.section == 0) {
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectFeed:presentationSourceView:)] ) {
