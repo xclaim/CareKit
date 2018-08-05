@@ -310,6 +310,12 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         connectViewController.navigationController?.pushViewController(insightsViewController, animated: true)
     }
 
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
+        
+        // let nav = UINavigationController(rootViewController: insightsViewController)
+        //connectViewController.navigationController?.pushViewController(insightsViewController, animated: true)
+    }
+
 
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact)  {
 

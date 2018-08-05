@@ -79,10 +79,14 @@ static const CGFloat HeaderViewHeight = 225.0;
                                                   action:@selector(insights:)];
     }
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"SHARE_ACTIVITIES", nil)
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectShareButtonForContact:presentationSourceView:)]) {
+
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"SHARE_ACTIVITIES", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(share:)];
+    }
 
     [self prepareView];
 }
@@ -101,6 +105,12 @@ static const CGFloat HeaderViewHeight = 225.0;
 
     NSLog(@"activities for contact %@",_contact.name);
 
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:didSelectInsightsButtonForContact:presentationSourceView:)]) {
+
+        [self.delegate connectViewController:self.masterViewController didSelectInsightsButtonForContact:self.contact presentationSourceView:nil];
+    }
+/*
     [_store contactForIdentifier:_contact.identifier completion:^(BOOL success, OCKContact * _Nullable contact, NSError * _Nullable error) {
         OCKShareActivitiesViewController *shareViewController = [[OCKShareActivitiesViewController alloc] initWithCarePlanStore:self.store sharing:contact.activities];
 
@@ -110,7 +120,7 @@ static const CGFloat HeaderViewHeight = 225.0;
         shareViewController.delegate = self;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shareViewController];
         [self presentViewController:navigationController animated:YES completion:nil];
-     }];
+     }]; */
  }
 
 - (void)setContact:(OCKContact *)contact {
