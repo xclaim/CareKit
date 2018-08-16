@@ -47,8 +47,6 @@
 
 @interface OCKCareContentsView() <OCKCarePlanStoreDelegate, OCKCareCardCellDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic) NSDateComponents *selectedDate;
-
 @end
 
 
@@ -60,6 +58,7 @@
     NSMutableArray *_sectionTitles;
     NSMutableArray<NSMutableArray <NSMutableArray <OCKCarePlanEvent *> *> *> *_tableViewData;
     NSMutableDictionary *_allEvents;
+    NSCalendar *_calendar;
     
     BOOL _hasInterventions;
     BOOL _hasAssessments;
@@ -83,6 +82,8 @@
         _store = store;
         _isGrouped = YES;
         _isSorted = YES;
+        _calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+
         self.backgroundColor = [UIColor blueColor];
         [self configure];
     }
@@ -106,7 +107,7 @@
                                          @(OCKCarePlanActivityTypeIntervention): [NSMutableArray new],
                                          @(OCKCarePlanActivityTypeReadOnly): [NSMutableArray new] };
     _allEvents = [_initialDictionary mutableCopy];
-
+    
     self.dataSource = self;
     self.delegate = self;
     self.estimatedRowHeight = 90.0;
@@ -127,7 +128,7 @@
     self.backgroundView = _noActivitiesLabel;
 
     [self reloadData];
-   // [self fetchEvents];
+    [self fetchEvents:[NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar]];
 }
 
 - (void)setDelegate:(id<OCKCareContentsViewDelegate>)delegate
@@ -142,16 +143,16 @@
 
 #pragma mark - Helpers
 
-- (void)fetchEvents {
+- (void)fetchEvents:(NSDateComponents *)selectedDate {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self fetchEventsOfType:OCKCarePlanActivityTypeIntervention];
-        [self fetchEventsOfType:OCKCarePlanActivityTypeAssessment];
-        [self fetchEventsOfType:OCKCarePlanActivityTypeReadOnly];
+        [self fetchEventsOfType:OCKCarePlanActivityTypeIntervention selectedDate: selectedDate];
+        [self fetchEventsOfType:OCKCarePlanActivityTypeAssessment selectedDate: selectedDate];
+        [self fetchEventsOfType:OCKCarePlanActivityTypeReadOnly selectedDate: selectedDate];
     });
 }
 
-- (void)fetchEventsOfType:(OCKCarePlanActivityType)type {
-    [self.store eventsOnDate:self.selectedDate
+- (void)fetchEventsOfType:(OCKCarePlanActivityType)type selectedDate: (NSDateComponents *)selectedDate {
+    [self.store eventsOnDate:selectedDate
                         type:type
                   completion:^(NSArray<NSArray<OCKCarePlanEvent *> *> *eventsGroupedByActivity, NSError *error) {
                       NSAssert(!error, error.localizedDescription);
@@ -476,6 +477,7 @@
                              NSMutableArray *events = [cell.interventionEvents mutableCopy];
                              [events replaceObjectAtIndex:event.occurrenceIndexOfDay withObject:event];
                              cell.interventionEvents = events;
+                             [self.careCardView fetchEvents];
                          });
                      }];
     }
@@ -493,6 +495,8 @@
     } else {
         [self.navigationController pushViewController:[self detailViewControllerForActivity:selectedActivity] animated:YES];
     }*/
+
+    [self.careCardView fetchEvents];
 }
 
 

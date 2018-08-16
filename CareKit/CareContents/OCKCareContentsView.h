@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class OCKCarePlanStore, OCKCareContentsView;
+@class OCKCarePlanStore, OCKCareContentsView, OCKCareCardView;
 
 
 /**
@@ -140,6 +140,16 @@ OCK_CLASS_AVAILABLE
  */
 - (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store frame:(CGRect)frame;;
 
+
+/**
+ Updates the view for the selected date
+
+ @param selectedDate        The date from the OCKWeekViewController.
+
+ */
+
+- (void)fetchEvents:(NSDateComponents *)selectedDate;
+
 /**
  The care plan store that provides the content for the care card.
  
@@ -206,7 +216,17 @@ OCK_CLASS_AVAILABLE
  
  The default is true.
  */
+
 @property (nonatomic) BOOL isSorted;
+
+
+/**
+ The OCKCareCardView
+ */
+
+
+@property (nonatomic, nullable) OCKCareCardView *careCardView;
+
 
 @end
 

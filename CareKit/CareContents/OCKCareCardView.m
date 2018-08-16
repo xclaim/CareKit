@@ -83,11 +83,33 @@
     }
     return self;
 }
+/*
+#pragma mark - UIResponder Overrides
 
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (BOOL)becomeFirstResponder
+{
+    return [super becomeFirstResponder];
+}
+
+- (BOOL)canResignFirstResponder
+{
+    return [super resignFirstResponder]
+}
+
+- (BOOL)resignFirstResponder
+{
+    return [self canResignFirstResponder];
+}
+*/
 
 - (void)configure {
 
-    self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.backgroundColor = [UIColor whiteColor];
     self.store.symptomTrackerUIDelegate = self;
     self.store.careCardUIDelegate = self;
     [self setGlyphTintColor: _glyphTintColor];
@@ -249,6 +271,7 @@
     _weekViewController.weekView.selectedIndex = self.selectedDate.weekday - 1;
     
     [self fetchEvents];
+    [self.careContentsView fetchEvents:_selectedDate];
 }
 
 - (void)setGlyphTintColor:(UIColor *)glyphTintColor {
@@ -470,6 +493,7 @@
 
 - (void)carePlanStoreActivityListDidChange:(OCKCarePlanStore *)store {
     [self fetchEvents];
+    [self.careContentsView fetchEvents:self.selectedDate];
 }
 
 

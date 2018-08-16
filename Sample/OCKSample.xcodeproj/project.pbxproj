@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BF73EA21259F1400B307F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF73E921259F1300B307F4 /* Colors.swift */; };
 		04DD98E52124693200231542 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436E4311CD18BED00ABE381 /* ResearchKit.framework */; };
 		04DD98E62124693200231542 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2436E4311CD18BED00ABE381 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04DD98EE2124B65300231542 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD98ED2124B65300231542 /* CardViewController.swift */; };
@@ -44,7 +45,6 @@
 		B5C1009A1CB12E0C00FAD7E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5C100991CB12E0C00FAD7E8 /* Assets.xcassets */; };
 		B5C1009D1CB12E0C00FAD7E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5C1009B1CB12E0C00FAD7E8 /* LaunchScreen.storyboard */; };
 		B5C100DC1CB1547600FAD7E8 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C100DB1CB1547600FAD7E8 /* SampleData.swift */; };
-		B5C100DE1CB1556F00FAD7E8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C100DD1CB1556F00FAD7E8 /* Colors.swift */; };
 		B5C100E01CB158D900FAD7E8 /* CarePlanStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C100DF1CB158D900FAD7E8 /* CarePlanStoreManager.swift */; };
 		B5C100E41CB27B5F00FAD7E8 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C100E31CB27B5F00FAD7E8 /* Activity.swift */; };
 		B5C100EB1CB2C9FE00FAD7E8 /* QueryActivityEventsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C100EA1CB2C9FE00FAD7E8 /* QueryActivityEventsOperation.swift */; };
@@ -151,6 +151,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04BF73E921259F1300B307F4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		04DD98ED2124B65300231542 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardViewController.swift; path = OCKSample/CardViewController.swift; sourceTree = SOURCE_ROOT; };
 		1801613E1D4E778F0036E247 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchConnectivityManager.swift; path = OCKSample/WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		18214FC41D3D9C8000AE765B /* OCKSampleWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCKSampleWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,7 +193,6 @@
 		B5C100AE1CB12F0C00FAD7E8 /* CareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKit.xcodeproj; path = ../CareKit.xcodeproj; sourceTree = "<group>"; };
 		B5C100D41CB1475900FAD7E8 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		B5C100DB1CB1547600FAD7E8 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
-		B5C100DD1CB1556F00FAD7E8 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		B5C100DF1CB158D900FAD7E8 /* CarePlanStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanStoreManager.swift; sourceTree = "<group>"; };
 		B5C100E31CB27B5F00FAD7E8 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		B5C100EA1CB2C9FE00FAD7E8 /* QueryActivityEventsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryActivityEventsOperation.swift; sourceTree = "<group>"; };
@@ -397,6 +397,7 @@
 		B5C1008F1CB12E0C00FAD7E8 /* OCKSample */ = {
 			isa = PBXGroup;
 			children = (
+				04BF73E921259F1300B307F4 /* Colors.swift */,
 				BA7054FB1EFB16D900AFE94C /* Resources */,
 				B5C100901CB12E0C00FAD7E8 /* AppDelegate.swift */,
 				04DD98ED2124B65300231542 /* CardViewController.swift */,
@@ -408,7 +409,6 @@
 				B58A3FB71CC81F19009CF1B9 /* Assessments */,
 				B5C100E71CB2C99600FAD7E8 /* Insights */,
 				B555759A1CB3DB180028DC37 /* Extensions */,
-				B5C100DD1CB1556F00FAD7E8 /* Colors.swift */,
 				B5C100991CB12E0C00FAD7E8 /* Assets.xcassets */,
 				B5C1009E1CB12E0C00FAD7E8 /* Info.plist */,
 				B58A3FC41CC828C2009CF1B9 /* OCKSample.entitlements */,
@@ -654,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5C100E01CB158D900FAD7E8 /* CarePlanStoreManager.swift in Sources */,
+				04BF73EA21259F1400B307F4 /* Colors.swift in Sources */,
 				B58A3FB61CC81ED8009CF1B9 /* TakeMedication.swift in Sources */,
 				B582E54E1CC6FD1200E80096 /* HealthSampleBuilder.swift in Sources */,
 				B58A3FBF1CC8204A009CF1B9 /* BloodGlucose.swift in Sources */,
@@ -668,7 +669,6 @@
 				B58A3FB41CC81EB8009CF1B9 /* HamstringStretch.swift in Sources */,
 				B5C100E41CB27B5F00FAD7E8 /* Activity.swift in Sources */,
 				B58A3FB21CC81E89009CF1B9 /* OutdoorWalk.swift in Sources */,
-				B5C100DE1CB1556F00FAD7E8 /* Colors.swift in Sources */,
 				B56848B61CB5085E00D190EE /* InsightsBuilder.swift in Sources */,
 				B5C100DC1CB1547600FAD7E8 /* SampleData.swift in Sources */,
 				BADD6DCA1DC542CF008E7893 /* RootViewController.swift in Sources */,

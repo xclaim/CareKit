@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class OCKCarePlanStore, OCKCareCardView;
+@class OCKCarePlanStore, OCKCareCardView, OCKCareContentsView;
 
 /**
  An object that adopts the `OCKCareCardViewDelegate` protocol can use it to modify or update the events before they are displayed.
@@ -164,6 +164,14 @@ OCK_CLASS_AVAILABLE
 
 
 /**
+ Updates the view if the events changed
+
+ */
+
+- (void)fetchEvents;
+
+
+/**
  The care plan store that provides the content for the care card.
  
  The care view displays activites and events of type intervention, assessment, intervention read-only, 
@@ -255,6 +263,14 @@ OCK_CLASS_AVAILABLE
  The default is true.
  */
 @property (nonatomic) BOOL isSorted;
+
+
+/**
+ The OCKCareContentsView
+ */
+
+@property (nonatomic, nullable) OCKCareContentsView *careContentsView;
+
 
 @end
 
