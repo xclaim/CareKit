@@ -271,7 +271,9 @@
     _weekViewController.weekView.selectedIndex = self.selectedDate.weekday - 1;
     
     [self fetchEvents];
-    [self.careContentsView fetchEvents:_selectedDate];
+    if (self.careContentsView!=nil) {
+        [self.careContentsView fetchEvents:_selectedDate];
+    }
 }
 
 - (void)setGlyphTintColor:(UIColor *)glyphTintColor {
@@ -313,7 +315,7 @@
                           [_allEvents setObject:_events forKey:@(type)];
                           
                           if (self.delegate &&
-                              [self.delegate respondsToSelector:@selector(careContentsViewController:willDisplayEvents:dateComponents:)]) {
+                              [self.delegate respondsToSelector:@selector(careContentsView:willDisplayEvents:dateComponents:)]) {
                               [self.delegate careCardView:self willDisplayEvents:[_events copy] dateComponents:_selectedDate];
                           }
                           if (type == OCKCarePlanActivityTypeIntervention || type == OCKCarePlanActivityTypeAssessment) {
@@ -493,7 +495,9 @@
 
 - (void)carePlanStoreActivityListDidChange:(OCKCarePlanStore *)store {
     [self fetchEvents];
-    [self.careContentsView fetchEvents:self.selectedDate];
+    if (self.careContentsView!=nil) {
+        [self.careContentsView fetchEvents:self.selectedDate];
+    }
 }
 
 

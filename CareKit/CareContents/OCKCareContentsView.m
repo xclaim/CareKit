@@ -51,7 +51,6 @@
 
 
 @implementation OCKCareContentsView {
-    UITableView *_tableView;
     OCKLabel *_noActivitiesLabel;
     NSMutableArray<NSMutableArray<OCKCarePlanEvent *> *> *_events;
     NSMutableArray *_constraints;
@@ -127,8 +126,8 @@
     _noActivitiesLabel.textAlignment = NSTextAlignmentCenter;
     self.backgroundView = _noActivitiesLabel;
 
-    [self reloadData];
     [self fetchEvents:[NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar]];
+    [self reloadData];
 }
 
 - (void)setDelegate:(id<OCKCareContentsViewDelegate>)delegate
@@ -186,7 +185,7 @@
                                   break;
                           }
                           _noActivitiesLabel.hidden = _hasAssessments || _hasInterventions || _hasReadOnlyItems;
-                          [_tableView reloadData];
+                          [self reloadData];
                       });
                   }];
 }
@@ -477,14 +476,16 @@
                              NSMutableArray *events = [cell.interventionEvents mutableCopy];
                              [events replaceObjectAtIndex:event.occurrenceIndexOfDay withObject:event];
                              cell.interventionEvents = events;
-                             [self.careCardView fetchEvents];
+                             if (self.careCardView!=nil) {
+                                 [self.careCardView fetchEvents];
+                             }
                          });
                      }];
     }
 }
 
 - (void)careCardTableViewCell:(OCKCareCardTableViewCell *)cell didSelectInterventionActivity:(OCKCarePlanActivity *)activity {
-    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self indexPathForCell:cell];
     OCKCarePlanActivity *selectedActivity = [self activityForIndexPath:indexPath];
     
     _lastSelectedEvent = nil;
@@ -496,7 +497,9 @@
         [self.navigationController pushViewController:[self detailViewControllerForActivity:selectedActivity] animated:YES];
     }*/
 
-    [self.careCardView fetchEvents];
+    if (self.careCardView!=nil) {
+        [self.careCardView fetchEvents];
+    }
 }
 
 
