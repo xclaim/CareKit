@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DD98E52124693200231542 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436E4311CD18BED00ABE381 /* ResearchKit.framework */; };
+		04DD98E62124693200231542 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2436E4311CD18BED00ABE381 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04DD98EE2124B65300231542 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD98ED2124B65300231542 /* CardViewController.swift */; };
 		1801613F1D4E778F0036E247 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801613E1D4E778F0036E247 /* WatchConnectivityManager.swift */; };
 		18214FC81D3D9C8000AE765B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18214FC61D3D9C8000AE765B /* Interface.storyboard */; };
 		18214FD11D3D9C8000AE765B /* OCKSampleWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 18214FD01D3D9C8000AE765B /* OCKSampleWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -20,8 +23,6 @@
 		18FB87491D3ED97A00D2A06D /* WCKEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB87481D3ED97A00D2A06D /* WCKEvent.swift */; };
 		18FB874F1D3F106200D2A06D /* ActivityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FB874E1D3F106200D2A06D /* ActivityRow.swift */; };
 		24026C671D6D244A007582F3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24026C661D6D244A007582F3 /* HealthKit.framework */; };
-		247E67881E53DCD30045D28B /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247E67871E53DCD30045D28B /* ResearchKit.framework */; };
-		247E67891E53DCD30045D28B /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 247E67871E53DCD30045D28B /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24A69BBC1D779DE600BEAD84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5C100991CB12E0C00FAD7E8 /* Assets.xcassets */; };
 		B55565771CC82FCA00513644 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55565711CC82F8D00513644 /* CareKit.framework */; };
 		B55565781CC82FCA00513644 /* CareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B55565711CC82F8D00513644 /* CareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -54,6 +55,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		04DD98E72124693200231542 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2436E42A1CD18BEC00ABE381 /* ResearchKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B183A4731A8535D100C76870;
+			remoteInfo = ResearchKit;
+		};
 		18214FD21D3D9C8000AE765B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5C100851CB12E0C00FAD7E8 /* Project object */;
@@ -134,8 +142,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				04DD98E62124693200231542 /* ResearchKit.framework in Embed Frameworks */,
 				B55565781CC82FCA00513644 /* CareKit.framework in Embed Frameworks */,
-				247E67891E53DCD30045D28B /* ResearchKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +151,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04DD98ED2124B65300231542 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardViewController.swift; path = OCKSample/CardViewController.swift; sourceTree = SOURCE_ROOT; };
 		1801613E1D4E778F0036E247 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchConnectivityManager.swift; path = OCKSample/WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		18214FC41D3D9C8000AE765B /* OCKSampleWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCKSampleWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18214FC71D3D9C8000AE765B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -160,7 +169,6 @@
 		18FB874E1D3F106200D2A06D /* ActivityRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityRow.swift; sourceTree = "<group>"; };
 		24026C661D6D244A007582F3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		2436E42A1CD18BEC00ABE381 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = ../dependency/ResearchKit.xcodeproj; sourceTree = "<group>"; };
-		247E67871E53DCD30045D28B /* ResearchKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ResearchKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B555759B1CB3DB8C0028DC37 /* NSCalendar+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+Dates.swift"; sourceTree = "<group>"; };
 		B555759D1CB3DBBE0028DC37 /* OCKInsightItem+EmptyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OCKInsightItem+EmptyMessage.swift"; sourceTree = "<group>"; };
 		B56848B51CB5085E00D190EE /* InsightsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsBuilder.swift; sourceTree = "<group>"; };
@@ -244,8 +252,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24026C671D6D244A007582F3 /* HealthKit.framework in Frameworks */,
-				247E67881E53DCD30045D28B /* ResearchKit.framework in Frameworks */,
 				B55565771CC82FCA00513644 /* CareKit.framework in Frameworks */,
+				04DD98E52124693200231542 /* ResearchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +376,6 @@
 		B5C100841CB12E0C00FAD7E8 = {
 			isa = PBXGroup;
 			children = (
-				247E67871E53DCD30045D28B /* ResearchKit.framework */,
 				B5C1008F1CB12E0C00FAD7E8 /* OCKSample */,
 				24E285101D74AE0A00F840E1 /* Watch */,
 				B555657F1CC82FEF00513644 /* Linked frameworks */,
@@ -392,6 +399,7 @@
 			children = (
 				BA7054FB1EFB16D900AFE94C /* Resources */,
 				B5C100901CB12E0C00FAD7E8 /* AppDelegate.swift */,
+				04DD98ED2124B65300231542 /* CardViewController.swift */,
 				B5C100D41CB1475900FAD7E8 /* RootViewController.swift */,
 				B5C100DF1CB158D900FAD7E8 /* CarePlanStoreManager.swift */,
 				B5C100DB1CB1547600FAD7E8 /* SampleData.swift */,
@@ -495,6 +503,7 @@
 			dependencies = (
 				B555657A1CC82FCA00513644 /* PBXTargetDependency */,
 				18214FDF1D3D9C8000AE765B /* PBXTargetDependency */,
+				04DD98E82124693200231542 /* PBXTargetDependency */,
 			);
 			name = OCKSample;
 			productName = OCKSample;
@@ -513,10 +522,12 @@
 				TargetAttributes = {
 					18214FC31D3D9C8000AE765B = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = BH7Z7SE66T;
 						LastSwiftMigration = 0900;
 					};
 					18214FCF1D3D9C8000AE765B = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = BH7Z7SE66T;
 						LastSwiftMigration = 0900;
 					};
 					B5C1008C1CB12E0C00FAD7E8 = {
@@ -662,6 +673,7 @@
 				B5C100DC1CB1547600FAD7E8 /* SampleData.swift in Sources */,
 				BADD6DCA1DC542CF008E7893 /* RootViewController.swift in Sources */,
 				BA965B281DC6D3200066EAC6 /* Glyph.swift in Sources */,
+				04DD98EE2124B65300231542 /* CardViewController.swift in Sources */,
 				B58A3FBD1CC81FF9009CF1B9 /* Mood.swift in Sources */,
 				1801613F1D4E778F0036E247 /* WatchConnectivityManager.swift in Sources */,
 				B5C01D521CB3BC2D000728D9 /* BuildInsightsOperation.swift in Sources */,
@@ -671,6 +683,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		04DD98E82124693200231542 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResearchKit;
+			targetProxy = 04DD98E72124693200231542 /* PBXContainerItemProxy */;
+		};
 		18214FD31D3D9C8000AE765B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 18214FCF1D3D9C8000AE765B /* OCKSampleWatch Extension */;
@@ -770,10 +787,10 @@
 				ASSETCATALOG_NOTICES = NO;
 				ASSETCATALOG_WARNINGS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				INFOPLIST_FILE = "OCKSampleWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -791,10 +808,10 @@
 				ASSETCATALOG_NOTICES = NO;
 				ASSETCATALOG_WARNINGS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				INFOPLIST_FILE = "OCKSampleWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -813,10 +830,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				IBSC_MODULE = OCKSampleWatch_Extension;
 				INFOPLIST_FILE = OCKSampleWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -835,10 +852,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BH7Z7SE66T;
 				IBSC_MODULE = OCKSampleWatch_Extension;
 				INFOPLIST_FILE = OCKSampleWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CareKit.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.CareKit.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -957,6 +974,7 @@
 		B5C100A21CB12E0C00FAD7E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OCKSample/OCKSample.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -974,6 +992,7 @@
 		B5C100A31CB12E0C00FAD7E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OCKSample/OCKSample.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

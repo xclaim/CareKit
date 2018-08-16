@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.example.apple-samplecode.CareKit</string>
+	<string>com.example.CareKit</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

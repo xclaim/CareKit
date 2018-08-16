@@ -71,6 +71,8 @@
 // Care Card
 #import <CareKit/OCKCareCardViewController.h>
 #import <CareKit/OCKCareCardDetailViewController.h>
+#import <CareKit/OCKCareCardView.h>
+#import <CareKit/OCKCareContentsView.h>
 
 // Care Content
 #import <CareKit/OCKCareContentsViewController.h>

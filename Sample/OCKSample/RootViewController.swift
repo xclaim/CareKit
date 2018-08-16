@@ -39,7 +39,9 @@ class RootViewController: UITabBarController {
     fileprivate let sampleData: SampleData
     
     fileprivate let storeManager = CarePlanStoreManager.sharedCarePlanStoreManager
-    
+
+    fileprivate var careCardViewController: CardViewController!
+
     fileprivate var careContentsViewController: OCKCareContentsViewController!
     
     fileprivate var insightsViewController: OCKInsightsViewController!
@@ -58,13 +60,16 @@ class RootViewController: UITabBarController {
         careContentsViewController = createCareContentsViewController()
         insightsViewController = createInsightsViewController()
         connectViewController = createConnectViewController()
+        careCardViewController = createCareCardViewController()
 
         self.viewControllers = [
             UINavigationController(rootViewController: careContentsViewController),
             UINavigationController(rootViewController: insightsViewController),
-            UINavigationController(rootViewController: connectViewController)
+            UINavigationController(rootViewController: connectViewController),
+            UINavigationController(rootViewController: careCardViewController)
         ]
-        
+
+        self.view.backgroundColor = .yellow
         storeManager.delegate = self
         watchManager = WatchConnectivityManager(withStore: storeManager.store)
         let glyphType = Glyph.glyphType(rawValue: careContentsViewController.glyphType.rawValue)
@@ -129,6 +134,24 @@ class RootViewController: UITabBarController {
 
     }
 
+    fileprivate func createCareCardViewController() -> CardViewController {
+
+        let frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: 200)
+        let headerView = OCKCareCardView(carePlanStore: storeManager.store, frame: frame)
+
+        let tableFrame = CGRect(x: 0, y: 220, width: self.view.bounds.width, height: self.view.bounds.height - 220)
+        let tableView = OCKCareContentsView(carePlanStore: storeManager.store, frame: tableFrame)
+        tableView.backgroundColor = .green
+
+        let viewController = CardViewController(headerView: headerView, tableView: tableView)
+        viewController.title = NSLocalizedString("Split Card", comment: "")
+        viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"carecard"), selectedImage: UIImage(named: "carecard-filled"))
+        //viewController.delegate = self;
+        return viewController
+
+    }
+
+
     fileprivate func createConnectViewController() -> OCKConnectViewController {
         let viewController = OCKConnectViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
         viewController.delegate = self
@@ -141,6 +164,7 @@ class RootViewController: UITabBarController {
 
         return viewController
     }
+
 }
 
 
@@ -310,13 +334,6 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         connectViewController.navigationController?.pushViewController(insightsViewController, animated: true)
     }
 
-    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
-        
-        // let nav = UINavigationController(rootViewController: insightsViewController)
-        //connectViewController.navigationController?.pushViewController(insightsViewController, animated: true)
-    }
-
-
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachButtonFor contact: OCKContact)  {
 
         print("didSelectAttachButtonFor", contact);
@@ -324,6 +341,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         vc.view.backgroundColor = UIColor.red
         connectViewController.navigationController?.pushViewController(vc, animated: true)
     }
+
     /// Called when the user taps a contact in the `OCKConnectViewController`.
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectShareButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
         let document = sampleData.generateSampleDocument()
@@ -333,24 +351,17 @@ extension RootViewController: OCKConnectViewControllerDelegate {
                 self.present(activityViewController, animated: true, completion: nil)
             }
         }
-        func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
-            let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-            let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString, userData:nil)
-            print("didSendConnectMessage 1 ", message)
-            sampleData.connectMessageItems.insert(connectMessage, at: 0)
-            let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
-            NotificationCenter.default.post(notification)
-        }
     }
+    
     func connectViewController(_ viewController: OCKConnectViewController, didSendConnectMessage message: String, careTeamContact contact: OCKContact) {
         let dateString = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-        let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString , userData:nil)
-        print("didSendConnectMessage 2 ", message)
+        let connectMessage = OCKConnectMessageItem(messageType: .sent, sender: sampleData.patient.contact, message: message, icon: nil, dateString: dateString, userData:nil)
+        print("didSendConnectMessage 1 ", message)
         sampleData.connectMessageItems.insert(connectMessage, at: 0)
-        //SLKDataChangeNotification
         let notification = Notification(name: Notification.Name(rawValue: "SLKDataChangeNotification"))
         NotificationCenter.default.post(notification)
     }
+
 }
 // MARK: CarePlanStoreManagerDelegate
 extension RootViewController: CarePlanStoreManagerDelegate {
