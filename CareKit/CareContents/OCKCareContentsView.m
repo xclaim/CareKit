@@ -142,6 +142,10 @@
 
 #pragma mark - Helpers
 
+- (void)connectCardView:(OCKCareCardView *)careCardView {
+    self.careCardView = careCardView;
+}
+
 - (void)fetchEvents:(NSDateComponents *)selectedDate {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self fetchEventsOfType:OCKCarePlanActivityTypeIntervention selectedDate: selectedDate];

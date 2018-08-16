@@ -163,6 +163,9 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store frame:(CGRect)frame;
 
 
+- (void)connectContentsView:(OCKCareContentsView*) careContentsView;
+
+
 /**
  Updates the view if the events changed
 

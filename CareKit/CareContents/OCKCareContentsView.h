@@ -141,6 +141,9 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store frame:(CGRect)frame;;
 
 
+- (void)connectCardView:(OCKCareCardView *)careCardView;
+
+
 /**
  Updates the view for the selected date
 

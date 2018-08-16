@@ -294,6 +294,10 @@
 
 #pragma mark - Helpers
 
+- (void)connectContentsView:(OCKCareContentsView*) careContentsView {
+    self.careContentsView = careContentsView;
+}
+
 - (void)fetchEvents {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self fetchEventsOfType:OCKCarePlanActivityTypeIntervention];

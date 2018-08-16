@@ -38,8 +38,10 @@ class CardViewController: UIViewController {
         //super.init()
         self.headerView = headerView
         self.tableView = tableView
-        headerView.careContentsView = self.tableView
-        tableView.careCardView = self.headerView
+        headerView.connect(self.tableView)
+        tableView.connect(self.headerView)
+        //headerView.careContentsView = self.tableView
+        //tableView.careCardView = self.headerView
         super.init(nibName: nil, bundle: nil)
     }
 
