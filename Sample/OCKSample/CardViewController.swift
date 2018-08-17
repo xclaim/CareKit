@@ -8,6 +8,7 @@
 
 import UIKit
 import CareKit
+
 class CardViewController: UIViewController {
 
     let headerView:OCKCareCardView
@@ -38,8 +39,8 @@ class CardViewController: UIViewController {
         //super.init()
         self.headerView = headerView
         self.tableView = tableView
-        headerView.connect(self.tableView)
-        tableView.connect(self.headerView)
+        headerView.connectCareContentsView(self.tableView)
+        tableView.connectCareCardView(self.headerView)
         //headerView.careContentsView = self.tableView
         //tableView.careCardView = self.headerView
         super.init(nibName: nil, bundle: nil)

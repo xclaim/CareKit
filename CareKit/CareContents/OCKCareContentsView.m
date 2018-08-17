@@ -117,7 +117,7 @@
     self.showsVerticalScrollIndicator = NO;
 
     _noActivitiesLabel = [OCKLabel new];
-    _noActivitiesLabel.hidden = NO;
+    _noActivitiesLabel.hidden = YES;
     _noActivitiesLabel.textStyle = UIFontTextStyleTitle2;
     _noActivitiesLabel.textColor = [UIColor lightGrayColor];
     _noActivitiesLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -127,7 +127,7 @@
     self.backgroundView = _noActivitiesLabel;
 
     [self fetchEvents:[NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar]];
-    [self reloadData];
+    //[self reloadData];
 }
 
 - (void)setDelegate:(id<OCKCareContentsViewDelegate>)delegate
@@ -142,7 +142,7 @@
 
 #pragma mark - Helpers
 
-- (void)connectCardView:(OCKCareCardView *)careCardView {
+- (void)connectCareCardView:(OCKCareCardView *)careCardView {
     self.careCardView = careCardView;
 }
 

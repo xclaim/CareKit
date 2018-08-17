@@ -121,6 +121,7 @@
     [self prepareView];
     self.selectedDate = [NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar];
     _weekViewController.weekView.delegate = self;
+    [self fetchEvents];
 
 }
 
@@ -294,7 +295,7 @@
 
 #pragma mark - Helpers
 
-- (void)connectContentsView:(OCKCareContentsView*) careContentsView {
+- (void)connectCareContentsView:(OCKCareContentsView*) careContentsView {
     self.careContentsView = careContentsView;
 }
 
@@ -307,6 +308,7 @@
 }
 
 - (void)fetchEventsOfType:(OCKCarePlanActivityType)type {
+    NSLog(@"fetchEventsOfType");
     [self.store eventsOnDate:self.selectedDate
                         type:type
                   completion:^(NSArray<NSArray<OCKCarePlanEvent *> *> *eventsGroupedByActivity, NSError *error) {

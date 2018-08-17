@@ -141,7 +141,7 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store frame:(CGRect)frame;;
 
 
-- (void)connectCardView:(OCKCareCardView *)careCardView;
+- (void)connectCareCardView:(OCKCareCardView *)careCardView;
 
 
 /**
