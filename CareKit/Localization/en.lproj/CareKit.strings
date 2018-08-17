@@ -48,6 +48,7 @@
 "SYMPTOM_TRACKER_HEADER_TITLE" = "Activity Status";
 
 /* Connect */
+"DELEGATES_SECTION_TITLE" = "Recovery Delegates";
 "CARE_TEAM_SECTION_TITLE" = "Care Team";
 "PATIENT_SECTION_TITLE" = "Patients";
 "CONTACT_SECTION_TITLE" = "Contact";

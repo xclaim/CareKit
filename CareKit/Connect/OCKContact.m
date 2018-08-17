@@ -42,6 +42,7 @@
 }
 
 - (instancetype)initWithContactType:(OCKContactType)type
+                               role:(OCKContactRole)role
                                identifier:(NSString *)identifier
                                name:(NSString *)name
                            relation:(NSString *)relation
@@ -64,11 +65,12 @@
 	if (emailAddress.length) {
 		[contactInfoItemsArray addObject:[[OCKContactInfo alloc] initWithType:OCKContactInfoTypeEmail displayString:emailAddress actionURL:nil]];
 	}
-    return [self initWithContactType:type identifier:identifier name:name relation:relation contactInfoItems:contactInfoItemsArray activities:nil tintColor:tintColor monogram:monogram image:image];
+    return [self initWithContactType:type role:role identifier:identifier name:name relation:relation contactInfoItems:contactInfoItemsArray activities:nil tintColor:tintColor monogram:monogram image:image];
 }
 
 - (instancetype)initWithContactType:(OCKContactType)type
-                               identifier:(NSString *)identifier
+                               role:(OCKContactRole)role
+                         identifier:(NSString *)identifier
                                name:(NSString *)name
 						   relation:(NSString *)relation
 				   contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
@@ -78,7 +80,8 @@
 							  image:(nullable UIImage *)image {
 	self = [super init];
 	if (self) {
-		_type = type;
+        _type = type;
+        _role = role;
         _identifier = [identifier copy];
         _name = [name copy];
 		_relation = [relation copy];
@@ -96,6 +99,7 @@
     NSParameterAssert(cdObject);
 
     self = [self initWithContactType:cdObject.type.integerValue
+                                role:cdObject.role.integerValue
                           identifier:cdObject.identifier
                                 name:cdObject.name
                             relation:cdObject.relation
@@ -116,6 +120,7 @@
     __typeof(self) castObject = object;
     return (isParentSame &&
             (self.type == castObject.type) &&
+            (self.role == castObject.role) &&
             OCKEqualObjects(self.identifier, castObject.identifier) &&
             OCKEqualObjects(self.name, castObject.name) &&
             OCKEqualObjects(self.relation, castObject.relation) &&
@@ -136,6 +141,7 @@
     self = [super init];
     if (self) {
         OCK_DECODE_ENUM(aDecoder, type);
+        OCK_DECODE_ENUM(aDecoder, role);
         OCK_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, name, NSString);
         OCK_DECODE_OBJ_CLASS(aDecoder, relation, NSString);
@@ -150,6 +156,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     OCK_ENCODE_ENUM(aCoder, type);
+    OCK_ENCODE_ENUM(aCoder, role);
     OCK_ENCODE_OBJ(aCoder, identifier);
     OCK_ENCODE_OBJ(aCoder, name);
     OCK_ENCODE_OBJ(aCoder, relation);
@@ -166,6 +173,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     OCKContact *contact = [[[self class] allocWithZone:zone] init];
     contact->_type = self.type;
+    contact->_role = self.role;
     contact->_identifier = [self.identifier copy];
     contact->_name = [self.name copy];
     contact->_relation = [self.relation copy];
@@ -243,6 +251,7 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
         self.tintColor = item.tintColor;
         self.image = UIImageJPEGRepresentation(item.image,1.0);
         self.type = @(item.type);
+        self.role = @(item.role);
         self.contactInfoItems = item.contactInfoItems;
         self.activities = item.activities;
     }
@@ -258,6 +267,7 @@ insertIntoManagedObjectContext:(NSManagedObjectContext *)context
     @dynamic name;
     @dynamic relation;
     @dynamic type;
+    @dynamic role;
     @dynamic monogram;
     @dynamic image;
     @dynamic contactInfoItems;

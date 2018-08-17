@@ -57,6 +57,7 @@ class SampleData: NSObject {
     */
     let sampleContacts: [OCKContact] = [
         OCKContact(contactType: .careTeam,
+                   role: .none,
                    identifier: "123",
                    name: "Dr. Maria Ruiz",
                    relation: "Physician",
@@ -67,6 +68,7 @@ class SampleData: NSObject {
                    image: nil),
         
         OCKContact(contactType: .careTeam,
+                   role: .recoveryDelegate,
                    identifier: "1234",
                    name: "Bill James",
                    relation: "Nurse",
@@ -77,6 +79,7 @@ class SampleData: NSObject {
                    image: nil),
         
         OCKContact(contactType: .personal,
+                   role: .none,
                    identifier: "hbhh123",
                    name: "Tom Clark",
                    relation: "Father",
@@ -117,11 +120,29 @@ class SampleData: NSObject {
             }
         }
 
-        let app =  OCKContact(contactType: .personal, identifier: "02123", name: "XClaim",relation: "App",contactInfoItems:[], activities: [], tintColor: Colors.lightBlue.color,monogram: "XC",image: UIImage(named:"logo_xclaim"))
+        let app =  OCKContact(contactType: .personal,
+                              role: .none,
+                              identifier: "02123",
+                              name: "XClaim",
+                              relation: "App",
+                              contactInfoItems:[],
+                              activities: [],
+                              tintColor: Colors.lightBlue.color,
+                              monogram: "XC",
+                              image: UIImage(named:"logo_xclaim"))
 
         let announcement = OCKConnectMessageItem(messageType: OCKConnectMessageType.received, sender: app, message: NSLocalizedString("Note that there are some hidden command line goodies here:\n\nemojis:\n:-1: | :m: | :man: | :machine: | :block-a: | :block-b: | :bowtie: | :boar: | :boat: | :book: | :bookmark: | :neckbeard: | :metal: | :fu: | :feelsgood:\n\ncommands:\n/msg | /call | /text | /skype | /kick | /invite\n\nmarkdown: \n* Bold | _ Italics | ~ Strike | ` Code | ``` Preformatted | > Quote",  comment: ""), icon: nil, dateString:dateString, userData:nil)
 
-        let contact =  OCKContact(contactType: .personal, identifier: "03123", name: "Johan Sellström",relation: "Myself", contactInfoItems:[],  activities: [], tintColor: Colors.lightBlue.color,monogram: "TC",image: UIImage(named:"photo"))
+        let contact =  OCKContact(contactType: .personal,
+                                  role: .none,
+                                  identifier: "03123",
+                                  name: "Johan Sellström",
+                                  relation: "Myself",
+                                  contactInfoItems:[],
+                                  activities: [],
+                                  tintColor: Colors.lightBlue.color,
+                                  monogram: "TC",
+                                  image: UIImage(named:"photo"))
 
         self.patient = OCKPatient(identifier: "patient", contact: contact, name: "Johan Sellström", detailInfo: nil, careTeamContacts: sampleContacts, tintColor: Colors.lightBlue.color, monogram: "JD", image: UIImage(named:"photo"), categories: nil, userInfo: ["Age": "21", "Gender": "M", "Phone":"888-555-5512"])
 

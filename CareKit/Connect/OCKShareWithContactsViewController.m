@@ -211,6 +211,7 @@
     _sectionTitles = [NSMutableArray new];
         
     NSMutableArray *careTeamContacts = [NSMutableArray new];
+    NSMutableArray *delegateContacts = [NSMutableArray new];
     NSMutableArray *patientContacts = [NSMutableArray new];
     NSMutableArray *personalContacts = [NSMutableArray new];
     NSMutableArray *groupContacts = [NSMutableArray new];
@@ -238,13 +239,23 @@
                 [deviceContacts addObject:contact];
                 break;
         }
+        switch (contact.role) {
+            case OCKContactRoleRecoveryDelegate:
+                [delegateContacts addObject:contact];
+                break;
+        }
     }
     
     if (careTeamContacts.count > 0) {
         [_sectionedContacts addObject:[careTeamContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"CARE_TEAM_SECTION_TITLE", nil)];
     }
-    
+
+    if (delegateContacts.count > 0) {
+        [_sectionedContacts addObject:[delegateContacts copy]];
+        [_sectionTitles addObject:OCKLocalizedString(@"DELEGATES_SECTION_TITLE", nil)];
+    }
+
     if (patientContacts.count > 0) {
         [_sectionedContacts addObject:[patientContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];

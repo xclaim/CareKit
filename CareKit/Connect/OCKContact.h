@@ -58,6 +58,14 @@ typedef NS_ENUM(NSInteger, OCKContactType) {
     OCKContactTypeDataProvider
 };
 
+typedef NS_ENUM(NSInteger, OCKContactRole) {
+    OCKContactRoleNone = 0,
+   /**
+     Recovery delegate.
+     */
+    OCKContactRoleRecoveryDelegate
+};
+
 
 /**
  The `OCKContact` class is an object that represents a care contact for the `OCKConnectViewController`.
@@ -71,6 +79,7 @@ OCK_CLASS_AVAILABLE
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
+ @param role                The contact role.
  @param identifier          The contact identifier.
  @param name                The contact name.
  @param relation            The relationship to the contact.
@@ -84,6 +93,7 @@ OCK_CLASS_AVAILABLE
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
+                               role:(OCKContactRole)role
                                identifier:(NSString *)identifier
                                name:(NSString *)name
                            relation:(NSString *)relation
@@ -99,6 +109,7 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  Returns an initialized contact using the specified values.
  
  @param type                The contact type.
+ @param role                The contact role.
  @param identifier          The contact identifier.
  @param name                The contact name.
  @param relation            The relationship to the contact.
@@ -110,7 +121,8 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  @return An initialized contact object.
  */
 - (instancetype)initWithContactType:(OCKContactType)type
-                               identifier:(NSString *)identifier
+                               role:(OCKContactRole)role
+                         identifier:(NSString *)identifier
                                name:(NSString *)name
 						   relation:(NSString *)relation
                    contactInfoItems:(NSArray<OCKContactInfo *> *)contactInfoItems
@@ -126,6 +138,15 @@ DEPRECATED_MSG_ATTRIBUTE("Use initWithContactType:name:relation:tintColor:monogr
  See the `OCKContactType` enum.
  */
 @property (nonatomic, readonly) OCKContactType type;
+
+/**
+The contact role.
+This also determines the grouping of the contact in the table view.
+
+See the `OCKContactRole` enum.
+*/
+@property (nonatomic, readonly) OCKContactRole role;
+
 
 /**
  A string indicating the uuid for a contact.

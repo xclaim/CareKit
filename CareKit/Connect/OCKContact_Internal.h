@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @class OCKCDContactItemType;
+@class OCKCDContactItemRole;
 
 @interface OCKCDContact : NSManagedObject
 
@@ -59,6 +60,7 @@ insertIntoManagedObjectContext:(nullable NSManagedObjectContext *)context
 @property (nullable, nonatomic, retain) NSString *monogram;
 @property (nullable, nonatomic, retain) NSData *image;
 @property (nullable, nonatomic, retain) NSNumber *type;
+@property (nullable, nonatomic, retain) NSNumber *role;
 @property (nullable, nonatomic, retain) NSArray<OCKContactInfo *> *contactInfoItems;
 @property (nullable, nonatomic, retain) NSArray<OCKCarePlanActivity *> *activities;
 
