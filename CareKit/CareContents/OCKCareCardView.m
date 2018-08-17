@@ -83,29 +83,6 @@
     }
     return self;
 }
-/*
-#pragma mark - UIResponder Overrides
-
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-- (BOOL)becomeFirstResponder
-{
-    return [super becomeFirstResponder];
-}
-
-- (BOOL)canResignFirstResponder
-{
-    return [super resignFirstResponder]
-}
-
-- (BOOL)resignFirstResponder
-{
-    return [self canResignFirstResponder];
-}
-*/
 
 - (void)configure {
 
@@ -286,13 +263,6 @@
     _headerView.tintColor = _glyphTintColor;
 }
 
-- (void)setDelegate:(id<OCKCareCardViewDelegate>)delegate
-{
-    _delegate = delegate;
-
-}
-
-
 #pragma mark - Helpers
 
 - (void)connectCareContentsView:(OCKCareContentsView*) careContentsView {
@@ -319,11 +289,11 @@
                               [_events addObject:[events mutableCopy]];
                           }
                           [_allEvents setObject:_events forKey:@(type)];
-                          
+                          /*
                           if (self.delegate &&
                               [self.delegate respondsToSelector:@selector(careContentsView:willDisplayEvents:dateComponents:)]) {
                               [self.delegate careCardView:self willDisplayEvents:[_events copy] dateComponents:_selectedDate];
-                          }
+                          }*/
                           if (type == OCKCarePlanActivityTypeIntervention || type == OCKCarePlanActivityTypeAssessment) {
                               [self updateHeaderView];
                               [self updateWeekView];
@@ -543,20 +513,5 @@
     controller.weekView.glyphType = self.glyphType;
     return (![self.selectedDate isInSameWeekAsDate:[self today]]) ? controller : nil;
 }
-
-- (UIViewController *)detailViewControllerForActivity:(OCKCarePlanActivity *)activity {
-    OCKCareCardDetailViewController *detailViewController = [[OCKCareCardDetailViewController alloc] initWithIntervention:activity store:_store];
-    return detailViewController;
-}
-
-
-- (BOOL)delegateCustomizesRowSelection {
-    return self.delegate && [self.delegate respondsToSelector:@selector(careCardView:didSelectRowWithInterventionActivity:)];
-}
-
-- (BOOL)delegateCustomizesRowReadOnlySelection {
-    return self.delegate && [self.delegate respondsToSelector:@selector(careCardView:didSelectRowWithReadOnlyActivity:)];
-}
-
 
 @end

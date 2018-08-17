@@ -68,8 +68,6 @@ class RootViewController: UITabBarController {
             UINavigationController(rootViewController: connectViewController),
             UINavigationController(rootViewController: careCardViewController)
         ]
-
-        self.view.backgroundColor = .yellow
         storeManager.delegate = self
         watchManager = WatchConnectivityManager(withStore: storeManager.store)
         let glyphType = Glyph.glyphType(rawValue: careContentsViewController.glyphType.rawValue)
@@ -141,12 +139,11 @@ class RootViewController: UITabBarController {
 
         let tableFrame = CGRect(x: 0, y: 220, width: self.view.bounds.width, height: self.view.bounds.height - 220)
         let tableView = OCKCareContentsView(carePlanStore: storeManager.store, frame: tableFrame)
-        tableView.backgroundColor = .green
+        tableView.contentsViewDelegate = self;
 
         let viewController = CardViewController(headerView: headerView, tableView: tableView)
         viewController.title = NSLocalizedString("Split Card", comment: "")
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"carecard"), selectedImage: UIImage(named: "carecard-filled"))
-        //viewController.delegate = self;
         return viewController
 
     }
@@ -168,9 +165,38 @@ class RootViewController: UITabBarController {
 }
 
 
+extension RootViewController: OCKCareContentsViewDelegate {
+    func careContentsView(_ view: OCKCareContentsView, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
+
+        print("OCKCareContentsViewDelegate")
+
+        guard let activityType = ActivityType(rawValue: assessmentEvent.activity.identifier) else { return }
+        guard let sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }
+
+        /*
+         Check if we should show a task for the selected assessment event
+         based on its state.
+         */
+        guard assessmentEvent.state == .initial ||
+            assessmentEvent.state == .notCompleted ||
+            (assessmentEvent.state == .completed && assessmentEvent.activity.resultResettable) else { return }
+
+        // Show an `ORKTaskViewController` for the assessment's task.
+        let taskViewController = ORKTaskViewController(task: sampleAssessment.task(), taskRun: nil)
+        taskViewController.delegate = self
+
+        present(taskViewController, animated: true, completion: nil)
+
+    }
+
+
+}
+
 extension RootViewController: OCKCareContentsViewControllerDelegate {
     
     func careContentsViewController(_ viewController: OCKCareContentsViewController, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
+
+        print("func careContentsViewController(_ viewController: OCKCareContentsViewController, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) ");
             // Lookup the assessment the row represents.
             guard let activityType = ActivityType(rawValue: assessmentEvent.activity.identifier) else { return }
             guard let sampleAssessment = sampleData.activityWithType(activityType) as? Assessment else { return }

@@ -109,6 +109,7 @@
     
     self.dataSource = self;
     self.delegate = self;
+
     self.estimatedRowHeight = 90.0;
     self.rowHeight = UITableViewAutomaticDimension;
     self.tableFooterView = [UIView new];
@@ -125,14 +126,8 @@
     _noActivitiesLabel.numberOfLines = 0;
     _noActivitiesLabel.textAlignment = NSTextAlignmentCenter;
     self.backgroundView = _noActivitiesLabel;
-
     [self fetchEvents:[NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar]];
     //[self reloadData];
-}
-
-- (void)setDelegate:(id<OCKCareContentsViewDelegate>)delegate
-{
-    _contentsViewDelegate = delegate;
 }
 
 - (void)setNoActivitiesText:(NSString *)noActivitiesText {
@@ -324,12 +319,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSLog(@"didSelectRowAtIndexPath %@", indexPath);
+
     OCKCarePlanEvent *selectedEvent = _tableViewData[indexPath.section][indexPath.row].firstObject;
     _lastSelectedEvent = selectedEvent;
     _lastSelectedActivity = selectedEvent.activity;
-    
     OCKCarePlanActivityType type = selectedEvent.activity.type;
-    
+
     if (type == OCKCarePlanActivityTypeAssessment) {
         if (_contentsViewDelegate &&
             [_contentsViewDelegate respondsToSelector:@selector(careContentsView:didSelectRowWithAssessmentEvent:)]) {
@@ -360,10 +357,12 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"numberOfSectionsInTableView %d", _tableViewData.count);
     return _tableViewData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"numberOfRowsInSection %d", _tableViewData[section].count);
     return _tableViewData[section].count;
 }
 
@@ -454,20 +453,18 @@
     _lastSelectedEvent = event;
     _lastSelectedActivity = event.activity;
 
-    /* FIXME
     if (self.delegate &&
         [self.contentsViewDelegate respondsToSelector:@selector(careContentsView:didSelectButtonWithInterventionEvent:)]) {
         [self.contentsViewDelegate careContentsView:self didSelectButtonWithInterventionEvent:event];
     }
-    */
+
     BOOL shouldHandleEventCompletion = YES;
 
- /* FIXME
     if (self.delegate &&
         [self.contentsViewDelegate respondsToSelector:@selector(careContentsView:shouldHandleEventCompletionForInterventionActivity:)]) {
         shouldHandleEventCompletion = [self.contentsViewDelegate careContentsView:self shouldHandleEventCompletionForInterventionActivity:event.activity];
     }
-   */
+
     if (shouldHandleEventCompletion) {
         OCKCarePlanEventState state = (event.state == OCKCarePlanEventStateCompleted) ? OCKCarePlanEventStateNotCompleted : OCKCarePlanEventStateCompleted;
         
@@ -494,15 +491,12 @@
     
     _lastSelectedEvent = nil;
     _lastSelectedActivity = selectedActivity;
-    /* FIXME
-    if ([self delegateCustomizesRowSelection]) {
-        [self.delegate careContentsView:self didSelectRowWithInterventionActivity:selectedActivity];
-    } else {
-        [self.navigationController pushViewController:[self detailViewControllerForActivity:selectedActivity] animated:YES];
-    }*/
 
-    if (self.careCardView!=nil) {
-        [self.careCardView fetchEvents];
+    if ([self delegateCustomizesRowSelection]) {
+        [self.contentsViewDelegate careContentsView:self didSelectRowWithInterventionActivity:activity];
+    } else {
+        NSLog(@"detailViewControllerForActivity");
+        //[self.navigationController pushViewController:[self detailViewControllerForActivity:selectedActivity] animated:YES];
     }
 }
 

@@ -38,110 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class OCKCarePlanStore, OCKCareCardView, OCKCareContentsView;
 
 /**
- An object that adopts the `OCKCareCardViewDelegate` protocol can use it to modify or update the events before they are displayed.
- */
-@protocol OCKCareCardViewDelegate <NSObject>
-
-@required
-
-/**
- Tells the delegate when the user selected an assessment event.
- 
- @param viewController      The view controller providing the callback.
- @param assessmentEvent     The assessment event that the user selected.
- */
-- (void)careCardView:(OCKCareCardView *)view didSelectRowWithAssessmentEvent:(OCKCarePlanEvent *)assessmentEvent;
-
-@optional
-
-/**
- Tells the delegate when the user tapped an intervention event.
- 
- If the user must perform some activity in order to complete the intervention event,
- then this method can be implemented to show a custom view controller.
- 
- If the completion status of the event is dependent on the presented activity, the developer can implement
- the `careCardView:shouldHandleEventCompletionForActivity` to control the completion status of the event.
- 
- @param view                        The view providing the callback.
- @param interventionEvent           The intervention event that the user selected.
- */
-- (void)careCardView:(OCKCareCardView *)view didSelectButtonWithInterventionEvent:(OCKCarePlanEvent *)interventionEvent;
-
-/**
- Tells the delegate when the user selected an intervention activity.
- 
- This can be implemented to show a custom detail view controller.
- If not implemented, a default detail view controller will be presented.
- 
- @param view                The view providing the callback.
- @param interventionActivity        The intervention activity that the user selected.
- */
-- (void)careCCardView:(OCKCareCardView *)view didSelectRowWithInterventionActivity:(OCKCarePlanActivity *)interventionActivity;
-
-/**
- Tells the delegate when the user selected a readonly activity.
- 
- This can be implemented to show a custom detail view controller.
- If not implemented, a default detail view controller will be presented.
- 
- @param view                        The view providing the callback.
- @param readOnlyActivity            The readonly activity that the user selected.
- */
-- (void)careCardView:(OCKCareCardView *)view didSelectRowWithReadOnlyActivity:(OCKCarePlanActivity *)readOnlyActivity;
-
-/**
- Asks the delegate if care view should automatically mark the state of an intervention activity when
- the user selects and deselects the intervention circle button. If this method is not implemented, care view
- handles all event completion by default.
- 
- If returned NO, the `careCardView:didSelectButtonWithInterventionEvent` method can be implemeted to provide
- custom logic for completion.
- 
- @param view              The view controller providing the callback.
- @param interventionActivity        The intervention activity that the user selected.
- */
-- (BOOL)careCardView:(OCKCareCardView *)view shouldHandleEventCompletionForInterventionActivity:(OCKCarePlanActivity *)interventionActivity;
-
-/**
- Tells the delegate when a new set of events is fetched from the care plan store.
- 
- This is invoked when the date changes or when the care plan store's `carePlanStoreActivityListDidChange` delegate method is called.
- This provides a good opportunity to update the store such as fetching data from HealthKit.
- 
- @param view                    The view providing the callback.
- @param events                  An array containing the fetched set of intervention events grouped by activity.
- @param dateComponents          The date components for which the events will be displayed.
- */
-- (void)careCardView:(OCKCareCardView *)view willDisplayEvents:(NSArray<NSArray<OCKCarePlanEvent*>*>*)events dateComponents:(NSDateComponents *)dateComponents;
-
-/**
- Asks the delegate if the care card view should enable pull-to-refresh behavior on the activities list. If not implemented,
- pull-to-refresh will not be enabled.
- 
- If returned YES, the `careCardView:didActivatePullToRefreshControl:` method should be implemented to provide custom
- refreshing behavior when triggered by the user.
- 
- @param view              The view providing the callback.
- */
-- (BOOL)shouldEnablePullToRefreshInCareCardView:(OCKCareCardView *)view;
-
-/**
- Tells the delegate the user has triggered pull to refresh on the activities list.
- 
- Provides the opportunity to refresh data in the local store by, for example, fetching from a cloud data store.
- This method should always be implmented in cases where `shouldEnablePullToRefreshInCareCardView:` might return YES.
- 
- @param view                        The view providing the callback.
- @param refreshControl              The refresh control which has been triggered, where `isRefreshing` should always be YES.
-                                    It is the developers responsibility to call `endRefreshing` as appropriate, on the main thread.
- */
-- (void)careCardView:(OCKCareCardView *)view didActivatePullToRefreshControl:(UIRefreshControl *)refreshControl;
-
-@end
-
-
-/**
  The `OCKCareCardView` class is a view  that displays the activities and events from an `OCKCarePlanStore` that are of
  intervention type (see `OCKCarePlanActivityTypeIntervention`), assessment type (see `OCKCarePlanActivityTypeAssessment`), and read only 
  intervention and assessment types (see `OCKCarePlanActivityTypeReadOnly`).
@@ -222,14 +118,6 @@ OCK_CLASS_AVAILABLE
  and we need a way to access that to send the custom image name string to the watch
  */
 @property (nonatomic, copy) NSString *customGlyphImageName;
-
-
-/**
- The delegate can be used to modify or update the internvention events before they are displayed.
- 
- See the `OCKCareCardViewDelegate` protocol.
- */
-@property (nonatomic, weak, nullable) id<OCKCareCardViewDelegate> delegate;
 
 /**
  The section header title for all the Optional activities. Default is `Optional` if nil.

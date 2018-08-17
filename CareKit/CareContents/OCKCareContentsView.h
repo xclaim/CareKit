@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param view                The view providing the callback.
  @param interventionActivity        The intervention activity that the user selected.
  */
-- (void)careCareContentsView:(OCKCareContentsView *)view didSelectRowWithInterventionActivity:(OCKCarePlanActivity *)interventionActivity;
+- (void)careContentsView:(OCKCareContentsView *)view didSelectRowWithInterventionActivity:(OCKCarePlanActivity *)interventionActivity;
 
 /**
  Tells the delegate when the user selected a readonly activity.
