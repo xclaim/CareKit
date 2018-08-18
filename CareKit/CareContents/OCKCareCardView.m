@@ -147,7 +147,7 @@
         weekController.weekView.isCareCard = YES;
         weekController.weekView.glyphType = self.glyphType;
         _weekViewController = weekController;
-        
+        _weekViewController.view.layer.zPosition = 1000;
         [_pageViewController setViewControllers:@[weekController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
         [self addSubview:_pageViewController.view];
     }
