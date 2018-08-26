@@ -171,7 +171,6 @@ class RootViewController: UITabBarController {
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"connect"), selectedImage: UIImage(named: "connect-filled"))
 
         viewController.store = storeManager.store;
-        viewController.addCloseButton()
         return viewController
     }
 
