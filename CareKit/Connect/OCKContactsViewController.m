@@ -35,7 +35,8 @@
 #import "OCKContact.h"
 #import "OCKConnectDetailViewController.h"
 #import "OCKContactInfoTableViewCell.h"
-#import "OCKContactSharingTableViewCell.h"
+#import "OCKConnectSharingTableViewCell.h"
+//#import "OCKContactSharingTableViewCell.h"
 #import "OCKHelpers.h"
 #import "OCKDefines_Private.h"
 #import "OCKLabel.h"
@@ -49,6 +50,7 @@
     UITableView *_tableView;
     NSMutableArray *_constraints;
     NSMutableArray<NSArray<OCKContact *>*> *_sectionedContacts;
+    NSMutableArray <OCKContact *> *_selectedContacts;
     NSMutableArray<NSString *> *_sectionTitles;
     OCKLabel *_noContactsLabel;
     OCKConnectHeaderView *_headerView;
@@ -79,6 +81,11 @@
                           patient:nil];
 }
 
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -95,11 +102,19 @@
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
 
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+        target:self
+        action:@selector(share:)];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+        target:self
+        action:@selector(cancel:)];
+
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(contactsViewController:didClickAddContact:)]) {
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                           target:self
-                                                                                           action:@selector(add:)];
+                target:self
+                action:@selector(add:)];
     }
 
     self.navigationController.navigationBar.translucent = NO;
@@ -128,6 +143,30 @@
         [self.delegate contactsViewController:self didClickAddContact:x];
     }
 }
+
+- (void)cancel:(id)sender {
+    NSLog(@"cancel");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)share:(id)sender {
+    NSLog(@"Callback");
+
+    for (OCKContact *contacts in _selectedContacts) {
+        NSLog(@"%@ ",contacts.name);
+    }
+    NSLog(@"\n");
+
+    /*
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shareViewController:shareWith:)]) {
+        [self.delegate shareViewController:self shareWith:_selectedContacts];
+    }
+
+     */
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)setPatient:(OCKPatient *)patient {
 	_patient = patient;
@@ -204,6 +243,7 @@
 - (void)createSectionedContacts {
 
     _sectionedContacts = [NSMutableArray new];
+    _selectedContacts = [NSMutableArray new];
     _sectionTitles = [NSMutableArray new];
 
     NSMutableArray *careTeamContacts = [NSMutableArray new];
@@ -306,17 +346,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     OCKContact *contact = [self contactForIndexPath:indexPath];
 
-    /*
-    if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(contactsViewController:didSelectContact:presentationSourceView:)] ) {
-        [self.delegate contactsViewController:self didSelectContact:contact presentationSourceView:nil];
+    if ([_selectedContacts containsObject:contact]) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [_selectedContacts removeObject:contact];
     } else {
-        [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [_selectedContacts addObject:contact];
     }
-*/
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -337,13 +378,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    static NSString *CellIdentifier = @"ConnectCell";
-    OCKConnectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"ContactsCell";
+    OCKConnectSharingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[OCKConnectTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[OCKConnectSharingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                   reuseIdentifier:CellIdentifier];
     }
+
     cell.contact = _sectionedContacts[indexPath.section][indexPath.row];
+
     return cell;
 
 }

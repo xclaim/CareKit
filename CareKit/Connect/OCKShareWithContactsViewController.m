@@ -337,6 +337,7 @@
         cell = [[OCKConnectSharingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                   reuseIdentifier:CellIdentifier];
     }
+    
     NSArray <OCKContact *> *contacts = [[NSMutableArray alloc] initWithObjects:_sectionedContacts[indexPath.section][indexPath.row], nil];
     cell.contact = contacts[0];
     
