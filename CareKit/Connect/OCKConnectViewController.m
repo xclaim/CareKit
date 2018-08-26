@@ -114,14 +114,18 @@
         [self registerForPreviewingWithDelegate:self sourceView:_tableView];
     }
 
+    if (!self.inboxMode) {
 
-    _headerView = [OCKConnectHeaderView new];
-    _headerView.patient = _patient;
+        _headerView = [OCKConnectHeaderView new];
+        _headerView.patient = _patient;
 
-    [self.view addSubview:_headerView];
+        [self.view addSubview:_headerView];
+
     
-    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
-    [_headerView addGestureRecognizer:singleFingerTap];
+        UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileHeaderTapped:)];
+        [_headerView addGestureRecognizer:singleFingerTap];
+    }
+    
     [self updateHeaderView];
 }
 
@@ -165,7 +169,7 @@
     
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    if (_patient) {
+    if (_patient && !self.inboxMode) {
         _headerView.translatesAutoresizingMaskIntoConstraints = NO;
    [_constraints addObjectsFromArray:@[
                                         [NSLayoutConstraint constraintWithItem:_headerView
@@ -289,7 +293,8 @@
         [_sectionedContacts addObject:connections];
         [_sectionTitles addObject:OCKLocalizedString(@"CONNECT_INBOX_TITLE", nil)];
     }
-    
+
+    if (!self.inboxMode) {
     NSMutableArray *careTeamContacts = [NSMutableArray new];
     NSMutableArray *delegateContacts = [NSMutableArray new];
     NSMutableArray *patientContacts = [NSMutableArray new];
@@ -367,6 +372,7 @@
     if (providerContacts.count > 0) {
         [_sectionedContacts addObject:[providerContacts copy]];
         [_sectionTitles addObject:OCKLocalizedString(@"PROVIDER_SECTION_TITLE", nil)];
+    }
     }
 
 }

@@ -66,6 +66,7 @@
 
 #import <CareKit/OCKConnectMessageItem.h>
 #import <CareKit/OCKConnectViewController.h>
+#import <CareKit/OCKContactsViewController.h>
 #import <CareKit/SLKTextViewController.h>
 
 // Care Card

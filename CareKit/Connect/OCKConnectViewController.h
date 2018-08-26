@@ -274,6 +274,7 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithContacts:(nullable NSArray<OCKContact *> *)contacts
                          patient:(nullable OCKPatient *)patient;
 
+@property (nonatomic) BOOL inboxMode;
 
 /**
  Returns an initialized connect view controller using the specified contacts.

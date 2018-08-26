@@ -33,6 +33,17 @@ import CareKit
 import ResearchKit
 import WatchConnectivity
 
+extension UIViewController {
+    func addCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onClose))
+    }
+
+    @objc func onClose() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
 class RootViewController: UITabBarController {
     // MARK: Properties
     
@@ -47,7 +58,9 @@ class RootViewController: UITabBarController {
     fileprivate var insightsViewController: OCKInsightsViewController!
     
     fileprivate var connectViewController: OCKConnectViewController!
-    
+
+    fileprivate var contactsViewController: OCKContactsViewController!
+
     fileprivate var watchManager: WatchConnectivityManager?
 
     
@@ -60,6 +73,7 @@ class RootViewController: UITabBarController {
         careContentsViewController = createCareContentsViewController()
         insightsViewController = createInsightsViewController()
         connectViewController = createConnectViewController()
+        contactsViewController = createContactsViewController()
         careCardViewController = createCareCardViewController()
 
         self.viewControllers = [
@@ -148,13 +162,26 @@ class RootViewController: UITabBarController {
 
     }
 
-
-    fileprivate func createConnectViewController() -> OCKConnectViewController {
-        let viewController = OCKConnectViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
+    fileprivate func createContactsViewController() -> OCKContactsViewController {
+        let viewController = OCKContactsViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
         viewController.delegate = self
         viewController.dataSource = self
         // Setup the controller's title and tab bar item
-        viewController.title = NSLocalizedString("Connect", comment: "")
+        viewController.title = NSLocalizedString("New Chat", comment: "")
+        viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"connect"), selectedImage: UIImage(named: "connect-filled"))
+
+        viewController.store = storeManager.store;
+        viewController.addCloseButton()
+        return viewController
+    }
+
+    fileprivate func createConnectViewController() -> OCKConnectViewController {
+        let viewController = OCKConnectViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
+        viewController.inboxMode = true
+        viewController.delegate = self
+        viewController.dataSource = self
+        // Setup the controller's title and tab bar item
+        viewController.title = NSLocalizedString("Inbox", comment: "")
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"connect"), selectedImage: UIImage(named: "connect-filled"))
 
         viewController.store = storeManager.store;
@@ -307,7 +334,7 @@ extension RootViewController: ORKTaskViewControllerDelegate {
 extension RootViewController: OCKConnectViewControllerDataSource {
 
     func connectViewControllerNumber(ofFeedMessageItems viewController: OCKConnectViewController) -> Int {
-        return 0
+        return 1
     }
     
     @nonobjc func connectViewControllerContacts(_ viewController: OCKConnectViewController, completion: (([OCKContact]) -> Void)!) {
@@ -322,6 +349,10 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
     func connectViewController(_ connectViewController: OCKConnectViewController, didClickAddContact x: Int32) {
         print("didClickAddContact")
+
+        let navigationController = UINavigationController(rootViewController: contactsViewController)
+        present(navigationController, animated: true, completion: nil)
+
     }
 
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
@@ -396,4 +427,25 @@ extension RootViewController: CarePlanStoreManagerDelegate {
         // Update the insights view controller with the new insights.
         insightsViewController.items = insights
     }
+}
+
+
+extension RootViewController: OCKContactsViewControllerDelegate {
+
+
+}
+
+extension RootViewController: OCKContactsViewControllerDataSource {
+
+    @nonobjc func contactsViewControllerContacts(_ viewController: OCKContactsViewController, completion: (([OCKContact]) -> Void)!) {
+        storeManager.store.contacts { (success, contacts, error) in
+            if success {
+                completion(contacts)
+            } else {
+                completion([])
+            }
+        }
+    }
+
+
 }
