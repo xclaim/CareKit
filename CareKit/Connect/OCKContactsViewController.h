@@ -159,6 +159,11 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, readonly, nonnull) UITableView *tableView;
 
+
+
+@property (nonatomic, readonly, nonnull) NSMutableArray <OCKContact *> *selectedContacts;
+
+
 /**
  A boolean to show the edge indicators.
  

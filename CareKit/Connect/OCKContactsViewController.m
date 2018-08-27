@@ -50,7 +50,6 @@
     UITableView *_tableView;
     NSMutableArray *_constraints;
     NSMutableArray<NSArray<OCKContact *>*> *_sectionedContacts;
-    NSMutableArray <OCKContact *> *_selectedContacts;
     NSMutableArray<NSString *> *_sectionTitles;
     OCKLabel *_noContactsLabel;
     OCKConnectHeaderView *_headerView;
@@ -106,7 +105,9 @@
         target:self
         action:@selector(share:)];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    //self.navigationController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+        initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
         target:self
         action:@selector(cancel:)];
 /*
@@ -117,13 +118,9 @@
                 action:@selector(add:)];
     }
  */
-
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
-    
     [self createSectionedContacts];
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -348,7 +345,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
     OCKContact *contact = [self contactForIndexPath:indexPath];
 
     if ([_selectedContacts containsObject:contact]) {
@@ -385,7 +381,7 @@
         cell = [[OCKConnectSharingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                   reuseIdentifier:CellIdentifier];
     }
-
+    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.contact = _sectionedContacts[indexPath.section][indexPath.row];
 
     return cell;

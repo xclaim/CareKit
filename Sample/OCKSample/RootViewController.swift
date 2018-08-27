@@ -350,7 +350,10 @@ extension RootViewController: OCKConnectViewControllerDataSource {
         print("didClickAddContact")
 
         let navigationController = UINavigationController(rootViewController: contactsViewController)
-        present(navigationController, animated: true, completion: nil)
+        connectViewController.present(navigationController, animated: true, completion: nil)
+
+        //connectViewController.navigationController?.pushViewController(contactsViewController, animated: true)
+
 
     }
 

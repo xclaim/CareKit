@@ -104,9 +104,7 @@
 
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                           target:self
-                                                                                           action:@selector(add:)];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
     }
 
     self.navigationController.navigationBar.translucent = NO;
