@@ -108,6 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+
+
 /**
  Tells the delegate when the user clicked to add a contact.
 
@@ -223,6 +225,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return The string that will be displayed in the sharing cell for the contact.
  */
 - (nullable NSString *)connectViewController:(OCKConnectViewController *)connectViewController titleForSharingCellForContact:(OCKContact *)contact;
+
+
+/**
+ The delagate decides what type of button to use for the rightBarButton.
+ */
+
+- (UIBarButtonSystemItem)connectViewController:(OCKConnectViewController *)connectViewController barButton:(NSString *)button;
+
 
 /**
  Asks the delegate to handle the selection of the contact info. This can be used to provide custom handling for

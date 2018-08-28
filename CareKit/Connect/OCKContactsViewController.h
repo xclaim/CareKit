@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+
 /**
  Tells the delegate when the user clicked to add a contact.
 

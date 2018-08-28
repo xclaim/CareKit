@@ -102,10 +102,28 @@
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
 
+/*
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(connectViewController:titleForSharingCellForContact:)]) {
+*/
+
+    UIBarButtonSystemItem type;
+
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
+
+        if ([self.delegate respondsToSelector:@selector(connectViewController:barButton:)]) {
+            type = [self.delegate connectViewController:self barButton:@"right"];
+        } else {
+            type = UIBarButtonSystemItemAdd;
+        }
+
+        NSLog(@"type %d ",type);
+
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(add:)];
+
     }
+
 
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];

@@ -357,6 +357,9 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
     }
 
+    func connectViewController(_ connectViewController: OCKConnectViewController, barButton button: String) -> UIBarButtonSystemItem {
+        return .compose
+    }
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
         print("num ",sampleData.connectMessageItems.count)
         return sampleData.connectMessageItems.count
