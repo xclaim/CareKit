@@ -176,7 +176,7 @@ class RootViewController: UITabBarController {
 
     fileprivate func createConnectViewController() -> OCKConnectViewController {
         let viewController = OCKConnectViewController.init(contacts: sampleData.sampleContacts, patient: sampleData.patient)
-        viewController.inboxMode = true
+        viewController.inboxMode = false
         viewController.delegate = self
         viewController.dataSource = self
         // Setup the controller's title and tab bar item
@@ -351,15 +351,14 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
         let navigationController = UINavigationController(rootViewController: contactsViewController)
         connectViewController.present(navigationController, animated: true, completion: nil)
-
         //connectViewController.navigationController?.pushViewController(contactsViewController, animated: true)
-
 
     }
 
     func connectViewController(_ connectViewController: OCKConnectViewController, barButton button: String) -> UIBarButtonSystemItem {
         return .compose
     }
+
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
         print("num ",sampleData.connectMessageItems.count)
         return sampleData.connectMessageItems.count
@@ -388,6 +387,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
     
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectChatButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
 
+        print("didSelectChatButtonFor ", contact)
 
     }
 

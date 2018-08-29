@@ -34,6 +34,7 @@
 #import "OCKLabel.h"
 
 
+static const CGFloat ButtonMargin = 10.0;
 static const CGFloat TopMargin = 15.0;
 static const CGFloat BottomMargin = 15.0;
 static const CGFloat LeadingMargin = 20.0;
@@ -48,6 +49,7 @@ static const CGFloat ImageViewSize = 75.0;
     OCKLabel *_titleLabel;
     OCKLabel *_detailLabel;
     UIButton *_disclosureIndicator;
+    UIButton *_shareButton;
 
     NSMutableArray *_constraints;
 }
@@ -75,7 +77,15 @@ static const CGFloat ImageViewSize = 75.0;
     else {
         self.backgroundColor = [UIColor whiteColor];
     }
-    
+
+    if (!_shareButton) {
+        _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _shareButton.frame = CGRectMake(0, 0, 30.0, 30.0);
+        UIImage *sharingIcon = [[UIImage imageNamed:@"sharing" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [_shareButton setImage:sharingIcon forState:UIControlStateNormal];
+        [self addSubview:_shareButton];
+    }
+
     if (!_disclosureIndicator) {
         _disclosureIndicator = [UIButton new];
         
@@ -151,6 +161,7 @@ static const CGFloat ImageViewSize = 75.0;
     _constraints = [NSMutableArray new];
     
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    _shareButton.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _detailLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _monogramLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -192,7 +203,21 @@ static const CGFloat ImageViewSize = 75.0;
                                                                      attribute:NSLayoutAttributeNotAnAttribute
                                                                     multiplier:1.0
                                                                       constant:ImageViewSize],
-                                        [NSLayoutConstraint constraintWithItem:_titleLabel
+                                        [NSLayoutConstraint constraintWithItem:_shareButton
+                                                                     attribute:NSLayoutAttributeLeading
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self
+                                                                     attribute:NSLayoutAttributeLeading
+                                                                    multiplier:1.0
+                                                                      constant:ButtonMargin],
+                                        [NSLayoutConstraint constraintWithItem:_shareButton
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1.0
+                                                                      constant:ButtonMargin],
+                                       [NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeLeading
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self

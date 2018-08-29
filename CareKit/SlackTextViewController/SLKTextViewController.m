@@ -18,12 +18,10 @@
 #import "UIScrollView+SLKAdditions.h"
 #import "UIView+SLKAdditions.h"
 
-
 #import "SLKInputAccessoryView.h"
 
 #import "UIResponder+SLKAdditions.h"
 #import "SLKUIConstants.h"
-
 
 #import "MessageTableViewCell.h"
 #import "MessageTextView.h"
@@ -31,7 +29,7 @@
 #import "Message.h"
 
 #define DEBUG_CUSTOM_TYPING_INDICATOR 0
-#define DEBUG_CUSTOM_BOTTOM_VIEW 0
+#define DEBUG_CUSTOM_BOTTOM_VIEW 1
 
 /** Feature flagged while waiting to implement a more reliable technique. */
 #define SLKBottomPanningEnabled 0
@@ -2577,7 +2575,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
 
     // Example's configuration
-    [self configureDataSource];
+    //[self configureDataSource];
     [self configureActionItems];
 
     // SLKTVC's configuration
@@ -2609,16 +2607,16 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 #if DEBUG_CUSTOM_BOTTOM_VIEW
     // Example of view that can be added to the bottom of the text view
-
     UIView *bannerView = [UIView new];
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-    bannerView.backgroundColor = [UIColor blueColor];
+    bannerView.backgroundColor = [UIColor clearColor];
 
     NSDictionary *views = NSDictionaryOfVariableBindings(bannerView);
 
     [self.textInputbar.contentView addSubview:bannerView];
     [self.textInputbar.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bannerView]|" options:0 metrics:nil views:views]];
-    [self.textInputbar.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[bannerView(40)]|" options:0 metrics:nil views:views]];
+    [self.textInputbar.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[bannerView(66)]|" options:0 metrics:nil views:views]];
+
 #endif
 
 #if !DEBUG_CUSTOM_TYPING_INDICATOR
@@ -2662,6 +2660,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 #pragma mark - Example's Configuration
 
+/*
 - (void)configureDataSource
 {
 
@@ -2675,7 +2674,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.emojis = @[@"-1", @"m", @"man", @"machine", @"block-a", @"block-b", @"bowtie", @"boar", @"boat", @"book", @"bookmark", @"neckbeard", @"metal", @"fu", @"feelsgood"];
     self.commands = @[@"msg", @"call", @"text", @"skype", @"kick", @"invite"];
 }
-
+*/
 - (void)loadConnectMessages {
     if (self.dataSource &&
         [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)]) {
