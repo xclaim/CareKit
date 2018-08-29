@@ -138,7 +138,8 @@
 
         _headerView = [OCKConnectHeaderView new];
         _headerView.patient = _patient;
-
+        _headerView.delegate = self.delegate;
+        _headerView.masterViewController = self;
         [self.view addSubview:_headerView];
 
     

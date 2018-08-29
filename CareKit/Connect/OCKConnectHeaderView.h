@@ -31,10 +31,21 @@
 
 #import <CareKit/CareKit.h>
 
+@protocol OCKConnectViewControllerDelegate;
 
 @interface OCKConnectHeaderView : UIView
 
 @property (nonatomic) OCKPatient *patient;
 @property (nonatomic) BOOL hideChevron;
+
+/**
+ The delegate is used for the sharing section in the contact detail view.
+
+ See the `OCKConnectViewControllerDelegate` protocol.
+ */
+@property (nonatomic, weak, nullable) id<OCKConnectViewControllerDelegate> delegate;
+
+@property (nonatomic, weak) OCKConnectViewController *masterViewController;
+
 
 @end

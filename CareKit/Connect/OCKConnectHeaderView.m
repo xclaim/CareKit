@@ -83,8 +83,10 @@ static const CGFloat ImageViewSize = 75.0;
         _shareButton.frame = CGRectMake(0, 0, 30.0, 30.0);
         UIImage *sharingIcon = [[UIImage imageNamed:@"sharing" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [_shareButton setImage:sharingIcon forState:UIControlStateNormal];
+        [_shareButton addTarget:self action:@selector(didPressShareButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_shareButton];
     }
+
 
     if (!_disclosureIndicator) {
         _disclosureIndicator = [UIButton new];
@@ -136,6 +138,16 @@ static const CGFloat ImageViewSize = 75.0;
     
     [self updateView];
     [self setUpConstraints];
+}
+
+
+- (void)didPressShareButton:(id)sender
+{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewControllerDidSelectShare:)]) {
+        [self.delegate connectViewControllerDidSelectShare:_masterViewController];
+    }
+    
 }
 
 - (void)updateView {

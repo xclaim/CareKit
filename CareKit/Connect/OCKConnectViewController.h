@@ -263,6 +263,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)connectViewController:(OCKConnectViewController *)viewController didSelectProfileForPatient:(OCKPatient *)patient;
 
+/**
+ Tells the delegate when the user has tapped the share profile button.
+
+ @param viewController          The view controller providing the callback.
+ @param patient                 The patient profile.
+ */
+
+- (void)connectViewControllerDidSelectShare:(OCKConnectViewController *)viewController;
+
 @end
 
 

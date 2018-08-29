@@ -449,7 +449,7 @@ BOOL widgetsVisible = NO;
         keyboardHeight = bottomMargin;
         // only add if keyboard not visible
         if (widgetsVisible) {
-            keyboardHeight += 80;
+            keyboardHeight += 40;
         }
     }
 
@@ -2576,12 +2576,6 @@ BOOL widgetsVisible = NO;
 {
     [super viewDidLoad];
 
-    // Set custom button on navigation bar
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
-
-    // Set custom button on navigation bar
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
-
     // Example's configuration
     //[self configureDataSource];
     [self configureActionItems];
@@ -2708,8 +2702,13 @@ BOOL widgetsVisible = NO;
                                                                action:@selector(togglePIPWindow:)];
     self.navigationItem.rightBarButtonItems = @[pipItem];*/
 
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addContact:)];
-    self.navigationItem.rightBarButtonItems = @[addItem];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAddContact:presentationSourceView:)]) {
+
+        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addContact:)];
+        self.navigationItem.rightBarButtonItems = @[addItem];
+
+    }
+
 
 }
 
