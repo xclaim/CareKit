@@ -2893,10 +2893,10 @@ BOOL widgetsVisible = NO;
     if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachWidgetButtonForContact:presentationSourceView:)]) {
         CGFloat offset = 0.0;
         if (widgetsVisible) {
-            offset = 66.0;
+            offset = 90.0;
             widgetsVisible = NO;
         } else {
-            offset = -66.0;
+            offset = -90.0;
             widgetsVisible = YES;
         }
 
@@ -2929,7 +2929,6 @@ BOOL widgetsVisible = NO;
 
 
     NSString *text = [self.textView.text copy];
-
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     UITableViewRowAnimation rowAnimation = self.inverted ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
