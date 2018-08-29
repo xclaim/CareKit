@@ -447,6 +447,10 @@ BOOL widgetsVisible = NO;
     // requiring to adjust the text input bottom margin
     if (keyboardHeight < bottomMargin) {
         keyboardHeight = bottomMargin;
+        // only add if keyboard not visible
+        if (widgetsVisible) {
+            keyboardHeight += 80;
+        }
     }
 
     return keyboardHeight;
@@ -2312,6 +2316,7 @@ BOOL widgetsVisible = NO;
 
 - (void)slk_updateViewConstraints
 {
+
     self.textInputbarHC.constant = self.textInputbar.minimumInputbarHeight;
     self.scrollViewHC.constant = [self slk_appropriateScrollViewHeight];
     self.keyboardHC.constant = [self slk_appropriateKeyboardHeightFromRect:CGRectNull];
@@ -2891,17 +2896,15 @@ BOOL widgetsVisible = NO;
     UIButton *button = (UIButton *)sender;
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachWidgetButtonForContact:presentationSourceView:)]) {
-        CGFloat offset = 0.0;
+
+
         if (widgetsVisible) {
-            offset = 90.0;
             widgetsVisible = NO;
         } else {
-            offset = -90.0;
             widgetsVisible = YES;
         }
+        [self slk_updateViewConstraints];
 
-        CGRect frame = CGRectMake(self.textInputbar.frame.origin.x, self.textInputbar.frame.origin.y + offset , self.textInputbar.frame.size.width, self.textInputbar.frame.size.height);
-        self.textInputbar.frame = frame;
 
         [self.delegate connectViewController:self.masterViewController didSelectAttachWidgetButtonForContact:self.contact presentationSourceView:button];
     }
