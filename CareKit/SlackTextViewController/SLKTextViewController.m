@@ -449,7 +449,7 @@ BOOL widgetsVisible = NO;
         keyboardHeight = bottomMargin;
         // only add if keyboard not visible
         if (widgetsVisible) {
-            keyboardHeight += 40;
+            keyboardHeight += 35;
         }
     }
 

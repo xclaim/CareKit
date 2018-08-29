@@ -635,6 +635,8 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 
 @property (nonatomic, weak) OCKConnectViewController *masterViewController;
 
+- (void)didPressWidgetButton:(id)sender;
+
 /**
  A patient object.
  */
