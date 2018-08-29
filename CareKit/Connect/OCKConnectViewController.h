@@ -157,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param connectViewController       The view controller providing the callback.
  @param contact                     The contact that is currently displayed.
  */
-- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachRegimeButtonForContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
+- (void)connectViewController:(OCKConnectViewController *)connectViewController didSelectAttachWidgetButtonForContact:(OCKContact *)contact presentationSourceView:(nullable UIView *)sourceView;
 
 /**
  Tells the delegate when the user selected the share button for a contact.

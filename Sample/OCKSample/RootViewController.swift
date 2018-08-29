@@ -377,6 +377,14 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 
 extension RootViewController: OCKConnectViewControllerDelegate {
 
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachWidgetButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
+        print("didSelectAttachWidgetButtonFor")
+    }
+
+    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachMediaButtonFor contact: OCKContact) {
+        print("didSelectAttachMediaButtonFor")
+    }
+
     @nonobjc func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
         print(messageItem)
     }

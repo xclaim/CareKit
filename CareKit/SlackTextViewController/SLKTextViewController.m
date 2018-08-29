@@ -29,7 +29,7 @@
 #import "Message.h"
 
 #define DEBUG_CUSTOM_TYPING_INDICATOR 0
-#define DEBUG_CUSTOM_BOTTOM_VIEW 1
+#define DEBUG_CUSTOM_BOTTOM_VIEW 0
 
 /** Feature flagged while waiting to implement a more reliable technique. */
 #define SLKBottomPanningEnabled 0
@@ -77,6 +77,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 @property (nonatomic, strong) Class textViewClass;
 @property (nonatomic, strong) Class typingIndicatorViewClass;
 
+
 @end
 
 @implementation SLKTextViewController
@@ -89,6 +90,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 @synthesize autoCompleting = _autoCompleting;
 @synthesize scrollViewProxy = _scrollViewProxy;
 @synthesize presentedInPopover = _presentedInPopover;
+
+BOOL widgetsVisible = NO;
 
 #pragma mark - Initializer
 
@@ -339,7 +342,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         _textInputbar = [[SLKTextInputbar alloc] initWithTextViewClass:self.textViewClass];
         _textInputbar.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [_textInputbar.mediaButton addTarget:self action:@selector(didPressMediaButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_textInputbar.widgetButton addTarget:self action:@selector(didPressWidgetButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.leftButton addTarget:self action:@selector(didPressLeftButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.rightButton addTarget:self action:@selector(didPressRightButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.editorLeftButton addTarget:self action:@selector(didCancelTextEditing:) forControlEvents:UIControlEventTouchUpInside];
@@ -392,9 +395,9 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     return _textInputbar.textView;
 }
 
-- (UIButton *)mediaButton
+- (UIButton *)widgetButton
 {
-    return _textInputbar.mediaButton;
+    return _textInputbar.widgetButton;
 }
 
 - (UIButton *)leftButton
@@ -785,7 +788,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     return NO;
 }
 
-- (void)didPressMediaButton:(id)sender
+- (void)didPressWidgetButton:(id)sender
 {
     // No implementation here. Meant to be overriden in subclass.
 }
@@ -2586,12 +2589,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     self.inverted = YES;
     NSBundle *bundle = [NSBundle mainBundle];
 
-    //[self.mediaButton setTitle:NSLocalizedString(@"M", nil) forState:UIControlStateNormal];
-    [self.mediaButton setImage:[UIImage imageNamed:@"icn_media_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
-    [self.mediaButton setTintColor:[UIColor grayColor]];
+    //[self.widgetButton setTitle:NSLocalizedString(@"W", nil) forState:UIControlStateNormal];
+    [self.widgetButton setImage:[UIImage imageNamed:@"icn_widget_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [self.widgetButton setTintColor:[UIColor grayColor]];
 
     //[self.leftButton setTitle:NSLocalizedString(@"A", nil) forState:UIControlStateNormal];
-    [self.leftButton setImage:[UIImage imageNamed:@"icn_regime_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"icn_media_upload" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.leftButton setTintColor:[UIColor grayColor]];
 
     [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
@@ -2880,21 +2883,29 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     [super textDidUpdate:animated];
 }
 
-- (void)didPressMediaButton:(id)sender
+- (void)didPressWidgetButton:(id)sender
 {
     // Notifies the view controller when the left button's action has been triggered, manually.
-    [super didPressMediaButton:sender];
+    [super didPressWidgetButton:sender];
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachMediaButtonForContact:)]) {
-        [self.delegate connectViewController:self didSelectAttachMediaButtonForContact:self.contact];
+    UIButton *button = (UIButton *)sender;
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachWidgetButtonForContact:presentationSourceView:)]) {
+        CGFloat offset = 0.0;
+        if (widgetsVisible) {
+            offset = 66.0;
+            widgetsVisible = NO;
+        } else {
+            offset = -66.0;
+            widgetsVisible = YES;
+        }
+
+        CGRect frame = CGRectMake(self.textInputbar.frame.origin.x, self.textInputbar.frame.origin.y + offset , self.textInputbar.frame.size.width, self.textInputbar.frame.size.height);
+        self.textInputbar.frame = frame;
+
+        [self.delegate connectViewController:self.masterViewController didSelectAttachWidgetButtonForContact:self.contact presentationSourceView:button];
     }
 
-    //UIViewController *vc = [UIViewController new];
-    //vc.view.backgroundColor = [UIColor whiteColor];
-    //ListViewController *vc = [RegimeListViewController new];
-    //vc.title = @"Share";
-    //[self.navigationController presentViewController:vc animated:YES completion:nil];
-    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didPressLeftButton:(id)sender
@@ -2902,11 +2913,11 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     // Notifies the view controller when the left button's action has been triggered, manually.
     [super didPressLeftButton:sender];
 
-    UIButton *button = (UIButton *)sender;
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachRegimeButtonForContact:presentationSourceView:)]) {
-        [self.delegate connectViewController:self didSelectAttachRegimeButtonForContact:self.contact presentationSourceView:button];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:didSelectAttachMediaButtonForContact:)]) {
+        [self.delegate connectViewController:self didSelectAttachMediaButtonForContact:self.contact];
     }
+
 }
 
 - (void)didPressRightButton:(id)sender
