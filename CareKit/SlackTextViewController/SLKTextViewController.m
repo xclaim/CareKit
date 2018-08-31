@@ -2958,6 +2958,8 @@ BOOL widgetsVisible = NO;
     // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
+    [self slk_updateViewConstraints];
+
     [super didPressRightButton:sender];
 }
 
