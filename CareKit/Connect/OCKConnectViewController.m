@@ -41,7 +41,7 @@
 #import "OCKLabel.h"
 #import "OCKConnectMessagesViewController.h"
 #import "OCKConnectHeaderView.h"
-#import "SLKTextViewController.h"
+//#import "SLKTextViewController.h"
 
 @interface OCKConnectViewController() <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
@@ -485,7 +485,9 @@
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectInboxForContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectInboxForContact:[self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row] presentationSourceView:nil];
-        } else {
+        }
+
+        /*else {
             OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
             viewController.patient = _patient;
             viewController.dataSource = self.dataSource;
@@ -494,7 +496,7 @@
             viewController.contact = [self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row];
             [self.navigationController pushViewController:viewController animated:YES];
         }
-
+*/
 /*
         OCKConnectMessagesViewController *viewController = [OCKConnectMessagesViewController new];
         viewController.dataSource = self.dataSource;
