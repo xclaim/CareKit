@@ -41,6 +41,7 @@
 #import "OCKLabel.h"
 #import "OCKConnectMessagesViewController.h"
 #import "OCKConnectHeaderView.h"
+#import "SLKTextViewController.h"
 
 @interface OCKConnectViewController() <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
