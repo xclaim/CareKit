@@ -513,7 +513,8 @@
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectContact:contact presentationSourceView:nil];
         } else {
-            [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
+            [self presentViewController:[self detailViewControllerForContact:contact]  animated:YES completion:nil];
+           // [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
         }
     }
 
