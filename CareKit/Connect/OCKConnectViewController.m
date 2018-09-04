@@ -519,12 +519,16 @@
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectContact:contact presentationSourceView:nil];
         } else {
-            if (true || self.navigationController.navigationBar.isHidden) {
+            [[self navigationController] setNavigationBarHidden:NO animated:YES];
+            
+            /*
+            if (self.navigationController.navigationBar.isHidden) {
+                self.navigationController.navigationBar.isHidden
                 OCKConnectDetailViewController *detailViewController = [self detailViewControllerForContact:contact];
                 detailViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
                 _navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
                 [self presentViewController:_navController  animated:YES completion:nil];
-            } else
+            } else*/
                 [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
         }
     }
