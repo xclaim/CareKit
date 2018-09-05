@@ -109,6 +109,7 @@
         [self.delegate respondsToSelector:@selector(connectViewController:titleForSharingCellForContact:)]) {
 */
 
+    /*
     UIBarButtonSystemItem type;
 
     if (self.delegate &&
@@ -125,9 +126,9 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(add:)];
 
     }
+*/
 
-
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
     
     [self createSectionedContacts];
