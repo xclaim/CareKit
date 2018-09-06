@@ -49,7 +49,7 @@ static const CGFloat ImageViewSize = 75.0;
     OCKLabel *_titleLabel;
     OCKLabel *_detailLabel;
     UIButton *_disclosureIndicator;
-    UIButton *_shareButton;
+//    UIButton *_shareButton;
 
     NSMutableArray *_constraints;
 }
@@ -78,6 +78,7 @@ static const CGFloat ImageViewSize = 75.0;
         self.backgroundColor = [UIColor whiteColor];
     }
 
+/*
     if (!_shareButton) {
         _shareButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _shareButton.frame = CGRectMake(0, 0, 30.0, 30.0);
@@ -86,7 +87,7 @@ static const CGFloat ImageViewSize = 75.0;
         [_shareButton addTarget:self action:@selector(didPressShareButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_shareButton];
     }
-
+*/
 
     if (!_disclosureIndicator) {
         _disclosureIndicator = [UIButton new];
@@ -140,7 +141,7 @@ static const CGFloat ImageViewSize = 75.0;
     [self setUpConstraints];
 }
 
-
+/*
 - (void)didPressShareButton:(id)sender
 {
     
@@ -149,6 +150,7 @@ static const CGFloat ImageViewSize = 75.0;
     }
     
 }
+*/
 
 - (void)updateView {
     if (self.patient.image) {
@@ -173,7 +175,7 @@ static const CGFloat ImageViewSize = 75.0;
     _constraints = [NSMutableArray new];
     
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    _shareButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    _shareButton.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _detailLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _monogramLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -215,6 +217,7 @@ static const CGFloat ImageViewSize = 75.0;
                                                                      attribute:NSLayoutAttributeNotAnAttribute
                                                                     multiplier:1.0
                                                                       constant:ImageViewSize],
+                                        /*
                                         [NSLayoutConstraint constraintWithItem:_shareButton
                                                                      attribute:NSLayoutAttributeLeading
                                                                      relatedBy:NSLayoutRelationEqual
@@ -228,7 +231,7 @@ static const CGFloat ImageViewSize = 75.0;
                                                                         toItem:self
                                                                      attribute:NSLayoutAttributeTop
                                                                     multiplier:1.0
-                                                                      constant:ButtonMargin],
+                                                                      constant:ButtonMargin],*/
                                        [NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeLeading
                                                                      relatedBy:NSLayoutRelationEqual

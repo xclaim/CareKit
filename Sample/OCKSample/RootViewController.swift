@@ -192,6 +192,10 @@ class RootViewController: UITabBarController {
 
 
 extension RootViewController: OCKCareContentsViewDelegate {
+
+
+
+
     func careContentsView(_ view: OCKCareContentsView, didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
 
         print("OCKCareContentsViewDelegate")
@@ -356,7 +360,7 @@ extension RootViewController: OCKConnectViewControllerDataSource {
     }
 
     func connectViewController(_ connectViewController: OCKConnectViewController, barButton button: String) -> UIBarButtonSystemItem {
-        return .compose
+        return .action
     }
 
     func connectViewControllerNumber(ofConnectMessageItems viewController: OCKConnectViewController, careTeamContact contact: OCKContact) -> Int {
@@ -376,6 +380,7 @@ extension RootViewController: OCKConnectViewControllerDataSource {
 // MARK: OCKConnectViewControllerDelegate
 
 extension RootViewController: OCKConnectViewControllerDelegate {
+
 
     func connectViewControllerDidSelectShare(_ viewController: OCKConnectViewController) {
         print("connectViewControllerDidSelectShare")

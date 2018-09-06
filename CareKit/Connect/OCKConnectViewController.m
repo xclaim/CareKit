@@ -109,24 +109,28 @@
         [self.delegate respondsToSelector:@selector(connectViewController:titleForSharingCellForContact:)]) {
 */
 
-    /*
+
     UIBarButtonSystemItem type;
 
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
-
         if ([self.delegate respondsToSelector:@selector(connectViewController:barButton:)]) {
             type = [self.delegate connectViewController:self barButton:@"right"];
         } else {
             type = UIBarButtonSystemItemAdd;
         }
-
         NSLog(@"type %d ",type);
 
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(add:)];
+        switch (type) {
+        case UIBarButtonSystemItemCompose:
+        case UIBarButtonSystemItemAdd:
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(add:)];
+        case UIBarButtonSystemItemAction:
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(share:)];
+        }
 
     }
-*/
+
 
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
@@ -169,6 +173,16 @@
 
 }
 
+- (void)share:(id)sender {
+
+    int x = 0;
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewControllerDidSelectShare:)]) {
+        [self.delegate connectViewControllerDidSelectShare:self];
+    }
+
+}
+
 - (void)add:(id)sender {
 
     int x = 0;
@@ -176,7 +190,9 @@
         [self.delegate respondsToSelector:@selector(connectViewController:didClickAddContact:)]) {
         [self.delegate connectViewController:self didClickAddContact:x];
     }
+
 }
+
 
 - (void)setPatient:(OCKPatient *)patient {
 	_patient = patient;
