@@ -91,6 +91,8 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, copy, nullable, readonly) OCKCarePlanStore *store;
 
+- (void)configure;
+
 @end
 
 NS_ASSUME_NONNULL_END
