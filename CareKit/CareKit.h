@@ -62,6 +62,7 @@
 #import <CareKit/OCKBarChart.h>
 #import <CareKit/OCKRingItem.h>
 #import <CareKit/OCKInsightsViewController.h>
+#import <CareKit/OCKInsightsView.h>
 #import <CareKit/OCKGroupedBarChartView.h>
 
 #import <CareKit/OCKConnectMessageItem.h>
