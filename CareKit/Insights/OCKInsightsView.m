@@ -78,7 +78,7 @@
     return [[OCKInsightsView alloc] initWithInsightItems:items
                                               thresholds:nil
                                                    store:nil
-                                                   frame: frame];
+                                                   frame:frame];
 }
 
 - (void)configure {
@@ -99,6 +99,7 @@
     }
     [self setUpConstraints];
     [self evaluateThresholds];
+    [self viewDidAppear:true];
 }
 
 
