@@ -53,12 +53,15 @@
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items
                       patientWidgets:(NSArray<OCKPatientWidget *> *)widgets
                           thresholds:(NSArray<NSString *> *)thresholds
-                               store:(OCKCarePlanStore *)store {
+                               store:(OCKCarePlanStore *)store
+                               frame:(CGRect)frame {
     NSAssert(widgets.count < 4, @"A maximum of 3 patient widgets is allowed.");
     if (thresholds.count > 0) {
         NSAssert(store, @"A care plan store is required for thresholds.");
     }
-    
+
+    self = [super initWithFrame:frame];
+
     self = [super init];
     if (self) {
         _items = OCKArrayCopyObjects(items);
@@ -69,11 +72,12 @@
     return self;
 }
 
-- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items {
+- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items frame:(CGRect)frame {
     return [[OCKInsightsView alloc]  initWithInsightItems:items
                                            patientWidgets:nil
                                                thresholds:nil
-                                                    store:nil];
+                                                    store:nil
+                                                    frame:frame];
 }
 
 - (void)configure {

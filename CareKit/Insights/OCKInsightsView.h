@@ -54,7 +54,8 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithInsightItems:(nullable NSArray<OCKInsightItem *> *)items
                       patientWidgets:(nullable NSArray<OCKPatientWidget *> *)widgets
                           thresholds:(nullable NSArray<NSString *> *)thresholds
-                               store:(nullable OCKCarePlanStore *)store;
+                               store:(nullable OCKCarePlanStore *)store
+                               frame:(CGRect)frame;
 
 /**
  Returns an initialzed insights view controller using the specified items.
@@ -63,7 +64,7 @@ OCK_CLASS_AVAILABLE
  
  @return An initialized insights view controller.
  */
-- (instancetype)initWithInsightItems:(nullable NSArray<OCKInsightItem *> *)items;
+- (instancetype)initWithInsightItems:(nullable NSArray<OCKInsightItem *> *)items frame:(CGRect)frame;
 
 /**
  An array of insight items.
