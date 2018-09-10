@@ -23,8 +23,10 @@
 
 /* Begin PBXBuildFile section */
 		041848F1203D8BD000C464AB /* CareKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 041848F0203D8BD000C464AB /* CareKit.podspec */; };
-		0441A057214669FA00080826 /* OCKInsightsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441A055214669FA00080826 /* OCKInsightsView.m */; };
-		0441A058214669FA00080826 /* OCKInsightsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0441A056214669FA00080826 /* OCKInsightsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0426EFFB2146D89000021593 /* OCKInsightsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0426EFF92146D89000021593 /* OCKInsightsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0426EFFC2146D89000021593 /* OCKInsightsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0426EFFA2146D89000021593 /* OCKInsightsView.m */; };
+		0441A057214669FA00080826 /* OCKInsightWidgetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441A055214669FA00080826 /* OCKInsightWidgetsView.m */; };
+		0441A058214669FA00080826 /* OCKInsightWidgetsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0441A056214669FA00080826 /* OCKInsightWidgetsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0463068120963EFA007BF8A8 /* OCKContact_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 0463068020963EF9007BF8A8 /* OCKContact_Internal.h */; };
 		04740532209A6BB800B06013 /* OCKCareCardSharingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 04740530209A6BB700B06013 /* OCKCareCardSharingTableViewCell.h */; };
 		04740533209A6BB800B06013 /* OCKCareCardSharingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04740531209A6BB800B06013 /* OCKCareCardSharingTableViewCell.m */; };
@@ -217,8 +219,10 @@
 
 /* Begin PBXFileReference section */
 		041848F0203D8BD000C464AB /* CareKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CareKit.podspec; sourceTree = "<group>"; };
-		0441A055214669FA00080826 /* OCKInsightsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKInsightsView.m; sourceTree = "<group>"; };
-		0441A056214669FA00080826 /* OCKInsightsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKInsightsView.h; sourceTree = "<group>"; };
+		0426EFF92146D89000021593 /* OCKInsightsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKInsightsView.h; sourceTree = "<group>"; };
+		0426EFFA2146D89000021593 /* OCKInsightsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKInsightsView.m; sourceTree = "<group>"; };
+		0441A055214669FA00080826 /* OCKInsightWidgetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKInsightWidgetsView.m; sourceTree = "<group>"; };
+		0441A056214669FA00080826 /* OCKInsightWidgetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKInsightWidgetsView.h; sourceTree = "<group>"; };
 		0463068020963EF9007BF8A8 /* OCKContact_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKContact_Internal.h; sourceTree = "<group>"; };
 		04740530209A6BB700B06013 /* OCKCareCardSharingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCKCareCardSharingTableViewCell.h; sourceTree = "<group>"; };
 		04740531209A6BB800B06013 /* OCKCareCardSharingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCKCareCardSharingTableViewCell.m; sourceTree = "<group>"; };
@@ -475,8 +479,10 @@
 		241707A61C9A3AB7005D7123 /* Insights */ = {
 			isa = PBXGroup;
 			children = (
-				0441A056214669FA00080826 /* OCKInsightsView.h */,
-				0441A055214669FA00080826 /* OCKInsightsView.m */,
+				0426EFF92146D89000021593 /* OCKInsightsView.h */,
+				0426EFFA2146D89000021593 /* OCKInsightsView.m */,
+				0441A056214669FA00080826 /* OCKInsightWidgetsView.h */,
+				0441A055214669FA00080826 /* OCKInsightWidgetsView.m */,
 				241707BF1C9A3AB7005D7123 /* OCKInsightsViewController.h */,
 				241707C01C9A3AB7005D7123 /* OCKInsightsViewController.m */,
 				241707DF1C9A3AED005D7123 /* Table View */,
@@ -975,6 +981,7 @@
 				0463068120963EFA007BF8A8 /* OCKContact_Internal.h in Headers */,
 				BA3793DA1EB66BC50004A540 /* OCKPatientWidgetView.h in Headers */,
 				BA8F07021EBE9D8800A14E5F /* OCKReadOnlyTableViewCell.h in Headers */,
+				0426EFFB2146D89000021593 /* OCKInsightsView.h in Headers */,
 				86E803901CB4812F00B5C021 /* OCKLabel.h in Headers */,
 				BA3793EA1EB66D7D0004A540 /* OCKImagePatientWidgetView.h in Headers */,
 				BA94DBB61D9CA9AE002E0BFC /* OCKGlyph_Internal.h in Headers */,
@@ -990,7 +997,7 @@
 				BA274F401EB6F75300DD17EF /* OCKConnectMessageItem.h in Headers */,
 				24EA9FB21C9A3D420036028E /* OCKCareCardAdditionalInfoTableViewCell.h in Headers */,
 				8677EE171C9775EB00588CD6 /* OCKCarePlanStore.h in Headers */,
-				0441A058214669FA00080826 /* OCKInsightsView.h in Headers */,
+				0441A058214669FA00080826 /* OCKInsightWidgetsView.h in Headers */,
 				241707DD1C9A3AB7005D7123 /* OCKMessageItem.h in Headers */,
 				241707D51C9A3AB7005D7123 /* OCKInsightsMessageTableViewCell.h in Headers */,
 				242DBA9C1C9F7F8700529386 /* OCKRingView.h in Headers */,
@@ -1231,7 +1238,7 @@
 				8677EE191C9775EB00588CD6 /* OCKCarePlanStore.xcdatamodeld in Sources */,
 				241707D01C9A3AB7005D7123 /* OCKGroupedBarChartView.m in Sources */,
 				BA8A8CA11D9DAC680078C5EA /* OCKWeekView.m in Sources */,
-				0441A057214669FA00080826 /* OCKInsightsView.m in Sources */,
+				0441A057214669FA00080826 /* OCKInsightWidgetsView.m in Sources */,
 				241707C41C9A3AB7005D7123 /* OCKBarChart.m in Sources */,
 				BA660FFA1EB1FF1100B7B1A7 /* OCKPatientHeaderView.m in Sources */,
 				8677EE0F1C9775EB00588CD6 /* OCKCarePlanActivity.m in Sources */,
@@ -1263,6 +1270,7 @@
 				BA3793EF1EB66D7D0004A540 /* OCKStackedPatientWidgetView.m in Sources */,
 				248929761C90E70100EBBE1F /* OCKConnectDetailViewController.m in Sources */,
 				24EA9FBB1C9A3D420036028E /* OCKCareCardInstructionsTableViewCell.m in Sources */,
+				0426EFFC2146D89000021593 /* OCKInsightsView.m in Sources */,
 				248929811C90E70100EBBE1F /* OCKContact.m in Sources */,
 				241707DE1C9A3AB7005D7123 /* OCKMessageItem.m in Sources */,
 				AEB37F671DF224DA002370A6 /* OCKColor.m in Sources */,

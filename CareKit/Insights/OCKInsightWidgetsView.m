@@ -29,23 +29,18 @@
  */
 
 
-#import "OCKInsightsView.h"
-#import "OCKInsightsChartTableViewCell.h"
-#import "OCKInsightsMessageTableViewCell.h"
-#import "OCKInsightsRingTableViewCell.h"
-#import "OCKChart.h"
+#import "OCKInsightWidgetsView.h"
+#import "OCKInsightsTableViewHeaderView.h"
 #import "OCKHelpers.h"
 #import "OCKDefines_Private.h"
 
-@interface OCKInsightsView() <UITableViewDelegate, UITableViewDataSource>
+@interface OCKInsightsView()
 
 @end
 
-
-@implementation OCKInsightsView {
-    UITableView *_tableView;
+@implementation OCKInsightWidgetsView {
+    OCKInsightsTableViewHeaderView *_headerView;
     NSMutableArray *_constraints;
-    BOOL _hasAnimated;
     NSMutableArray *_triggeredThresholds;
     NSMutableArray *_triggeredThresholdActivities;
 }
@@ -56,104 +51,91 @@
 }
 
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items
+                      patientWidgets:(NSArray<OCKPatientWidget *> *)widgets
                           thresholds:(NSArray<NSString *> *)thresholds
                                store:(OCKCarePlanStore *)store
-                               frame:(CGRect)frame
-{
+                               frame:(CGRect)frame {
+    NSAssert(widgets.count < 4, @"A maximum of 3 patient widgets is allowed.");
     if (thresholds.count > 0) {
         NSAssert(store, @"A care plan store is required for thresholds.");
     }
-    
+
+    self = [super initWithFrame:frame];
+
     self = [super init];
     if (self) {
         _items = OCKArrayCopyObjects(items);
+        _widgets = OCKArrayCopyObjects(widgets);
         _thresholds = OCKArrayCopyObjects(thresholds);
         _store = store;
-        _hasAnimated = NO;
     }
     return self;
 }
 
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items frame:(CGRect)frame {
-    return [[OCKInsightsView alloc] initWithInsightItems:items
-                                              thresholds:nil
-                                                   store:nil
-                                                   frame: frame];
+    return [[OCKInsightWidgetsView alloc]  initWithInsightItems:items
+                                           patientWidgets:nil
+                                               thresholds:nil
+                                                    store:nil
+                                                    frame:frame];
 }
 
 - (void)configure {
 
     self.backgroundColor = [UIColor groupTableViewBackgroundColor];
-
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.estimatedRowHeight = 90.0;
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        _tableView.showsVerticalScrollIndicator = NO;
-        
-        [self addSubview:_tableView];
+    
+    if (!_headerView) {
+        _headerView = [[OCKInsightsTableViewHeaderView alloc] initWithWidgets:self.widgets
+                                                                        store:self.store];
+        [self addSubview:_headerView];
     }
     [self setUpConstraints];
+    [_headerView updateWidgets];
     [self evaluateThresholds];
-}
 
-
-- (void)viewDidAppear:(BOOL)animated {
-    if (!_hasAnimated) {
-        _hasAnimated = YES;
-        for (UITableViewCell *cell in _tableView.visibleCells) {
-            if ([cell isKindOfClass:[OCKInsightsChartTableViewCell class]]) {
-                OCKInsightsChartTableViewCell *chartCell = (OCKInsightsChartTableViewCell *)cell;
-                [chartCell animateWithDuration:1.0];
-            }
-        }
-    }
 }
 
 - (void)setItems:(NSArray<OCKInsightItem *> *)items {
     _items = OCKArrayCopyObjects(items);
-    [_tableView reloadData];
 }
 
 - (void)setUpConstraints {
     [NSLayoutConstraint deactivateConstraints:_constraints];
     
     _constraints = [NSMutableArray new];
-    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-
+    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGFloat headerViewHeight = (self.widgets.count > 0) ? 100 : 0;
+    
     [_constraints addObjectsFromArray:@[
-                                        [NSLayoutConstraint constraintWithItem: _tableView
+                                        [NSLayoutConstraint constraintWithItem: _headerView
                                                                      attribute: NSLayoutAttributeTop
                                                                      relatedBy: NSLayoutRelationEqual
                                                                         toItem: self
                                                                      attribute: NSLayoutAttributeTop
                                                                     multiplier: 1.0
                                                                       constant: 0.0],
-                                        [NSLayoutConstraint constraintWithItem: _tableView
+                                        [NSLayoutConstraint constraintWithItem: _headerView
                                                                      attribute: NSLayoutAttributeLeading
                                                                      relatedBy: NSLayoutRelationEqual
                                                                         toItem: self
                                                                      attribute: NSLayoutAttributeLeading
                                                                     multiplier: 1.0
                                                                       constant: 0.0],
-                                        [NSLayoutConstraint constraintWithItem: _tableView
+                                        [NSLayoutConstraint constraintWithItem: _headerView
                                                                      attribute: NSLayoutAttributeTrailing
                                                                      relatedBy: NSLayoutRelationEqual
                                                                         toItem: self
                                                                      attribute: NSLayoutAttributeTrailing
                                                                     multiplier: 1.0
                                                                       constant: 0.0],
-                                        [NSLayoutConstraint constraintWithItem: _tableView
-                                                                     attribute: NSLayoutAttributeBottom
+                                        [NSLayoutConstraint constraintWithItem: _headerView
+                                                                     attribute: NSLayoutAttributeHeight
                                                                      relatedBy: NSLayoutRelationEqual
-                                                                        toItem: self
-                                                                     attribute: NSLayoutAttributeBottom
+                                                                        toItem: nil
+                                                                     attribute: NSLayoutAttributeNotAnAttribute
                                                                     multiplier: 1.0
-                                                                      constant: 0.0]
+                                                                      constant: headerViewHeight],
                                         ]];
     
     [NSLayoutConstraint activateConstraints:_constraints];
@@ -179,10 +161,6 @@
                                     [_triggeredThresholds addObject:threshold];
                                     [_triggeredThresholdActivities addObject:activity];
                                 }
-                                
-                                if ([identifier isEqualToString:self.thresholds.lastObject]) {
-                                    [_tableView reloadData];
-                                }
                             });
                         }];
                     } else {
@@ -198,118 +176,12 @@
                                     }
                                 }
                             }
-                            
-                            if ([identifier isEqualToString:self.thresholds.lastObject]) {
-                                [_tableView reloadData];
-                            }
                         });
                     }
                 }];
             }
         }];
     }
-    if (_triggeredThresholds.count <= 0) {
-        [_tableView reloadData];
-    }
-}
-
-
-#pragma mark - UITableViewDelegate
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger numberOfSections = 0;
-    
-    if (_triggeredThresholds.count > 0) {
-        numberOfSections++;
-    }
-    
-    if (self.items.count > 0) {
-        numberOfSections++;
-    }
-    
-    return numberOfSections;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger numberOfRows = 0;
-    
-    if (_triggeredThresholds.count > 0 && self.items.count > 0) {
-        numberOfRows = (section == 0) ? _triggeredThresholds.count : self.items.count;
-    } else if (_triggeredThresholds.count > 0) {
-        numberOfRows = _triggeredThresholds.count;
-    } else if (self.items.count > 0) {
-        numberOfRows = self.items.count;
-    }
-    
-    return numberOfRows;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return tableView.numberOfSections - 1 == section ? OCKLocalizedString(@"INSIGHTS_SECTION_HEADER_TITLE_INSIGHTS", nil) : OCKLocalizedString(@"INSIGHTS_SECTION_HEADER_TITLE_THRESHOLD_ALERTS", nil);
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0 && tableView.numberOfSections == 2) {
-        if (_triggeredThresholds.count > 0) {
-            static NSString *ThresholdCellIdentifier = @"ThresholdCellIdentifier";
-            OCKInsightsMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ThresholdCellIdentifier];
-            if (!cell) {
-                cell = [[OCKInsightsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                              reuseIdentifier:ThresholdCellIdentifier];
-            }
-            OCKCarePlanThreshold *threshold = _triggeredThresholds[indexPath.row];
-            OCKCarePlanActivity *activity = _triggeredThresholdActivities[indexPath.row];
-            OCKMessageItem *messageItem = [[OCKMessageItem alloc] initWithTitle:activity.title text:threshold.title tintColor:nil messageType:OCKMessageItemTypePlain];
-            cell.messageItem = messageItem;
-            return cell;
-            
-        }
-    } else {
-        OCKInsightItem *item = self.items[indexPath.row];
-        item.verificationURL = [[NSURL alloc] initWithString:@"https://etherscan.io/tx/0xdf3ecc898944dd4f006321046524a6fca2f48303d61fe8e3ba79da3e7c86b4d2"];
-        if ([item isKindOfClass:[OCKChart class]]) {
-            static NSString *ChartCellIdentifier = @"ChartCell";
-            OCKInsightsChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChartCellIdentifier];
-            if (!cell) {
-                cell = [[OCKInsightsChartTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                            reuseIdentifier:ChartCellIdentifier];
-            }
-            cell.chart = (OCKChart *)item;
-
-            return cell;
-        }
-        else if ([item isKindOfClass:[OCKMessageItem class]]) {
-            static NSString *MessageCellIdentifier = @"MessageCell";
-            OCKInsightsMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageCellIdentifier];
-            if (!cell) {
-                cell = [[OCKInsightsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                              reuseIdentifier:MessageCellIdentifier];
-            }
-            cell.messageItem = (OCKMessageItem *)item;
-            return cell;
-        }
-        else if ([item isKindOfClass:[OCKRingItem class]]) {
-            static NSString *RingCellIdentifier = @"RingCell";
-            OCKInsightsRingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:RingCellIdentifier];
-            if (!cell) {
-                cell = [[OCKInsightsRingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                           reuseIdentifier:RingCellIdentifier];
-            }
-            cell.ringItem = (OCKRingItem *)item;
-            return cell;
-        }
-        
-    }
-    
-    return nil;
 }
 
 @end

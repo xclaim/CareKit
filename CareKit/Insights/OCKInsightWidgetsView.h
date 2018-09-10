@@ -33,24 +33,26 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
-@class OCKInsightsView;
+@class OCKInsightWidgetsView, OCKPatientWidget;
 
 /**
- The `OCKInsightsViewController` class is a view controller that displays an array of `OCKInsightItem` objects.
+ The `OCKInsightWidgetsView` class is a view controller that displays an array of `OCKInsightItem` objects.
  */
 OCK_CLASS_AVAILABLE
-@interface OCKInsightsView: UIView
+@interface OCKInsightWidgetsView : UIView
 
 /**
  Returns an initialzed insights view controller using the specified parameters.
  
  @param items               An array of `OCKInsightItem` objects.
+ @param widgets             An array of `OCKPatientWidget` objects.
  @param thresholds          An array of threshold activity identifiers.
  @param store               A care plan store.
  
  @return An initialized insights view controller.
  */
 - (instancetype)initWithInsightItems:(nullable NSArray<OCKInsightItem *> *)items
+                      patientWidgets:(nullable NSArray<OCKPatientWidget *> *)widgets
                           thresholds:(nullable NSArray<NSString *> *)thresholds
                                store:(nullable OCKCarePlanStore *)store
                                frame:(CGRect)frame;
@@ -68,6 +70,14 @@ OCK_CLASS_AVAILABLE
  An array of insight items.
  */
 @property (nonatomic, copy, nullable) NSArray<OCKInsightItem *> *items;
+
+/**
+ An array of patient widgets.
+ 
+ Maximum of 3 widgets.
+ A care plan store is required for widgets with activity identifiers.
+ */
+@property (nonatomic, copy, nullable, readonly) NSArray<OCKPatientWidget *> *widgets;
 
 /**
  An array of activity identifiers for threshold evaluations.
