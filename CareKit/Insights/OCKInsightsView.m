@@ -64,7 +64,8 @@
         NSAssert(store, @"A care plan store is required for thresholds.");
     }
     
-    self = [super init];
+    self = [super initWithFrame:frame];
+
     if (self) {
         _items = OCKArrayCopyObjects(items);
         _thresholds = OCKArrayCopyObjects(thresholds);
