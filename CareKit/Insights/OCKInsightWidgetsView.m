@@ -82,7 +82,9 @@
 
 - (void)configure {
 
-    self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.backgroundColor = [UIColor whiteColor];
+
+    //self.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     if (!_headerView) {
         _headerView = [[OCKInsightsTableViewHeaderView alloc] initWithWidgets:self.widgets
