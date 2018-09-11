@@ -82,6 +82,7 @@ OCK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable, readonly) OCKCarePlanStore *store;
 
 - (void)configure;
+- (void)viewDidAppear:(BOOL)animated;
 
 @end
 

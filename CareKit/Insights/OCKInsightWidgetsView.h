@@ -93,6 +93,8 @@ OCK_CLASS_AVAILABLE
 
 - (void)configure;
 
+- (void)viewWillAppear:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

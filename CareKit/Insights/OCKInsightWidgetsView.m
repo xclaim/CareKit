@@ -90,9 +90,11 @@
         [self addSubview:_headerView];
     }
     [self setUpConstraints];
-    [_headerView updateWidgets];
-    [self evaluateThresholds];
+    viewWillAppear:YES;
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [_headerView updateWidgets];
 }
 
 - (void)setItems:(NSArray<OCKInsightItem *> *)items {
@@ -141,47 +143,6 @@
     [NSLayoutConstraint activateConstraints:_constraints];
     
     
-}
-
-- (void)evaluateThresholds {
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] initWithDate:[NSDate date]
-                                                                     calendar:[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]];
-    
-    _triggeredThresholds = [NSMutableArray new];
-    _triggeredThresholdActivities = [NSMutableArray new];
-    
-    for (NSString *identifier in self.thresholds) {
-        [self.store activityForIdentifier:identifier completion:^(BOOL success, OCKCarePlanActivity * _Nullable activity, NSError * _Nullable error) {
-            if (success && activity) {
-                [self.store eventsForActivity:activity date:dateComponents completion:^(NSArray<OCKCarePlanEvent *> * _Nonnull events, NSError * _Nullable error) {
-                    if (activity.type == OCKCarePlanActivityTypeIntervention) {
-                        [self.store evaluateAdheranceThresholdForActivity:activity date:dateComponents completion:^(BOOL success, OCKCarePlanThreshold * _Nullable threshold, NSError * _Nullable error) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                if (success && threshold) {
-                                    [_triggeredThresholds addObject:threshold];
-                                    [_triggeredThresholdActivities addObject:activity];
-                                }
-                            });
-                        }];
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            for (OCKCarePlanEvent *event in events) {
-                                NSArray<NSArray<OCKCarePlanThreshold *> *> *thresholds = [event evaluateNumericThresholds];
-                                for (NSArray<OCKCarePlanThreshold *> *thresholdArray in thresholds) {
-                                    for (OCKCarePlanThreshold *threshold in thresholdArray) {
-                                        if (threshold) {
-                                            [_triggeredThresholds addObject:threshold];
-                                            [_triggeredThresholdActivities addObject:activity];
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }];
-            }
-        }];
-    }
 }
 
 @end

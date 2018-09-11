@@ -100,9 +100,7 @@
     }
     [self setUpConstraints];
     [self evaluateThresholds];
-    [self viewDidAppear:true];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
     if (!_hasAnimated) {
