@@ -73,9 +73,20 @@ static const CGFloat HeaderViewHeight = 100.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self prepareView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+
+                                              initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                              target:self
+                                              action:@selector(done:)];
+
     //[_tableView setEditing: YES animated: YES];
 }
 
+
+- (void)done:(id)sender {
+    NSLog(@"done");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)prepareView {
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     

@@ -374,7 +374,10 @@
     OCKCarePlanActivityType type = activity.type;
 
     NSLog(@"accessoryButtonTappedForRowWithIndexPath");
-    //FIXME [self.navigationController pushViewController:[self detailViewControllerForActivity:activity] animated:YES];
+
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[self detailViewControllerForActivity:activity]];
+
+    [self.launchDelegate presentViewController:nav animated:YES completion:nil];
 
 }
 
@@ -496,7 +499,8 @@
         [self.contentsViewDelegate careContentsView:self didSelectRowWithInterventionActivity:activity];
     } else {
         NSLog(@"detailViewControllerForActivity");
-        //[self.navigationController pushViewController:[self detailViewControllerForActivity:selectedActivity] animated:YES];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[self detailViewControllerForActivity:selectedActivity]];
+        [self.launchDelegate presentViewController:nav animated:YES completion:nil];
     }
 }
 

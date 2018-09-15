@@ -230,6 +230,8 @@ OCK_CLASS_AVAILABLE
 
 @property (nonatomic, nullable) OCKCareCardView *careCardView;
 
+@property (nonatomic, nullable) UIViewController *launchDelegate;
+
 
 @end
 

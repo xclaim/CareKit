@@ -44,7 +44,6 @@
 //#import "SLKTextViewController.h"
 
 @interface OCKConnectViewController() <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
-
 @end
 
 @implementation OCKConnectViewController {
@@ -95,21 +94,16 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
-    
     [self prepareHeaderView];
-    
     _tableView.estimatedRowHeight = 44.0;
     _tableView.rowHeight = UITableViewAutomaticDimension;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
-
 /*
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(connectViewController:titleForSharingCellForContact:)]) {
 */
-
-
     UIBarButtonSystemItem type;
 
     if (self.delegate &&
@@ -120,7 +114,6 @@
             type = UIBarButtonSystemItemAdd;
         }
         NSLog(@"type %d ",type);
-
         switch (type) {
         case UIBarButtonSystemItemCompose:
         case UIBarButtonSystemItemAdd:
@@ -128,9 +121,7 @@
         case UIBarButtonSystemItemAction:
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:self action:@selector(share:)];
         }
-
     }
-
 
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
@@ -192,7 +183,6 @@
     }
 
 }
-
 
 - (void)setPatient:(OCKPatient *)patient {
 	_patient = patient;
@@ -340,84 +330,89 @@
     }
 
     if (!self.inboxMode) {
-    NSMutableArray *careTeamContacts = [NSMutableArray new];
-    NSMutableArray *delegateContacts = [NSMutableArray new];
-    NSMutableArray *patientContacts = [NSMutableArray new];
-    NSMutableArray *personalContacts = [NSMutableArray new];
-    NSMutableArray *groupContacts = [NSMutableArray new];
-    NSMutableArray *deviceContacts = [NSMutableArray new];
-    NSMutableArray *contactContacts = [NSMutableArray new];
-    NSMutableArray *providerContacts = [NSMutableArray new];
+        NSMutableArray *careTeamContacts = [NSMutableArray new];
+        NSMutableArray *delegateContacts = [NSMutableArray new];
+        NSMutableArray *patientContacts = [NSMutableArray new];
+        NSMutableArray *personalContacts = [NSMutableArray new];
+        NSMutableArray *groupContacts = [NSMutableArray new];
+        NSMutableArray *deviceContacts = [NSMutableArray new];
+        NSMutableArray *contactContacts = [NSMutableArray new];
+        NSMutableArray *providerContacts = [NSMutableArray new];
 
-    for (OCKContact *contact in self.contacts) {
-        switch (contact.type) {
-            case OCKContactTypeCareTeam:
-                [careTeamContacts addObject:contact];
-                break;
-            case OCKContactTypePatient:
-                [patientContacts addObject:contact];
-                break;
-            case OCKContactTypeContact:
-                [contactContacts addObject:contact];
-                break;
-            case OCKContactTypePersonal:
-                [personalContacts addObject:contact];
-                break;
-            case OCKContactTypeGroup:
-                [groupContacts addObject:contact];
-                break;
-            case OCKContactTypeDevice:
-                [deviceContacts addObject:contact];
-            case OCKContactTypeDataProvider:
-                [providerContacts addObject:contact];
-                break;
+        for (OCKContact *contact in self.contacts) {
+            switch (contact.type) {
+                case OCKContactTypeCareTeam:
+                    [careTeamContacts addObject:contact];
+                    break;
+                case OCKContactTypePatient:
+                    [patientContacts addObject:contact];
+                    break;
+                case OCKContactTypeContact:
+                    [contactContacts addObject:contact];
+                    break;
+                case OCKContactTypePersonal:
+                    [personalContacts addObject:contact];
+                    break;
+                case OCKContactTypeGroup:
+                    [groupContacts addObject:contact];
+                    break;
+                case OCKContactTypeDevice:
+                    [deviceContacts addObject:contact];
+                case OCKContactTypeDataProvider:
+                    [providerContacts addObject:contact];
+                    break;
+            }
+
+            switch (contact.role) {
+                case OCKContactRoleRecoveryDelegate:
+                    [delegateContacts addObject:contact];
+                    break;
+                default:
+                    break;
+            }
         }
-        switch (contact.role) {
-            case OCKContactRoleRecoveryDelegate:
-                [delegateContacts addObject:contact];
-                break;
-        }
-    }
     
-    if (delegateContacts.count > 0) {
-        [_sectionedContacts addObject:[delegateContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"DELEGATES_SECTION_TITLE", nil)];
-    }
 
-    if (careTeamContacts.count > 0) {
-        [_sectionedContacts addObject:[careTeamContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"CARE_TEAM_SECTION_TITLE", nil)];
-    }
+        if (careTeamContacts.count > 0) {
+            [_sectionedContacts addObject:[careTeamContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"CARE_TEAM_SECTION_TITLE", nil)];
+        }
 
-    if (patientContacts.count > 0) {
-        [_sectionedContacts addObject:[patientContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
-    }
+        if (patientContacts.count > 0) {
+            [_sectionedContacts addObject:[patientContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"PATIENT_SECTION_TITLE", nil)];
+        }
 
-    if (contactContacts.count > 0) {
-        [_sectionedContacts addObject:[contactContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"CONTACT_SECTION_TITLE", nil)];
-    }
+        if (contactContacts.count > 0) {
+            [_sectionedContacts addObject:[contactContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"CONTACT_SECTION_TITLE", nil)];
+        }
 
-    if (personalContacts.count > 0) {
-        [_sectionedContacts addObject:[personalContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"PERSONAL_SECTION_TITLE", nil)];
-    }
+        if (personalContacts.count > 0) {
+            [_sectionedContacts addObject:[personalContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"PERSONAL_SECTION_TITLE", nil)];
+        }
 
-    if (groupContacts.count > 0) {
-        [_sectionedContacts addObject:[groupContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"GROUP_SECTION_TITLE", nil)];
-    }
+        if (groupContacts.count > 0) {
+            [_sectionedContacts addObject:[groupContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"GROUP_SECTION_TITLE", nil)];
+        }
 
-    if (deviceContacts.count > 0) {
-        [_sectionedContacts addObject:[deviceContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"DEVICE_SECTION_TITLE", nil)];
-    }
+        if (deviceContacts.count > 0) {
+            [_sectionedContacts addObject:[deviceContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"DEVICE_SECTION_TITLE", nil)];
+        }
 
-    if (providerContacts.count > 0) {
-        [_sectionedContacts addObject:[providerContacts copy]];
-        [_sectionTitles addObject:OCKLocalizedString(@"PROVIDER_SECTION_TITLE", nil)];
-    }
+        if (providerContacts.count > 0) {
+            [_sectionedContacts addObject:[providerContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"PROVIDER_SECTION_TITLE", nil)];
+        }
+
+        if (delegateContacts.count > 0) {
+            [_sectionedContacts addObject:[delegateContacts copy]];
+            [_sectionTitles addObject:OCKLocalizedString(@"DELEGATES_SECTION_TITLE", nil)];
+        }
+
     }
 
 }
@@ -459,14 +454,12 @@
     }
 }
 
-
 #pragma mark - Helpers
 
 - (BOOL)shouldFeedBeVisible {
     return self.dataSource &&
     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:)] && [self.dataSource connectViewControllerNumberOfFeedMessageItems:self] >0 ;
 }
-
 
 - (BOOL)shouldInboxBeVisible {
     return self.dataSource &&
@@ -491,11 +484,9 @@
     return detailViewController;
 }
 
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
 
     NSUInteger inboxSection = [self shouldFeedBeVisible] ? 1:0;
     if ([self shouldFeedBeVisible] && indexPath.section == 0) {
@@ -509,7 +500,6 @@
             [self.delegate respondsToSelector:@selector(connectViewController:didSelectInboxForContact:presentationSourceView:)] ) {
             [self.delegate connectViewController:self didSelectInboxForContact:[self.dataSource connectViewControllerCareTeamConnections:self][indexPath.row] presentationSourceView:nil];
         }
-
         /*else {
             OCKSlackMessagesViewController *viewController = [OCKSlackMessagesViewController new];
             viewController.patient = _patient;
@@ -529,7 +519,6 @@
         [self.navigationController pushViewController:viewController animated:YES];
 
 */
-
     } else {
         OCKContact *contact = [self contactForIndexPath:indexPath];
         if (self.delegate &&
@@ -549,7 +538,6 @@
                 [self.navigationController pushViewController:[self detailViewControllerForContact:contact] animated:YES];
         }
     }
-
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -581,7 +569,6 @@
         }
         return _sectionedContacts[section].count;
     }
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -621,7 +608,7 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
-        
+
     } else {
         static NSString *CellIdentifier = @"ConnectCell";
         OCKConnectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -653,7 +640,6 @@
     }
 }
 
-
 #pragma mark - MFMailComposeViewControllerDelegate
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -665,7 +651,6 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
-
 
 #pragma mark - UIViewControllerPreviewingDelegate
 

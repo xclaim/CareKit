@@ -156,6 +156,9 @@ class RootViewController: UITabBarController {
         tableView.contentsViewDelegate = self;
 
         let viewController = CardViewController(headerView: headerView, tableView: tableView)
+
+        tableView.launchDelegate = viewController
+
         viewController.title = NSLocalizedString("Split Card", comment: "")
         viewController.tabBarItem = UITabBarItem(title: viewController.title, image: UIImage(named:"carecard"), selectedImage: UIImage(named: "carecard-filled"))
         return viewController
@@ -453,8 +456,6 @@ extension RootViewController: CarePlanStoreManagerDelegate {
 
 
 extension RootViewController: OCKContactsViewControllerDelegate {
-
-
 }
 
 extension RootViewController: OCKContactsViewControllerDataSource {
