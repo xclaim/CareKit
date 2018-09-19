@@ -53,6 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)careContentsView:(OCKCareContentsView *)view didSelectRowWithAssessmentEvent:(OCKCarePlanEvent *)assessmentEvent;
 
+
+/**
+ Tells the delegate when the user selected to add an activity of a certain group type
+
+ @param view                The view providing the callback.
+ @param groupIdentifier     The groupIdentifier.
+ */
+- (void)careContentsView:(OCKCareContentsView *)view didSelectAddActivityGroupType:(NSString *)groupIdentifier;
+
 @optional
 
 /**

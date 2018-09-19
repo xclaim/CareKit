@@ -87,6 +87,8 @@
 - (void)configure {
 
     self.backgroundColor = [UIColor whiteColor];
+
+
     self.store.symptomTrackerUIDelegate = self;
     self.store.careCardUIDelegate = self;
     [self setGlyphTintColor: _glyphTintColor];

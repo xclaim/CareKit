@@ -222,6 +222,10 @@ extension RootViewController: OCKCareContentsViewDelegate {
 
     }
 
+    func careContentsView(_ view: OCKCareContentsView, didSelectAddActivityGroupType groupIdentifier: String) {
+        print("Add ", groupIdentifier)
+    }
+
 
 }
 

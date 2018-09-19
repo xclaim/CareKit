@@ -113,7 +113,7 @@
     self.estimatedRowHeight = 90.0;
     self.rowHeight = UITableViewAutomaticDimension;
     self.tableFooterView = [UIView new];
-    self.estimatedSectionHeaderHeight = 0;
+    self.estimatedSectionHeaderHeight = 60;
     self.estimatedSectionFooterHeight = 0;
     self.showsVerticalScrollIndicator = NO;
 
@@ -204,7 +204,7 @@
     
     for (NSArray<OCKCarePlanEvent *> *activityEvents in events) {
         OCKCarePlanEvent *firstEvent = activityEvents.firstObject;
-        
+       
         if (firstEvent.activity.groupIdentifier && firstEvent.activity.type == OCKCarePlanActivityTypeIntervention) {
             if (![interventionGroupIdentifiers containsObject:firstEvent.activity.groupIdentifier]) {
                 [interventionGroupIdentifiers addObject:firstEvent.activity.groupIdentifier];
@@ -308,7 +308,48 @@
     _tableViewData = [array mutableCopy];
 }
 
+-(void)addActivity:(UIButton *)button {
+    int section = button.tag;
+    NSArray <OCKCarePlanEvent *> *events = _tableViewData[section][0];
+    OCKCarePlanEvent *event = events.firstObject;
+    OCKCarePlanActivity *activity = event.activity;
+    OCKCarePlanActivityType type = activity.type;
+
+    NSLog(@"section %d %@", (long)type,  activity.groupIdentifier);
+
+
+    if (_contentsViewDelegate &&
+        [_contentsViewDelegate respondsToSelector:@selector(careContentsView:didSelectAddActivityGroupType:)]) {
+        [_contentsViewDelegate careContentsView:self didSelectAddActivityGroupType:activity.groupIdentifier];
+    }
+
+
+}
+
 #pragma mark - UITableViewDelegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    NSString *sectionTitle = _sectionTitles[section];
+    if ([sectionTitle isEqualToString:_otherString] && (_sectionTitles.count == 1 || (_sectionTitles.count == 2 && [_sectionTitles containsObject:_optionalString]))) {
+        sectionTitle = @"";
+    }
+    CGRect frame = CGRectMake(0.0, 0.0,tableView.frame.size.width , 60.0);
+    UIView *headerView = [[UIView alloc] initWithFrame:frame];
+    headerView.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    OCKLabel *label = [OCKLabel new];
+    label.text = [sectionTitle uppercaseString];
+    label.frame = CGRectMake(10.0, 30.0, tableView.frame.size.width*0.5 , 30.0);
+    label.textStyle = UIFontTextStyleCaption1;
+    label.textColor = [UIColor darkTextColor];
+    [headerView addSubview:label];
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeContactAdd];
+    button.tag = section;
+    button.frame = CGRectMake(tableView.frame.size.width - 45.0, 15.0, 30.0, 30.0);
+    [button addTarget:self action:@selector(addActivity:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:button];
+    return headerView;
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *sectionTitle = _sectionTitles[section];
@@ -357,12 +398,10 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"numberOfSectionsInTableView %d", _tableViewData.count);
     return _tableViewData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"numberOfRowsInSection %d", _tableViewData[section].count);
     return _tableViewData[section].count;
 }
 
@@ -372,9 +411,6 @@
     OCKCarePlanEvent *event = events.firstObject;
     OCKCarePlanActivity *activity = event.activity;
     OCKCarePlanActivityType type = activity.type;
-
-    NSLog(@"accessoryButtonTappedForRowWithIndexPath");
-
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[self detailViewControllerForActivity:activity]];
 
     [self.launchDelegate presentViewController:nav animated:YES completion:nil];
