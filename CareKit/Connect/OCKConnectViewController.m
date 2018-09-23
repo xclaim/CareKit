@@ -462,10 +462,11 @@
 }
 
 - (BOOL)shouldInboxBeVisible {
-    return self.dataSource &&
+    return NO;
+    /*return self.dataSource &&
     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfConnectMessageItems:careTeamContact:)] &&
     [self.dataSource respondsToSelector:@selector(connectViewController:connectMessageItemAtIndex:careTeamContact:)] &&
-    [self.dataSource respondsToSelector:@selector(connectViewControllerCareTeamConnections:)];
+    [self.dataSource respondsToSelector:@selector(connectViewControllerCareTeamConnections:)];*/
 }
 
 - (OCKContact *)contactForIndexPath:(NSIndexPath *)indexPath {
