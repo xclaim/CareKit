@@ -345,7 +345,7 @@
     [headerView addSubview:label];
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeContactAdd];
     button.tag = section;
-    button.frame = CGRectMake(tableView.frame.size.width - 45.0, 15.0, 30.0, 30.0);
+    button.frame = CGRectMake(tableView.frame.size.width - 58.0, 19.0, 22.0, 22.0);
     [button addTarget:self action:@selector(addActivity:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:button];
     return headerView;

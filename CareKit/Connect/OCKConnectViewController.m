@@ -656,8 +656,10 @@
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:location];
-    
-    if ([self shouldInboxBeVisible] && indexPath.section == 0) {
+
+    OCKContact *contacts = [self.dataSource connectViewControllerCareTeamConnections:self];
+
+    if ([self shouldInboxBeVisible] && contacts != nil &&  indexPath.section == 0) {
         OCKConnectMessagesViewController *viewController = [OCKConnectMessagesViewController new];
         viewController.dataSource = self.dataSource;
         viewController.delegate = self.delegate;
