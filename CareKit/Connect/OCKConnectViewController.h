@@ -91,12 +91,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)connectViewControllerNumberOfFeedMessageItems:(OCKConnectViewController *)viewController;
 
 
-/**
- Asks the data source for an array of all contacts.
-
- @param viewController          The view controller providing the callback.
- */
-- (void)connectViewControllerContacts:(OCKConnectViewController *)viewController completion:(void (NSArray<OCKContact *> * contacts))completion;
 @end
 
 /**
