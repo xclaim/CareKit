@@ -65,6 +65,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)carePlanStoreActivityListDidChange:(OCKCarePlanStore *)store;
 
+/**
+ Called when a contact is added to or removed from the store.
+
+ @param store   The care plan store.
+ */
+- (void)carePlanStoreContactListDidChange:(OCKCarePlanStore *)store;
+
 @end
 
 
@@ -135,6 +142,12 @@ OCK_CLASS_AVAILABLE
  You can use the delegate to subscribe to notifications of changes to the store.
  */
 @property (nonatomic, weak, nullable) id<OCKCarePlanStoreDelegate> delegate;
+
+/**
+ You can use the delegate to subscribe to notifications of changes to the store.
+ */
+@property (nonatomic, weak, nullable) id<OCKCarePlanStoreDelegate> contactsUIDelegate;
+
 
 /**
 You can use the watch delegate to subscribe a watch app to notifications of changes to the store.

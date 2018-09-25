@@ -1259,19 +1259,21 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
 - (void)handleMessageListChange:(BOOL)result {
 }
 - (void)handleContactListChange:(BOOL)result type:(OCKContactType)type {
-/*
+
     if (result){
         dispatch_async(dispatch_get_main_queue(), ^{
 
             if ( _contactsUIDelegate && [_contactsUIDelegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
                 [_contactsUIDelegate carePlanStoreContactListDidChange:self];
             }
+
             if (_delegate && [_delegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
                 [_delegate carePlanStoreContactListDidChange:self];
             }
+            
         });
     }
-*/
+
 }
 
 - (void)addMessage:(OCKMessage *)message

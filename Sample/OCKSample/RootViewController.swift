@@ -393,17 +393,7 @@ extension RootViewController: OCKConnectViewControllerDelegate {
         print("connectViewControllerDidSelectShare")
     }
 
-    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachWidgetButtonFor contact: OCKContact, presentationSourceView sourceView: UIView?) {
-        print("didSelectAttachWidgetButtonFor")
-    }
-
-    func connectViewController(_ connectViewController: OCKConnectViewController, didSelectAttachMediaButtonFor contact: OCKContact) {
-        print("didSelectAttachMediaButtonFor")
-    }
-
-    @nonobjc func connectViewController(_ connectViewController: OCKConnectViewController, didSelectPost messageItem: OCKConnectMessageItem) {
-        print(messageItem)
-    }
+ 
 
     func connectViewController(_ connectViewController: OCKConnectViewController, didSelectFeed x: Int32, presentationSourceView sourceView: UIView?) {
         print("feed")
