@@ -64,6 +64,7 @@
 "CONTACT_INFO_MESSAGE_TITLE" = "text";
 "CONTACT_INFO_EMAIL_TITLE" = "email";
 "CONTACT_INFO_VIDEO_TITLE" = "video";
+"CONTACT_INFO_REALM_CHAT_TITLE" = "chat";
 "CONTACT_INFO_WHISPER_TITLE" = "whisper";
 "SHARING_CELL_TITLE" = "Send reports";
 "MESSAGE_SEND_ERROR" = "Message send failed";

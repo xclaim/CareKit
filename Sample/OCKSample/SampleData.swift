@@ -91,6 +91,7 @@ class SampleData: NSObject {
                                .facetimeVideo("3145554321", display: "314-555-4321"),
                                .facetimeAudio("3145554321", display: "314-555-4321"),
                                .whisper("3145554321"),
+                               .realmchat("xyz"),
                                OCKContactInfo(type: .message, display: "ezra.wodehouse", actionURL: URL(string: "starstuffchat://ezra.wodehouse")!, label: "chat", icon: UIImage(named: "starstuff"))],
                    activities: [],
                    tintColor: Colors.yellow.color,

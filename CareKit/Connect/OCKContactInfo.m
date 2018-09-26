@@ -64,6 +64,10 @@
         case OCKContactInfoTypeWhisper:
             defaultLabel = OCKLocalizedString(@"CONTACT_INFO_WHISPER_TITLE", nil);
             break;
+
+        case OCKContactInfoTypeRealmUsername:
+            defaultLabel = OCKLocalizedString(@"CONTACT_INFO_REALM_CHAT_TITLE", nil);
+            break;
 	}
 	return [self initWithType:type displayString:displayString actionURL:actionURL label:defaultLabel];
 }
@@ -81,6 +85,10 @@
             break;
 
         case OCKContactInfoTypeWhisper:
+            defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
+            break;
+
+        case OCKContactInfoTypeRealmUsername:
             defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
             break;
 
@@ -138,6 +146,14 @@
     return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeWhisper displayString:publicKey actionURL:actionURL];
 
 }
+
++ (OCKContactInfo *)realmchat:(NSString *)username {
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"chat://" stringByAppendingString:username]];
+
+    return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeRealmUsername displayString:username actionURL:actionURL];
+
+}
+
 
 
 #pragma mark - NSSecureCoding

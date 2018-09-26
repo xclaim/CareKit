@@ -1263,14 +1263,10 @@ static NSString * const OCKAttributeNameDayIndex = @"numberOfDaysSinceStart";
     if (result){
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            if ( _contactsUIDelegate && [_contactsUIDelegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
-                [_contactsUIDelegate carePlanStoreContactListDidChange:self];
-            }
-
             if (_delegate && [_delegate respondsToSelector:@selector(carePlanStoreContactListDidChange:)]) {
                 [_delegate carePlanStoreContactListDidChange:self];
             }
-            
+
         });
     }
 

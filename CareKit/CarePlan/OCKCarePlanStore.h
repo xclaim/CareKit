@@ -143,10 +143,6 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic, weak, nullable) id<OCKCarePlanStoreDelegate> delegate;
 
-/**
- You can use the delegate to subscribe to notifications of changes to the store.
- */
-@property (nonatomic, weak, nullable) id<OCKCarePlanStoreDelegate> contactsUIDelegate;
 
 
 /**

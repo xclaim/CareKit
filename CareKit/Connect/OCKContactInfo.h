@@ -64,7 +64,13 @@ typedef NS_ENUM(NSInteger, OCKContactInfoType) {
     /**
      A whisper public key.
      */
-    OCKContactInfoTypeWhisper
+    OCKContactInfoTypeWhisper,
+
+    /**
+     A whisper public key.
+     */
+    OCKContactInfoTypeRealmUsername
+
 };
 
 /**
@@ -163,9 +169,17 @@ OCK_CLASS_AVAILABLE
 /**
  Creates a new contact info with a whisper: action URL.
 
- @param publicKey    The email address.
+ @param publicKey    The public key
  */
 + (OCKContactInfo *)whisper:(NSString *)publicKey;
+
+/**
+ Creates a new contact info with a realm chat action URL.
+
+ @param username    The username
+ */
++ (OCKContactInfo *)realmchat:(NSString *)username;
+
 
 /**
  Creates a new contact info with a facetime: action URL.
