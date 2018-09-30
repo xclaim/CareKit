@@ -451,6 +451,8 @@ extension RootViewController: CarePlanStoreManagerDelegate {
 
 
 extension RootViewController: OCKContactsViewControllerDelegate {
+
+
 }
 
 extension RootViewController: OCKContactsViewControllerDataSource {

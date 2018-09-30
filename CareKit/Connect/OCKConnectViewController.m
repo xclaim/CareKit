@@ -457,8 +457,10 @@
 #pragma mark - Helpers
 
 - (BOOL)shouldFeedBeVisible {
+    return NO;
+    /*
     return self.dataSource &&
-    [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:)] && [self.dataSource connectViewControllerNumberOfFeedMessageItems:self] >0 ;
+    [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:)] && [self.dataSource connectViewControllerNumberOfFeedMessageItems:self] >0 ;*/
 }
 
 - (BOOL)shouldInboxBeVisible {
@@ -470,9 +472,10 @@
 }
 
 - (OCKContact *)contactForIndexPath:(NSIndexPath *)indexPath {
-    if ([self shouldFeedBeVisible])
+    /*if ([self shouldFeedBeVisible])
         return _sectionedContacts[indexPath.section-1][indexPath.row];
-    else
+    else */
+
         return _sectionedContacts[indexPath.section][indexPath.row];
 
 }
