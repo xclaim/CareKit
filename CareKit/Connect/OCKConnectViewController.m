@@ -156,7 +156,10 @@
     _contacts = OCKArrayCopyObjects(contacts);
     [self prepareHeaderView];
     [self createSectionedContacts];
-    [_tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+    });
+    
 }
 
 - (void)done:(id)sender {
@@ -191,7 +194,9 @@
 
 - (void)setDataSource:(id<OCKConnectViewControllerDataSource>)dataSource {
     _dataSource = dataSource;
-    [_tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+    });
     [self createSectionedContacts];
     
     [self updateHeaderView];
@@ -457,7 +462,8 @@
 #pragma mark - Helpers
 
 - (BOOL)shouldFeedBeVisible {
-    return NO;
+    return
+    NO;
     /*
     return self.dataSource &&
     [self.dataSource respondsToSelector:@selector(connectViewControllerNumberOfFeedMessageItems:)] && [self.dataSource connectViewControllerNumberOfFeedMessageItems:self] >0 ;*/

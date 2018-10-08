@@ -130,7 +130,10 @@
 - (void)setContacts:(NSArray<OCKContact *> *)contacts {
     _contacts = OCKArrayCopyObjects(contacts);
     [self createSectionedContacts];
-    [_tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+        // Your UI update code here
+    });
 }
 
 - (void)add:(id)sender {
