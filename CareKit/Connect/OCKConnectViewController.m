@@ -154,12 +154,11 @@
 
 - (void)setContacts:(NSArray<OCKContact *> *)contacts {
     _contacts = OCKArrayCopyObjects(contacts);
-    [self prepareHeaderView];
-    [self createSectionedContacts];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self prepareHeaderView];
+        [self createSectionedContacts];
         [_tableView reloadData];
     });
-    
 }
 
 - (void)done:(id)sender {
@@ -196,10 +195,9 @@
     _dataSource = dataSource;
     dispatch_async(dispatch_get_main_queue(), ^{
         [_tableView reloadData];
+        [self createSectionedContacts];
+        [self updateHeaderView];
     });
-    [self createSectionedContacts];
-    
-    [self updateHeaderView];
 }
 
 - (void)setUpConstraints {
