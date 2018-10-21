@@ -310,17 +310,19 @@
 
 -(void)addActivity:(UIButton *)button {
     int section = button.tag;
+
+    /*
     NSArray <OCKCarePlanEvent *> *events = _tableViewData[section][0];
     OCKCarePlanEvent *event = events.firstObject;
     OCKCarePlanActivity *activity = event.activity;
     OCKCarePlanActivityType type = activity.type;
 
     NSLog(@"section %d %@", (long)type,  activity.groupIdentifier);
-
+    */
 
     if (_contentsViewDelegate &&
         [_contentsViewDelegate respondsToSelector:@selector(careContentsView:didSelectAddActivityGroupType:)]) {
-        [_contentsViewDelegate careContentsView:self didSelectAddActivityGroupType:activity.groupIdentifier];
+        [_contentsViewDelegate careContentsView:self didSelectAddActivityGroupType:_sectionTitles[section]];
     }
 
 

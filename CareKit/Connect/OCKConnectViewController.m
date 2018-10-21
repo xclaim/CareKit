@@ -163,17 +163,13 @@
 
 - (void)done:(id)sender {
     [_navController dismissViewControllerAnimated:YES completion:nil];
-
 }
 
 - (void)share:(id)sender {
 
-    int x = 0;
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewControllerDidSelectShare:)]) {
         [self.delegate connectViewControllerDidSelectShare:self];
     }
-
 }
 
 - (void)add:(id)sender {
