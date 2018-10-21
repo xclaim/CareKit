@@ -241,6 +241,7 @@ OCK_CLASS_AVAILABLE
 
 @property (nonatomic, nullable) UIViewController *launchDelegate;
 
+-(void)update;
 
 @end
 

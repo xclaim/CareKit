@@ -328,6 +328,13 @@
 
 }
 
+-(void)update {
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *today = [NSDateComponents ock_componentsWithDate:[NSDate date] calendar:calendar];
+    [self fetchEvents:today];
+}
+
+
 #pragma mark - UITableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
