@@ -309,29 +309,22 @@
 }
 
 -(void)addActivity:(UIButton *)button {
-    int section = button.tag;
-
-    /*
-    NSArray <OCKCarePlanEvent *> *events = _tableViewData[section][0];
-    OCKCarePlanEvent *event = events.firstObject;
-    OCKCarePlanActivity *activity = event.activity;
-    OCKCarePlanActivityType type = activity.type;
-
-    NSLog(@"section %d %@", (long)type,  activity.groupIdentifier);
-    */
-
+    
+    int section = (int)button.tag;
     if (_contentsViewDelegate &&
         [_contentsViewDelegate respondsToSelector:@selector(careContentsView:didSelectAddActivityGroupType:)]) {
         [_contentsViewDelegate careContentsView:self didSelectAddActivityGroupType:_sectionTitles[section]];
     }
-
-
 }
 
 -(void)update {
     NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *today = [NSDateComponents ock_componentsWithDate:[NSDate date] calendar:calendar];
     [self fetchEvents:today];
+
+    if (self.careCardView!=nil) {
+        [self.careCardView fetchEvents];
+    }
 }
 
 
