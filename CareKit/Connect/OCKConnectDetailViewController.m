@@ -178,7 +178,7 @@ static const CGFloat HeaderViewHeight = 225.0;
     
     NSMutableArray<OCKContactInfo *> *contactInfoSection = [NSMutableArray new];
     NSMutableArray<NSString *> *sharingSection = [NSMutableArray new];
-    
+
     [contactInfoSection addObjectsFromArray:self.contact.contactInfoItems];
     
     if (self.delegate) {
@@ -191,6 +191,7 @@ static const CGFloat HeaderViewHeight = 225.0;
         _contactInfoSectionTitle = OCKLocalizedString(@"CONTACT_INFO_SECTION_TITLE", nil);
         [_sectionTitles addObject:_contactInfoSectionTitle];
     }
+
     if (sharingSection.count > 0) {
         [_tableViewData addObject:[sharingSection copy]];
         _sharingSectionTitle = OCKLocalizedString(@"CONTACT_SHARING_SECTION_TITLE", nil);
@@ -238,12 +239,12 @@ static const CGFloat HeaderViewHeight = 225.0;
 }
 
 - (void)makeVideoCallToDID:(NSString *)did {
-    NSString *stringURL = [NSString stringWithFormat:@"prompt://video?did=%@", did];
+    NSString *stringURL = [NSString stringWithFormat:@"prompt-video://%@", did];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
 }
 
 - (void)makeAudioCallToDID:(NSString *)did {
-    NSString *stringURL = [NSString stringWithFormat:@"prompt://audio?did=%@", did];
+    NSString *stringURL = [NSString stringWithFormat:@"prompt-audio://%@", did];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
 }
 
