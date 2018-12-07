@@ -67,9 +67,18 @@ typedef NS_ENUM(NSInteger, OCKContactInfoType) {
     OCKContactInfoTypeWhisper,
 
     /**
-     A whisper public key.
+     A realm user id.
      */
-    OCKContactInfoTypeRealmUsername
+    OCKContactInfoTypeRealmUsername,
+
+    /**
+     DID Audio
+     */
+    OCKContactInfoTypeDIDAudio,
+    /**
+     DID Video
+     */
+    OCKContactInfoTypeDIDVideo
 
 };
 
@@ -179,6 +188,20 @@ OCK_CLASS_AVAILABLE
  @param username    The username
  */
 + (OCKContactInfo *)realmchat:(NSString *)username;
+
+/**
+ Creates a new contact info with a DID Audio action URL.
+
+ @param did    The DID identifier
+ */
++ (OCKContactInfo *)didAudio:(NSString *)did;
+
+/**
+ Creates a new contact info with a DID Video action URL.
+
+ @param did    The DID identifier
+ */
++ (OCKContactInfo *)didVideo:(NSString *)did;
 
 
 /**

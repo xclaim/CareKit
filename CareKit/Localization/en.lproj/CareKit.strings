@@ -66,6 +66,8 @@
 "CONTACT_INFO_VIDEO_TITLE" = "video";
 "CONTACT_INFO_REALM_CHAT_TITLE" = "chat";
 "CONTACT_INFO_WHISPER_TITLE" = "whisper";
+"CONTACT_INFO_DID_AUDIO_TITLE" = "Promptr Audio";
+"CONTACT_INFO_DID_VIDEO_TITLE" = "Promptr Video";
 "SHARING_CELL_TITLE" = "Send reports";
 "MESSAGE_SEND_ERROR" = "Message send failed";
 "EMAIL_SEND_ERROR" = "Email send failed";

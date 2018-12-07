@@ -265,6 +265,10 @@ static const CGFloat HeaderViewHeight = 225.0;
                     break;
                 case OCKContactInfoTypeWhisper:
                     break;
+                case OCKContactInfoTypeDIDAudio:
+                    break;
+                case OCKContactInfoTypeDIDVideo:
+                    break;
                 case OCKContactInfoTypeRealmUsername:
                     break;
 

@@ -57,12 +57,20 @@
 			defaultLabel = OCKLocalizedString(@"CONTACT_INFO_EMAIL_TITLE", nil);
 			break;
 			
-            case OCKContactInfoTypeVideo:
+        case OCKContactInfoTypeVideo:
             defaultLabel = OCKLocalizedString(@"CONTACT_INFO_VIDEO_TITLE", nil);
             break;
 
         case OCKContactInfoTypeWhisper:
             defaultLabel = OCKLocalizedString(@"CONTACT_INFO_WHISPER_TITLE", nil);
+            break;
+
+        case OCKContactInfoTypeDIDAudio:
+            defaultLabel = OCKLocalizedString(@"CONTACT_INFO_DID_AUDIO_TITLE", nil);
+            break;
+
+        case OCKContactInfoTypeDIDVideo:
+            defaultLabel = OCKLocalizedString(@"CONTACT_INFO_DID_VIDEO_TITLE", nil);
             break;
 
         case OCKContactInfoTypeRealmUsername:
@@ -86,6 +94,13 @@
 
         case OCKContactInfoTypeWhisper:
             defaultIcon = [UIImage imageNamed:@"message" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
+            break;
+
+        case OCKContactInfoTypeDIDAudio:
+            defaultIcon = [UIImage imageNamed:@"phone" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
+            break;
+        case OCKContactInfoTypeDIDVideo:
+            defaultIcon = [UIImage imageNamed:@"video" inBundle:OCKBundle() compatibleWithTraitCollection:nil];
             break;
 
         case OCKContactInfoTypeRealmUsername:
@@ -146,6 +161,17 @@
     return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeWhisper displayString:publicKey actionURL:actionURL];
 
 }
+
++ (OCKContactInfo *)didAudio:(NSString *)did {
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt://audio?did=" stringByAppendingString:did]];
+    return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeDIDAudio displayString:did actionURL:actionURL];
+}
+
++ (OCKContactInfo *)didVideo:(NSString *)did {
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt://video?did=" stringByAppendingString:did]];
+    return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeDIDVideo displayString:did actionURL:actionURL];
+}
+
 
 + (OCKContactInfo *)realmchat:(NSString *)username {
     NSURL *actionURL = [[NSURL alloc] initWithString:[@"chat://" stringByAppendingString:username]];
