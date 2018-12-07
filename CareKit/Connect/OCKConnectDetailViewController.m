@@ -239,12 +239,12 @@ static const CGFloat HeaderViewHeight = 225.0;
 }
 
 - (void)makeVideoCallToDID:(NSString *)did {
-    NSString *stringURL = [NSString stringWithFormat:@"prompt-video://%@", did];
+    NSString *stringURL = [NSString stringWithFormat:@"prompt-video://meet.jit.si/%@", did];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
 }
 
 - (void)makeAudioCallToDID:(NSString *)did {
-    NSString *stringURL = [NSString stringWithFormat:@"prompt-audio://%@", did];
+    NSString *stringURL = [NSString stringWithFormat:@"prompt-audio://meet.jit.si/%@", did];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
 }
 

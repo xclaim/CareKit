@@ -163,12 +163,12 @@
 }
 
 + (OCKContactInfo *)didAudio:(NSString *)did {
-    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt-audio://" stringByAppendingString:did]];
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt-audio://meet.jit.si/" stringByAppendingString:did]];
     return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeDIDAudio displayString:did actionURL:actionURL];
 }
 
 + (OCKContactInfo *)didVideo:(NSString *)did {
-    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt-video://" stringByAppendingString:did]];
+    NSURL *actionURL = [[NSURL alloc] initWithString:[@"prompt-video://meet.jit.si/" stringByAppendingString:did]];
     return [[OCKContactInfo alloc] initWithType:OCKContactInfoTypeDIDVideo displayString:did actionURL:actionURL];
 }
 
