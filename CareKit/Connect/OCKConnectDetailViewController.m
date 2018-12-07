@@ -237,6 +237,17 @@ static const CGFloat HeaderViewHeight = 225.0;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
 }
 
+- (void)makeVideoCallToDID:(NSString *)did {
+    NSString *stringURL = [NSString stringWithFormat:@"prompt://video?did=%@", did];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+}
+
+- (void)makeAudioCallToDID:(NSString *)did {
+    NSString *stringURL = [NSString stringWithFormat:@"prompt://audio?did=%@", did];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+}
+
+
 - (void)contactInfoOptionSelected:(OCKContactInfo *)contactInfo defaultActionHandler:(UIViewController<MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate> *)defaultActionHandler {
     BOOL handled = NO;
     if (self.delegate && [self.delegate respondsToSelector:@selector(connectViewController:handleContactInfoSelected:)]) {
@@ -266,8 +277,10 @@ static const CGFloat HeaderViewHeight = 225.0;
                 case OCKContactInfoTypeWhisper:
                     break;
                 case OCKContactInfoTypeDIDAudio:
+                    [self makeAudioCallToDID:contactInfo.displayString];
                     break;
                 case OCKContactInfoTypeDIDVideo:
+                    [self makeVideoCallToDID:contactInfo.displayString];
                     break;
                 case OCKContactInfoTypeRealmUsername:
                     break;
